@@ -1,21 +1,28 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
 
-const image = require('../assets/bg1.jpg');
-
-export default function App() {
-    return (
-        <View style={styles.container}>
-            <ImageBackground source={image} style={styles.image}>
-                <Text style={styles.text}>Shopping List</Text>
-                <Button
-                    title="Add Item + "
-                    onPress={() => Alert.alert('Simple Button pressed')}
-                />
-            </ImageBackground>
-        </View>
-    );
+export default class Lists extends Component {
+    constructor(props) {
+        super(props);
+    }
+    static navigationOptions = {
+        title: 'Lists',
+    };
+    render() {
+        const image = require('../assets/bg1.jpg');
+        const {navigate} = this.props.navigation;
+        return (
+            <View style={styles.container}>
+                <ImageBackground source={image} style={styles.image}>
+                    <Text style={styles.text}>Shopping List</Text>
+                    <Button
+                        title="Add Item + "
+                        onPress={() => navigate('List')}
+                    />
+                </ImageBackground>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({

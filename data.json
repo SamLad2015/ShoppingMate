@@ -1,0 +1,13 @@
+{
+  "data": [
+    {
+      "key": "itm1", "name": "Apples"
+    },
+    {
+      "key": "itm2", "name": "Oranges"
+    },
+    {
+      "key": "itm3", "name": "Mangoes"
+    }
+  ]
+}

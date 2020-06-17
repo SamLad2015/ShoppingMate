@@ -8,12 +8,12 @@ import List from './screens/List';
 import Items from './screens/Items';
 
 const App = createStackNavigator({
-        FirstScreen: { screen: Lists },
-        SecondScreen: { screen: List },
-        ThirdScreen: { screen: Items },
+        Lists: { screen: Lists },
+        List: { screen: List },
+        Items: { screen: Items },
     },
     {
-        initialRouteName: 'FirstScreen',
+        initialRouteName: 'Lists',
     }
 );
 export default createAppContainer(App);
