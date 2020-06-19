@@ -3,9 +3,12 @@ import SelectMultiple from 'react-native-select-multiple';
 import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
 import * as _ from 'lodash';
 import {data} from '../data.json';
+import { connect } from 'react-redux';
+import { setItems } from '../actions/items';
+import { bindActionCreators } from 'redux';
 
 
-export default class Items extends Component {
+class Items extends Component {
     state = { selectedItems: [] }
     constructor(props) {
         super(props);
@@ -14,39 +17,39 @@ export default class Items extends Component {
         title: 'Items',
     };
     onSelectionsChange = (selectedItems) => {
-        this.setState({ selectedItems })
-    }
-    getLabel(key) {
-        return _.find(data, {key: key}).name;
+        this.setState({selectedItems});
     }
     render() {
-        const items = _.map(data, 'key');
+        const allItems = data;
+        let { items, setItems } = this.props;
         const { navigate } = this.props.navigation;
-        const renderLabel = (key, style) => {
+        const renderLabel = (item, style) => {
             return (
                 <View>
                      <View style={styles.list}>
-                        <Text style={styles.listLabel}>{this.getLabel(key)}</Text>
+                        <Text style={styles.listLabel}>{item}</Text>
                     </View>
                 </View>
             )
         };
         const image = require('../assets/bg3.jpg');
+
         return (
             <View style={styles.container}>
                 <ImageBackground source={image} style={styles.image}>
                     <Text style={styles.text}>Shopping List</Text>
                     <SelectMultiple
                         style={styles.listWrapper}
-                        items={items}
+                        items={allItems}
                         renderLabel={renderLabel}
-                        selectedItems={this.state.selectedItems}
-                        onSelectionsChange={this.onSelectionsChange} />
+                        selectedItems={items.items}
+                        onSelectionsChange={setItems} />
                         <View style={styles.buttonWrapper}>
                             <Button
                                 title="Add to List"
-                                onPress={() =>
-                                    navigate('List', {selectedItems: this.state.selectedItems})
+                                onPress={() => {
+                                        navigate('List')
+                                    }
                                 }
                             />
                         </View>
@@ -103,4 +106,9 @@ const styles = StyleSheet.create({
         fontSize: 17,
     }
 });
+const mapStateToProps = state => ({
+    items: state.items,
+});
+
+export default connect(mapStateToProps, {setItems})(Items)
 

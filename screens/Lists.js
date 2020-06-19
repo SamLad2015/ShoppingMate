@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
+import {setItems} from "../actions/items";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 
-export default class Lists extends Component {
+
+class Lists extends Component {
     constructor(props) {
         super(props);
     }
@@ -53,3 +57,9 @@ const styles = StyleSheet.create({
         opacity: 0.7,
     }
 });
+
+const mapStateToProps = state => ({
+    items: state.items,
+});
+
+export default connect(mapStateToProps, null)(Lists)

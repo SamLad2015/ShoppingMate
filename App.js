@@ -1,19 +1,20 @@
 import React from 'react';
+import configureStore from "./store/configureStore";
+import { Provider } from 'react-redux';
+import Nav from './screens/Nav';
 
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator} from 'react-navigation-stack';
+const store = configureStore()
 
-import Lists from './screens/Lists';
-import List from './screens/List';
-import Items from './screens/Items';
-
-const App = createStackNavigator({
-        Lists: { screen: Lists },
-        List: { screen: List },
-        Items: { screen: Items },
-    },
-    {
-        initialRouteName: 'Lists',
+export default class App extends React.Component {
+    constructor() {
+        super();
     }
-);
-export default createAppContainer(App);
+
+    render() {
+        return (
+            <Provider store={store}>
+                <Nav />
+            </Provider>
+        );
+    }
+};

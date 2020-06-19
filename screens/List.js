@@ -1,9 +1,9 @@
 import React, { Component }  from 'react';
-import {data} from '../data.json';
 import { StyleSheet, View, Text, Button, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
-import * as _ from "lodash";
+import {setItems} from "../actions/items";
+import {connect} from "react-redux";
 
-export default class List extends Component {
+class List extends Component {
     constructor(props) {
         super(props);
     }
@@ -17,11 +17,8 @@ export default class List extends Component {
             item.count -= 1;
         }
     }
-    getLabel(key) {
-        return _.find(data, {key: key}).name;
-    }
     render() {
-        let selectedItems = this.props.navigation.getParam('selectedItems', []);
+        const { items } = this.props;
         const { navigate } = this.props.navigation;
         const image = require('../assets/bg2.jpg');
         return (
@@ -29,11 +26,11 @@ export default class List extends Component {
                 <ImageBackground source={image} style={styles.image}>
                     <Text style={styles.text}>Shopping List</Text>
                     <View style={styles.listWrapper}>
-                        <FlatList data={selectedItems}
+                        <FlatList data={items.items}
                                   renderItem={({item}) =>
                                       <View style={styles.itemRow}>
                                           <View style={styles.counterButtonWrapper}>
-                                              <Text style={styles.listLabel}>{this.getLabel(item.value)}</Text>
+                                              <Text style={styles.listLabel}>{item.label}</Text>
                                           </View>
                                           <View style={styles.counterButtonWrapper}>
                                               <TouchableOpacity
@@ -84,7 +81,6 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginBottom: 10,
-        color: '#000',
         backgroundColor: 'rgba(0, 0, 0, .5)',
     },
     counterButtonWrapper: {
@@ -131,6 +127,10 @@ const styles = StyleSheet.create({
         fontSize: 17,
         flex: 1,
         marginTop: 10,
+        color: '#fff',
     }
 });
-
+const mapStateToProps = state => ({
+    items: state.items,
+});
+export default connect(mapStateToProps, {setItems})(List)
