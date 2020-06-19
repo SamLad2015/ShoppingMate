@@ -1,0 +1,13 @@
+{
+  "allItems": [
+    {
+      "value": "itm1", "label": "Apples"
+    },
+    {
+      "value": "itm2", "label": "Oranges"
+    },
+    {
+      "value": "itm3", "label": "Mangoes"
+    }
+  ]
+}

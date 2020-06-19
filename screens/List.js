@@ -37,7 +37,7 @@ class List extends Component {
                                                   onPress={this.onChangeCount(item, 'incr')}>
                                                   <Text style={styles.counterButtonText}>-</Text>
                                               </TouchableOpacity>
-                                              <Text style={styles.counterButtonText}>{item.count || 1}</Text>
+                                              <Text style={styles.counterButtonText}>{item.count.toString()}</Text>
                                               <TouchableOpacity
                                                   onPress={this.onChangeCount(item, 'decr')}>
                                                   <Text style={styles.counterButtonText}>+</Text>

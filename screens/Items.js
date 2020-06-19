@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import SelectMultiple from 'react-native-select-multiple';
 import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
 import * as _ from 'lodash';
-import {data} from '../data.json';
+import {allItems} from '../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
 import { bindActionCreators } from 'redux';
@@ -20,7 +20,6 @@ class Items extends Component {
         this.setState({selectedItems});
     }
     render() {
-        const allItems = data;
         let { items, setItems } = this.props;
         const { navigate } = this.props.navigation;
         const renderLabel = (item, style) => {
