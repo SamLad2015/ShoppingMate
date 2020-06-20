@@ -42,8 +42,8 @@ class Items extends Component {
                     onSelectionsChange={setItems} />
                 <View style={styles.buttonWrapper}>
                     <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => navigate('Items')}>
-                        <Text style={globalButtons.redButtonText}> Add Items +</Text>
+                                      onPress={() => navigate('List')}>
+                        <Text style={globalButtons.redButtonText}>Add Items</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         flex: 1,
         position: 'absolute',
-        bottom: 15,
+        bottom: 20,
     },
     listWrapper: {
         flex: 1,
         width: '100%',
         height: '100%',
         marginTop: 80,
-        marginBottom: 60,
+        marginBottom: 75,
     },
     list : {
         flex: 1,

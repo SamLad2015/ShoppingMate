@@ -8,6 +8,33 @@
     },
     {
       "value": "itm3", "label": "Mangoes"
+    },
+    {
+      "value": "itm4", "label": "Apples"
+    },
+    {
+      "value": "itm5", "label": "Oranges"
+    },
+    {
+      "value": "itm6", "label": "Mangoes"
+    },
+    {
+      "value": "itm7", "label": "Apples"
+    },
+    {
+      "value": "itm8", "label": "Oranges"
+    },
+    {
+      "value": "itm9", "label": "Mangoes"
+    },
+    {
+      "value": "itm10", "label": "Apples"
+    },
+    {
+      "value": "itm11", "label": "Oranges"
+    },
+    {
+      "value": "itm12", "label": "Mangoes"
     }
   ]
 }

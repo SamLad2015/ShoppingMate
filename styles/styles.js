@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -26,8 +26,10 @@ const globalStyles = StyleSheet.create({
 });
 const globalButtons = StyleSheet.create({
     redButton: {
-        flex: .5,
         justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 10,
+        minWidth: 150,
     },
     redButtonText: {
         backgroundColor: 'red',
@@ -35,7 +37,8 @@ const globalButtons = StyleSheet.create({
         fontWeight: 'bold',
         padding: 10,
         fontSize: 20,
-        borderRadius: 5
+        borderRadius: 5,
+        textAlign: 'center',
     },
 });
 export { globalStyles, globalButtons }
