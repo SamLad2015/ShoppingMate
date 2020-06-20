@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginBottom: 1,
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        borderBottomColor: '#c0c0c0',
+        borderBottomWidth: 1,
     },
     counterButtonWrapper: {
         flex: 1,
@@ -112,7 +113,6 @@ const styles = StyleSheet.create({
         height: '100%',
         marginTop: 30,
         marginBottom: 75,
-        backgroundColor: '#c0c0c0',
     },
     list : {
         flex: 1,

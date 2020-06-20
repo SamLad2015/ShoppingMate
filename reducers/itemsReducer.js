@@ -1,5 +1,6 @@
-import { SET_ITEMS } from '../constants';
+import { SET_ITEMS, SET_LIST } from '../constants';
 const initialState = {
+    name: '',
     items: []
 };
 const itemsReducer = (state = initialState, action) => {
@@ -8,6 +9,11 @@ const itemsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items:action.payload
+            };
+        case SET_LIST:
+            return {
+                ...state,
+                name:action.payload
             };
         default:
             return state;

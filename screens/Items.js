@@ -10,7 +10,6 @@ import {globalButtons, globalStyles} from "../styles/Styles";
 
 
 class Items extends Component {
-    state = { selectedItems: [] }
     constructor(props) {
         super(props);
     }
@@ -40,12 +39,12 @@ class Items extends Component {
                     renderLabel={renderLabel}
                     selectedItems={items.items}
                     onSelectionsChange={setItems} />
-                <View style={styles.buttonWrapper}>
-                    <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => navigate('List')}>
-                        <Text style={globalButtons.redButtonText}>Add Items</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View style={styles.buttonWrapper}>
+                        <TouchableOpacity style={globalButtons.redButton}
+                                          onPress={() => navigate('List')}>
+                            <Text style={globalButtons.redButtonText}>Add Items</Text>
+                        </TouchableOpacity>
+                    </View>
             </View>
         );
     }
