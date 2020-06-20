@@ -1,11 +1,12 @@
 import React, { Component }  from 'react';
 import SelectMultiple from 'react-native-select-multiple';
-import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
+import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 'react-native';
 import * as _ from 'lodash';
 import {allItems} from '../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
 import { bindActionCreators } from 'redux';
+import {globalButtons, globalStyles} from "../styles/Styles";
 
 
 class Items extends Component {
@@ -34,8 +35,8 @@ class Items extends Component {
         const image = require('../assets/bg3.jpg');
 
         return (
-            <View style={styles.container}>
-                <ImageBackground source={image} style={styles.image}>
+            <View style={globalStyles.container}>
+                <ImageBackground source={image} style={globalStyles.bgImage}>
                     <Text style={styles.text}>Shopping List</Text>
                     <SelectMultiple
                         style={styles.listWrapper}
@@ -44,13 +45,10 @@ class Items extends Component {
                         selectedItems={items.items}
                         onSelectionsChange={setItems} />
                         <View style={styles.buttonWrapper}>
-                            <Button
-                                title="Add to List"
-                                onPress={() => {
-                                        navigate('List')
-                                    }
-                                }
-                            />
+                            <TouchableOpacity style={globalButtons.redButton}
+                                              onPress={() => navigate('Items')}>
+                                <Text style={globalButtons.redButtonText}> Add Items +</Text>
+                            </TouchableOpacity>
                         </View>
                 </ImageBackground>
             </View>

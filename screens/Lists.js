@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, Button, ImageBackground } from 'react-native';
+import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 'react-native';
 import {setItems} from "../actions/items";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
+import {globalStyles, globalButtons} from '../styles/Styles';
 
 class Lists extends Component {
     constructor(props) {
@@ -15,47 +16,18 @@ class Lists extends Component {
         const image = require('../assets/bg1.jpg');
         const {navigate} = this.props.navigation;
         return (
-            <View style={styles.container}>
-                <ImageBackground source={image} style={styles.image}>
-                    <Text style={styles.text}>Shopping List</Text>
-                    <Button
-                        title="Add List + "
-                        onPress={() => navigate('List')}
-                    />
+            <View style={globalStyles.container}>
+                <ImageBackground source={image} style={globalStyles.bgImage}>
+                    <Text style={globalStyles.heading}>Shopping List</Text>
+                    <TouchableOpacity style={globalButtons.redButton}
+                        onPress={() => navigate('List')}>
+                        <Text style={globalButtons.redButtonText}> Add List +</Text>
+                    </TouchableOpacity>
                 </ImageBackground>
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        fontFamily: 'notoserif',
-        fontWeight: 'bold',
-        fontSize: 30,
-        color: 'red',
-        position: 'absolute',
-        top: 20,
-    },
-    button: {
-        flex: .5,
-        justifyContent: 'center',
-    },
-    image: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        justifyContent: "center",
-        alignItems: "center",
-        opacity: 0.7,
-    }
-});
 
 const mapStateToProps = state => ({
     items: state.items,

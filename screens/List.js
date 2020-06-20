@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { StyleSheet, View, Text, Button, FlatList, ImageBackground, TouchableOpacity } from 'react-native';
 import {setItems} from "../actions/items";
 import {connect} from "react-redux";
+import {globalStyles, globalButtons} from '../styles/Styles';
 
 class List extends Component {
     constructor(props) {
@@ -22,9 +23,9 @@ class List extends Component {
         const { navigate } = this.props.navigation;
         const image = require('../assets/bg2.jpg');
         return (
-            <View style={styles.container}>
-                <ImageBackground source={image} style={styles.image}>
-                    <Text style={styles.text}>Shopping List</Text>
+            <View style={globalStyles.container}>
+                <ImageBackground source={image} style={globalStyles.bgImage}>
+                    <Text style={globalStyles.heading}>Shopping List</Text>
                     <View style={styles.listWrapper}>
                         <FlatList data={items.items}
                                   renderItem={({item}) =>
@@ -47,34 +48,16 @@ class List extends Component {
                                   }
                         />
                     </View>
-                    <View style={styles.buttonWrapper}>
-                        <Button
-                            title="+ Add Items"
-                            onPress={() =>
-                                navigate('Items')
-                            }
-                        />
-                    </View>
+                    <TouchableOpacity style={globalButtons.redButton}
+                                      onPress={() => navigate('Items')}>
+                        <Text style={globalButtons.redButtonText}> Add Items +</Text>
+                    </TouchableOpacity>
                 </ImageBackground>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    text: {
-        fontFamily: 'notoserif',
-        fontWeight: 'bold',
-        fontSize: 30,
-        color: 'red',
-        position: 'absolute',
-        top: 20,
-    },
     itemRow: {
         flexDirection: 'row',
         paddingLeft: 20,
@@ -93,19 +76,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
         paddingLeft:10,
         paddingRight: 10,
-    },
-    image: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        justifyContent: "center",
-        alignItems: "center",
-        opacity: 0.7,
-    },
-    buttonWrapper: {
-        flex: 1,
-        position: 'absolute',
-        bottom: 15,
     },
     listWrapper: {
         flex: 1,
