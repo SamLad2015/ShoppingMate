@@ -4,7 +4,6 @@ import {setItems} from "../actions/items";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
-
 class Lists extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +19,7 @@ class Lists extends Component {
                 <ImageBackground source={image} style={styles.image}>
                     <Text style={styles.text}>Shopping List</Text>
                     <Button
-                        title="Add Item + "
+                        title="Add List + "
                         onPress={() => navigate('List')}
                     />
                 </ImageBackground>

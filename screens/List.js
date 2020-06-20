@@ -37,7 +37,7 @@ class List extends Component {
                                                   onPress={this.onChangeCount(item, 'incr')}>
                                                   <Text style={styles.counterButtonText}>-</Text>
                                               </TouchableOpacity>
-                                              <Text style={styles.counterButtonText}>{item.count.toString()}</Text>
+                                              <Text style={styles.counterButtonText}>{item.count || 1}</Text>
                                               <TouchableOpacity
                                                   onPress={this.onChangeCount(item, 'decr')}>
                                                   <Text style={styles.counterButtonText}>+</Text>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingTop: 10,
         paddingBottom: 10,
-        marginBottom: 10,
+        marginBottom: 1,
         backgroundColor: 'rgba(0, 0, 0, .5)',
     },
     counterButtonWrapper: {
