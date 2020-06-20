@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginBottom: 1,
-        backgroundColor: 'rgba(255, 255, 255, 0)',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
     },
     counterButtonWrapper: {
         flex: 1,
@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
         fontSize: 30,
         paddingLeft:10,
         paddingRight: 10,
-        color: '#fff',
     },
     bottomButtonsWrapper: {
         position: 'absolute',
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
         height: '100%',
         marginTop: 40,
         marginBottom: 75,
-        backgroundColor: 'rgba(0, 0, 0, 1)',
+        backgroundColor: '#c0c0c0',
     },
     list : {
         flex: 1,
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         flex: 1,
         marginTop: 10,
-        color: '#fff',
+        color: '#000',
     }
 });
 const mapStateToProps = state => ({

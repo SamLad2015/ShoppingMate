@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
         height: '100%',
         marginTop: 80,
         marginBottom: 75,
+        backgroundColor: 'rgba(0, 0, 0, 1)',
     },
     list : {
         flex: 1,
