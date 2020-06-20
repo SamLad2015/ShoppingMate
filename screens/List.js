@@ -21,38 +21,35 @@ class List extends Component {
     render() {
         const { items } = this.props;
         const { navigate } = this.props.navigation;
-        const image = require('../assets/bg2.jpg');
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <Text style={globalStyles.heading}>Shopping List</Text>
-                    <View style={styles.listWrapper}>
-                        <FlatList data={items.items}
-                                  renderItem={({item}) =>
-                                      <View style={styles.itemRow}>
-                                          <View style={styles.counterButtonWrapper}>
-                                              <Text style={styles.listLabel}>{item.label}</Text>
-                                          </View>
-                                          <View style={styles.counterButtonWrapper}>
-                                              <TouchableOpacity
-                                                  onPress={this.onChangeCount(item, 'incr')}>
-                                                  <Text style={styles.counterButtonText}>-</Text>
-                                              </TouchableOpacity>
-                                              <Text style={styles.counterButtonText}>{item.count || 1}</Text>
-                                              <TouchableOpacity
-                                                  onPress={this.onChangeCount(item, 'decr')}>
-                                                  <Text style={styles.counterButtonText}>+</Text>
-                                              </TouchableOpacity>
-                                          </View>
+                <Text style={globalStyles.heading}>Shopping List</Text>
+                <View style={styles.listWrapper}>
+                    <FlatList data={items.items}
+                              renderItem={({item}) =>
+                                  <View style={styles.itemRow}>
+                                      <View style={styles.counterButtonWrapper}>
+                                          <Text style={styles.listLabel}>{item.label}</Text>
                                       </View>
-                                  }
-                        />
-                    </View>
-                    <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => navigate('Items')}>
-                        <Text style={globalButtons.redButtonText}> Add Items +</Text>
-                    </TouchableOpacity>
-                </ImageBackground>
+                                      <View style={styles.counterButtonWrapper}>
+                                          <TouchableOpacity
+                                              onPress={this.onChangeCount(item, 'incr')}>
+                                              <Text style={styles.counterButtonText}>-</Text>
+                                          </TouchableOpacity>
+                                          <Text style={styles.counterButtonText}>{item.count || 1}</Text>
+                                          <TouchableOpacity
+                                              onPress={this.onChangeCount(item, 'decr')}>
+                                              <Text style={styles.counterButtonText}>+</Text>
+                                          </TouchableOpacity>
+                                      </View>
+                                  </View>
+                              }
+                    />
+                </View>
+                <TouchableOpacity style={globalButtons.redButton}
+                                  onPress={() => navigate('Items')}>
+                    <Text style={globalButtons.redButtonText}> Add Items +</Text>
+                </TouchableOpacity>
             </View>
         );
     }

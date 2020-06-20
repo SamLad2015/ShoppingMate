@@ -25,32 +25,27 @@ class Items extends Component {
         const { navigate } = this.props.navigation;
         const renderLabel = (item, style) => {
             return (
-                <View>
-                     <View style={styles.list}>
-                        <Text style={styles.listLabel}>{item}</Text>
-                    </View>
+                <View style={styles.list}>
+                    <Text style={styles.listLabel}>{item}</Text>
                 </View>
             )
         };
-        const image = require('../assets/bg3.jpg');
 
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <Text style={styles.text}>Shopping List</Text>
-                    <SelectMultiple
-                        style={styles.listWrapper}
-                        items={allItems}
-                        renderLabel={renderLabel}
-                        selectedItems={items.items}
-                        onSelectionsChange={setItems} />
-                        <View style={styles.buttonWrapper}>
-                            <TouchableOpacity style={globalButtons.redButton}
-                                              onPress={() => navigate('Items')}>
-                                <Text style={globalButtons.redButtonText}> Add Items +</Text>
-                            </TouchableOpacity>
-                        </View>
-                </ImageBackground>
+                <Text style={styles.text}>Shopping List</Text>
+                <SelectMultiple
+                    style={styles.listWrapper}
+                    items={allItems}
+                    renderLabel={renderLabel}
+                    selectedItems={items.items}
+                    onSelectionsChange={setItems} />
+                <View style={styles.buttonWrapper}>
+                    <TouchableOpacity style={globalButtons.redButton}
+                                      onPress={() => navigate('Items')}>
+                        <Text style={globalButtons.redButtonText}> Add Items +</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -75,14 +70,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 15,
     },
-    image: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        opacity: 0.7,
-    },
     listWrapper: {
         flex: 1,
         width: '100%',
@@ -94,8 +81,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'stretch',
-        backgroundColor: 'rgba(250, 250, 250, 0)',
-        opacity: 1,
+        borderRadius: 10,
     },
     listLabel: {
         fontFamily: 'Roboto',
