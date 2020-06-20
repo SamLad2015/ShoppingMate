@@ -22,7 +22,7 @@ class List extends Component {
         const { items, listName } = this.props;
         const { navigate } = this.props.navigation;
         return (
-            <View style={globalStyles.container}>
+            <View style={[globalStyles.container, styles.container]}>
                 <TextInput
                     style={styles.textInput}
                     value={listName}
@@ -64,6 +64,10 @@ class List extends Component {
     }
 }
 const styles = StyleSheet.create({
+    container: {
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
     textInput: {
         height: 50,
         borderColor: '#666',

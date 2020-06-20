@@ -32,7 +32,7 @@ class Items extends Component {
         };
 
         return (
-            <View style={globalStyles.container}>
+            <View style={[globalStyles.container, styles.container]}>
                 <Text style={styles.text}>Shopping List</Text>
                 <SelectMultiple
                     style={styles.listWrapper}
@@ -52,10 +52,8 @@ class Items extends Component {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'black',
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingLeft: 5,
+        paddingRight: 5,
     },
     text: {
         fontFamily: 'notoserif',
