@@ -65,15 +65,16 @@ class List extends Component {
 }
 const styles = StyleSheet.create({
     textInput: {
-        height: 40,
+        height: 50,
         borderColor: '#666',
         borderWidth: 1,
-        marginTop: 15,
+        marginTop: 20,
         marginLeft: 5,
         marginRight: 5,
         width: '90%',
         borderRadius: 10,
         paddingLeft: 10,
+        fontSize:20,
     },
     itemRow: {
         flexDirection: 'row',
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginTop: 40,
+        marginTop: 30,
         marginBottom: 75,
         backgroundColor: '#c0c0c0',
     },
