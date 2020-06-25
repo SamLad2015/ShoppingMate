@@ -22,18 +22,6 @@ class Lists extends Component {
         const itemsService = new ItemsService();
         super(props);
     }
-    /*componentDidMount() {
-        const { navigation } = this.props;
-        const itemsService = new ItemsService();
-        this.focusListener = navigation.addListener('didFocus', () => {
-            itemsService.getListsFromStorage().then(lists => {
-                this.setState({lists: JSON.parse(lists)});
-            });
-        });
-    }
-    componentWillUnmount() {
-        this.focusListener.remove();
-    }*/
 
     render() {
         const {lists, setList} = this.props;

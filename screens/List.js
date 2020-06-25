@@ -1,7 +1,6 @@
 import React, { Component }  from 'react';
 import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import {getItems, setItems} from "../actions/items";
-import {setList, setLists} from "../actions/lists";
+import {addList} from "../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
 import moment from 'moment';
@@ -40,11 +39,13 @@ class List extends Component {
     saveList = () => {
         const itemsService = new ItemsService();
         const { navigate } = this.props.navigation;
+        const { addList } = this.props;
         itemsService.saveListIntoStorage({
             id: this.state.list.id,
             label: this.state.list.label,
             items: this.props.lists.list ? this.props.lists.list.items: []
-        }).then(() => {
+        }).then(addedList => {
+            addList(addedList);
             navigate('Lists');
         });
     }
@@ -116,4 +117,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     lists: state.lists
 });
-export default connect(mapStateToProps, {setList})(List)
+export default connect(mapStateToProps, {addList})(List)

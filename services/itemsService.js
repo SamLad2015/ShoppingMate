@@ -21,7 +21,8 @@ export default class ItemsService {
             lists = _.filter(lists, (l) => {return l.id !== list.id})
         }
         lists.push(list);
-        return await this.setListsIntoStorage(lists);
+        await this.setListsIntoStorage(lists);
+        return list;
     }
 }
 
