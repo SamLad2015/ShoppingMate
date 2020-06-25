@@ -1,12 +1,27 @@
 import React, { Component }  from 'react';
 import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import {setItems} from "../actions/items";
+import {getItems, setItems} from "../actions/items";
+import {setList, setLists} from "../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
+import moment from 'moment';
+import ItemsService from "../services/itemsService";
 
 class List extends Component {
     constructor(props) {
         super(props);
+        const { params } = this.props.navigation.state;
+        const listId = params ? params.listId : -1;
+        this.state = {
+            list: {
+                id: -1,
+                label: 'List: ' + moment().format('DDMMYYYY'),
+                items: []
+            }
+        };
+        if (listId >= 0) {
+            this.getList(listId).then(list => this.setState({list: list}));
+        }
     }
     static navigationOptions = {
         title: 'List',
@@ -18,40 +33,57 @@ class List extends Component {
             item.count -= 1;
         }
     }
+    async getList(listId) {
+        const itemsService = new ItemsService();
+        return  await itemsService.getListFromStorage(listId);
+    }
+    saveList = () => {
+        const itemsService = new ItemsService();
+        const { navigate } = this.props.navigation;
+        itemsService.saveListIntoStorage({
+            id: this.state.list.id,
+            label: this.state.list.label,
+            items: this.props.lists.list ? this.props.lists.list.items: []
+        }).then(() => {
+            navigate('Lists');
+        });
+    }
     render() {
-        const { items, listName } = this.props;
+        const { lists } = this.props;
+        const list = lists && lists.list ? lists.list : this.state.list;
         const { navigate } = this.props.navigation;
         return (
             <View style={[globalStyles.container, styles.container]}>
                 <TextInput
                     style={styles.textInput}
-                    value={listName}
+                    onChangeText={(text) => this.setState({list: {id: -1, label: text}})}
+                    value={this.state.list.label}
                 />
-                <View style={styles.listWrapper}>
-                    <FlatList data={items.items}
+                <View style={globalStyles.listWrapper}>
+                    <FlatList data={list.items || []}
                               renderItem={({item}) =>
-                                  <View style={styles.itemRow}>
-                                      <View style={styles.counterButtonWrapper}>
-                                          <Text style={styles.listLabel}>{item.label}</Text>
+                                  <View style={globalStyles.itemRow}>
+                                      <View style={globalButtons.counterButtonWrapper}>
+                                          <Text style={globalStyles.listLabel}>{item.label}</Text>
                                       </View>
-                                      <View style={styles.counterButtonWrapper}>
+                                      <View style={globalButtons.counterButtonWrapper}>
                                           <TouchableOpacity
                                               onPress={this.onChangeCount(item, 'incr')}>
-                                              <Text style={styles.counterButtonText}>-</Text>
+                                              <Text style={globalButtons.counterButtonText}>-</Text>
                                           </TouchableOpacity>
-                                          <Text style={styles.counterButtonText}>{item.count || 1}</Text>
+                                          <Text style={globalButtons.counterButtonText}>{item.count || 1}</Text>
                                           <TouchableOpacity
                                               onPress={this.onChangeCount(item, 'decr')}>
-                                              <Text style={styles.counterButtonText}>+</Text>
+                                              <Text style={globalButtons.counterButtonText}>+</Text>
                                           </TouchableOpacity>
                                       </View>
                                   </View>
                               }
                     />
                 </View>
-                <View style={styles.bottomButtonsWrapper}>
+                <View style={globalButtons.bottomButtonsWrapper}>
                     <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => navigate('Lists')}>
+                                      onPress={() => this.saveList()}>
                         <Text style={globalButtons.redButtonText}>Save List</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={globalButtons.redButton}
@@ -80,58 +112,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         fontSize:20,
     },
-    itemRow: {
-        flexDirection: 'row',
-        paddingLeft: 20,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginBottom: 1,
-        borderBottomColor: '#c0c0c0',
-        borderBottomWidth: 1,
-    },
-    counterButtonWrapper: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-    },
-    counterButtonText: {
-        fontWeight: 'bold',
-        fontSize: 30,
-        paddingLeft:10,
-        paddingRight: 10,
-    },
-    bottomButtonsWrapper: {
-        position: 'absolute',
-        bottom:15,
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-    },
-    listWrapper: {
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        marginTop: 30,
-        marginBottom: 75,
-    },
-    list : {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        backgroundColor: 'rgba(250, 250, 250, 1)',
-        opacity: 1,
-    },
-    listLabel: {
-        fontFamily: 'Roboto',
-        fontWeight: 'bold',
-        fontSize: 17,
-        flex: 1,
-        marginTop: 10,
-        color: '#000',
-    }
 });
 const mapStateToProps = state => ({
-    items: state.items,
-    listName: state.listName || 'My List',
+    lists: state.lists
 });
-export default connect(mapStateToProps, {setItems})(List)
+export default connect(mapStateToProps, {setList})(List)

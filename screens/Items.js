@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
 import { bindActionCreators } from 'redux';
 import {globalButtons, globalStyles} from "../styles/Styles";
+import moment from "moment";
+import ItemsService from "../services/itemsService";
+import {setLists} from "../actions/lists";
 
 
 class Items extends Component {
@@ -20,7 +23,7 @@ class Items extends Component {
         this.setState({selectedItems});
     }
     render() {
-        let { items, setItems } = this.props;
+        let { lists, setItems } = this.props;
         const { navigate } = this.props.navigation;
         const renderLabel = (item, style) => {
             return (
@@ -37,11 +40,13 @@ class Items extends Component {
                     style={styles.listWrapper}
                     items={allItems}
                     renderLabel={renderLabel}
-                    selectedItems={items.items}
+                    selectedItems={lists.list ? lists.list.items : []}
                     onSelectionsChange={setItems} />
                     <View style={styles.buttonWrapper}>
                         <TouchableOpacity style={globalButtons.redButton}
-                                          onPress={() => navigate('List')}>
+                                          onPress={() => {
+                                              navigate('List');
+                                          }}>
                             <Text style={globalButtons.redButtonText}>Add Items</Text>
                         </TouchableOpacity>
                     </View>
@@ -88,8 +93,7 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = state => ({
-    items: state.items,
+    lists: state.lists,
 });
-
 export default connect(mapStateToProps, {setItems})(Items)
 

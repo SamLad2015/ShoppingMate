@@ -1,9 +1,20 @@
-import { createStore, combineReducers } from 'redux';
-import itemsReducer from '../reducers/itemsReducer';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import listReducer from "../reducers/listReducer";
+import {setInit} from "../actions/lists";
+import thunk from "redux-thunk";
+import {AsyncStorage} from "react-native";
 const rootReducer = combineReducers(
-    { items: itemsReducer }
+    {
+        lists: listReducer
+    }
 );
 const configureStore = () => {
-    return createStore(rootReducer);
+    return createStore(rootReducer, applyMiddleware(thunk));
 }
-export default configureStore;
+const getAsyncStorage = () => {
+    return (dispatch) => {
+        AsyncStorage.getItem('lists')
+            .then((result) => {dispatch(setInit(JSON.parse(result)))});
+    };
+};
+export default {configureStore, getAsyncStorage};
