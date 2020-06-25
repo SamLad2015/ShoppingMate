@@ -9,6 +9,11 @@ export default class ItemsService {
         const lists = await AsyncStorage.getItem('lists');
         return _.find(JSON.parse(lists), {id: listId});
     }
+    async getListItemFromStorage(listId, itemCode) {
+        const lists = await AsyncStorage.getItem('lists');
+        const list = _.find(JSON.parse(lists), {id: listId});
+        return _.find(list.items, {value: itemCode});
+    }
     async setListsIntoStorage(lists) {
         return await AsyncStorage.setItem('lists',JSON.stringify(lists));
     }

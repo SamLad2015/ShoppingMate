@@ -1,8 +1,9 @@
-import {SET_LISTS, SET_INIT_LISTS, SET_LIST, SET_ITEMS, ADD_LIST} from '../constants';
+import {SET_LISTS, SET_INIT_LISTS, SET_LIST, SET_ITEMS, ADD_LIST, UPDATE_ITEM_COUNT} from '../constants';
 import * as _ from 'lodash';
 const initialState = {
     lists: [],
-    list: {items: []}
+    list: {items: []},
+    item: {}
 };
 const listReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -28,6 +29,11 @@ const listReducer = (state = initialState, action) => {
             return {
                 ...state,
             };
+        case UPDATE_ITEM_COUNT:
+            _.find(state.list.items, {value: action.payload.item.value}).count = action.payload.item.count;
+            return {
+                ...state,
+            };
         case SET_LIST:
             return {
                 ...state,
@@ -37,7 +43,10 @@ const listReducer = (state = initialState, action) => {
             if (!state.list) {
                 state.list = {item:[]};
             }
-            state.list.items = action.payload;
+            state.list.items = _.map(action.payload, (i) => {
+               i.count = 1;
+               return i;
+            });
             return {
                 ...state
             };

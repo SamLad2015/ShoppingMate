@@ -5,6 +5,8 @@ import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
 import moment from 'moment';
 import ItemsService from "../services/itemsService";
+import {updateItemCount} from "../actions/items";
+import Item from "./Item";
 
 class List extends Component {
     constructor(props) {
@@ -26,11 +28,13 @@ class List extends Component {
         title: 'List',
     };
     onChangeCount = (item, step) => {
+        const {updateItemCount} = this.props;
         if (step === 'incr') {
             item.count += 1;
         } else {
             item.count -= 1;
         }
+        updateItemCount(item);
     }
     async getList(listId) {
         const itemsService = new ItemsService();
@@ -63,22 +67,7 @@ class List extends Component {
                 <View style={globalStyles.listWrapper}>
                     <FlatList data={list.items || []}
                               renderItem={({item}) =>
-                                  <View style={globalStyles.itemRow}>
-                                      <View style={globalButtons.counterButtonWrapper}>
-                                          <Text style={globalStyles.listLabel}>{item.label}</Text>
-                                      </View>
-                                      <View style={globalButtons.counterButtonWrapper}>
-                                          <TouchableOpacity
-                                              onPress={this.onChangeCount(item, 'incr')}>
-                                              <Text style={globalButtons.counterButtonText}>-</Text>
-                                          </TouchableOpacity>
-                                          <Text style={globalButtons.counterButtonText}>{item.count || 1}</Text>
-                                          <TouchableOpacity
-                                              onPress={this.onChangeCount(item, 'decr')}>
-                                              <Text style={globalButtons.counterButtonText}>+</Text>
-                                          </TouchableOpacity>
-                                      </View>
-                                  </View>
+                                  <Item listId={list.id} item={item} updateItemCount={updateItemCount} />
                               }
                     />
                 </View>
@@ -115,6 +104,7 @@ const styles = StyleSheet.create({
     },
 });
 const mapStateToProps = state => ({
-    lists: state.lists
+    lists: state.lists,
+    item: state.item
 });
-export default connect(mapStateToProps, {addList})(List)
+export default connect(mapStateToProps, {addList,updateItemCount})(List)
