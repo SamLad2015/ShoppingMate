@@ -10,31 +10,85 @@
       "value": "itm3", "label": "Mangoes"
     },
     {
-      "value": "itm4", "label": "Apples"
+      "value": "itm4", "label": "Bananas"
     },
     {
-      "value": "itm5", "label": "Oranges"
+      "value": "itm5", "label": "Citrus"
     },
     {
-      "value": "itm6", "label": "Mangoes"
+      "value": "itm6", "label": "Watermelon"
     },
     {
-      "value": "itm7", "label": "Apples"
+      "value": "itm7", "label": "Pineapple"
     },
     {
-      "value": "itm8", "label": "Oranges"
+      "value": "itm8", "label": "Tomatoes"
     },
     {
-      "value": "itm9", "label": "Mangoes"
+      "value": "itm9", "label": "Potatoes"
     },
     {
-      "value": "itm10", "label": "Apples"
+      "value": "itm10", "label": "Chillies"
     },
     {
-      "value": "itm11", "label": "Oranges"
+      "value": "itm11", "label": "Ginger"
     },
     {
-      "value": "itm12", "label": "Mangoes"
+      "value": "itm12", "label": "Garlic"
+    },
+    {
+      "value": "itm13", "label": "Vegetable Oil"
+    },
+    {
+      "value": "itm14", "label": "Matchbox"
+    },
+    {
+      "value": "itm15", "label": "Milk"
+    },
+    {
+      "value": "itm16", "label": "Bread"
+    },
+    {
+      "value": "itm17", "label": "Eggs"
+    },
+    {
+      "value": "itm18", "label": "Tissue Papers"
+    },
+    {
+      "value": "itm19", "label": "Kitchen Towels"
+    },
+    {
+      "value": "itm20", "label": "Magnum Ice Cream"
+    },
+    {
+      "value": "itm21", "label": "Crisps"
+    },
+    {
+      "value": "itm22", "label": "Flowers"
+    },
+    {
+      "value": "itm23", "label": "Coriander"
+    },
+    {
+      "value": "itm24", "label": "Mint Leaves"
+    },
+    {
+      "value": "itm25", "label": "Ginger-Garlic Paste"
+    },
+    {
+      "value": "itm26", "label": "Cheese"
+    },
+    {
+      "value": "itm27", "label": "Rice"
+    },
+    {
+      "value": "itm28", "label": "Doritos"
+    },
+    {
+      "value": "itm29", "label": "Maggie Packets"
+    },
+    {
+      "value": "itm30", "label": "Curry Leaves"
     }
   ]
 }

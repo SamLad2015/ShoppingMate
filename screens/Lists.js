@@ -16,6 +16,7 @@ import {globalStyles, globalButtons} from '../styles/Styles';
 import * as _ from "lodash";
 import ItemsService from "../services/itemsService";
 import {setList, setLists} from "../actions/lists";
+import moment from "moment";
 
 class Lists extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class Lists extends Component {
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <Text style={globalStyles.heading}>Shopping List</Text>
                     <View style={styles.listWrapper}>
-                        <FlatList data={lists.lists}
+                        <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
                                   renderItem={({item}) =>
                                       <View style={styles.itemRow}>
                                           <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
@@ -41,7 +42,10 @@ class Lists extends Component {
                                                                     listId: item.id
                                                                 })
                                                             }}>
-                                              <Text style={[globalStyles.listLabel, styles.listLable]}>{item.label}</Text>
+                                              <View style={styles.listDetails}>
+                                                  <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
+                                                  <Text style={styles.dateTimeStampLabel}>{moment(item.createdOn).format('ddd, DD MMM YYYY hh:mm A')}</Text>
+                                              </View>
                                           </TouchableOpacity>
                                       </View>
                                   }
@@ -83,9 +87,18 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         paddingRight: 10
     },
-    listLable: {
+    listDetails: {
+        flex: 1
+    },
+    listLabel: {
         fontSize: 25,
-        color: '#fff'
+        color: '#fff',
+        paddingBottom: 5
+    },
+    dateTimeStampLabel: {
+        fontSize: 12,
+        color: 'yellow',
+        fontStyle: 'italic'
     }
 });
 const mapStateToProps = state => ({

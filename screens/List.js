@@ -16,7 +16,7 @@ class List extends Component {
         this.state = {
             list: {
                 id: -1,
-                label: 'List: ' + moment().format('DDMMYYYY'),
+                label: 'List: ' + moment().format('DD/MM/YYYY'),
                 items: []
             }
         };
@@ -38,7 +38,8 @@ class List extends Component {
         itemsService.saveListIntoStorage({
             id: this.state.list.id,
             label: this.state.list.label,
-            items: this.props.lists.list ? this.props.lists.list.items: []
+            items: this.props.lists.list ? this.props.lists.list.items: [],
+            createdOn: moment().toISOString()
         }).then(addedList => {
             addList(addedList);
             navigate('Lists');

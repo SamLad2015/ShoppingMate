@@ -1,15 +1,10 @@
 import React, { Component }  from 'react';
 import SelectMultiple from 'react-native-select-multiple';
 import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 'react-native';
-import * as _ from 'lodash';
 import {allItems} from '../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
-import { bindActionCreators } from 'redux';
 import {globalButtons, globalStyles} from "../styles/Styles";
-import moment from "moment";
-import ItemsService from "../services/itemsService";
-import {setLists} from "../actions/lists";
 
 
 class Items extends Component {
@@ -17,7 +12,7 @@ class Items extends Component {
         super(props);
     }
     static navigationOptions = {
-        title: 'Items',
+        title: 'Items'
     };
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
@@ -25,7 +20,7 @@ class Items extends Component {
     render() {
         let { lists, setItems } = this.props;
         const { navigate } = this.props.navigation;
-        const renderLabel = (item, style) => {
+        const renderLabel = (item) => {
             return (
                 <View style={styles.list}>
                     <Text style={styles.listLabel}>{item}</Text>
@@ -38,7 +33,7 @@ class Items extends Component {
                 <Text style={styles.text}>Shopping List</Text>
                 <SelectMultiple
                     style={styles.listWrapper}
-                    items={allItems}
+                    items={_.orderBy(allItems, 'label')}
                     renderLabel={renderLabel}
                     selectedItems={lists.list ? lists.list.items : []}
                     onSelectionsChange={setItems} />
