@@ -43,8 +43,10 @@ const listReducer = (state = initialState, action) => {
             if (!state.list) {
                 state.list = {item:[]};
             }
+            const existingItems = state.list.items;
             state.list.items = _.map(action.payload, (i) => {
-               i.count = 1;
+               const existingItem = _.find(existingItems, {value: i.value});
+               i.count = existingItem ? existingItem.count : 1;
                return i;
             });
             return {

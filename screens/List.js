@@ -27,15 +27,6 @@ class List extends Component {
     static navigationOptions = {
         title: 'List',
     };
-    onChangeCount = (item, step) => {
-        const {updateItemCount} = this.props;
-        if (step === 'incr') {
-            item.count += 1;
-        } else {
-            item.count -= 1;
-        }
-        updateItemCount(item);
-    }
     async getList(listId) {
         const itemsService = new ItemsService();
         return  await itemsService.getListFromStorage(listId);
@@ -61,7 +52,7 @@ class List extends Component {
             <View style={[globalStyles.container, styles.container]}>
                 <TextInput
                     style={styles.textInput}
-                    onChangeText={(text) => this.setState({list: {id: -1, label: text}})}
+                    onChangeText={(text) => this.setState({list: {id: list.id, label: text}})}
                     value={this.state.list.label}
                 />
                 <View style={globalStyles.listWrapper}>
