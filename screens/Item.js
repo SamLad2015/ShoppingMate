@@ -14,7 +14,7 @@ class Item extends Component {
         }
         if (props.listId >= 0) {
             this.getListItem(props.listId, props.item.value)
-                .then(item => this.setState({item: item}));
+                .then(item => item && this.setState({item: item}));
         }
     }
     async getListItem(listId, itemCode) {
