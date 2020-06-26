@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-quick-sample-master",
-    "slug": "react-native-quick-sample-master",
+    "name": "shopping-mate",
+    "slug": "shopping-mate",
     "platforms": [
       "ios",
       "android",
