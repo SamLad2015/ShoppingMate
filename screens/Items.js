@@ -12,12 +12,18 @@ class Items extends Component {
         super(props);
     }
     static navigationOptions = {
-        title: 'Items'
+        title: 'Items',
+        headerStyle: { backgroundColor: '#800000' },
+        headerTitleStyle: globalStyles.subHeading,
+        headerRight: () => (
+            <Text style={globalStyles.heading}>Shopping Mate</Text>
+        )
     };
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
     }
     render() {
+        const image = require('../assets/bg3.jpg');
         let { lists, setItems } = this.props;
         const { navigate } = this.props.navigation;
         const renderLabel = (item) => {
@@ -29,31 +35,28 @@ class Items extends Component {
         };
 
         return (
-            <View style={[globalStyles.container, styles.container]}>
-                <Text style={styles.text}>Shopping List</Text>
-                <SelectMultiple
-                    style={styles.listWrapper}
-                    items={_.orderBy(allItems, 'label')}
-                    renderLabel={renderLabel}
-                    selectedItems={lists.list ? lists.list.items : []}
-                    onSelectionsChange={setItems} />
-                    <View style={styles.buttonWrapper}>
-                        <TouchableOpacity style={globalButtons.redButton}
-                                          onPress={() => {
-                                              navigate('List');
-                                          }}>
-                            <Text style={globalButtons.redButtonText}>Add Items</Text>
-                        </TouchableOpacity>
-                    </View>
+            <View style={globalStyles.container}>
+                <ImageBackground source={image} style={globalStyles.bgImage}>
+                    <SelectMultiple
+                        style={styles.listWrapper}
+                        items={_.orderBy(allItems, 'label')}
+                        renderLabel={renderLabel}
+                        selectedItems={lists.list ? lists.list.items : []}
+                        onSelectionsChange={setItems} />
+                        <View style={globalButtons.bottomButtonsWrapper}>
+                            <TouchableOpacity style={globalButtons.redButton}
+                                              onPress={() => {
+                                                  navigate('List');
+                                              }}>
+                                <Text style={globalButtons.redButtonText}>Add Items</Text>
+                            </TouchableOpacity>
+                        </View>
+                </ImageBackground>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    container: {
-        paddingLeft: 5,
-        paddingRight: 5,
-    },
     text: {
         fontFamily: 'notoserif',
         fontWeight: 'bold',
@@ -62,29 +65,22 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 20,
     },
-    buttonWrapper: {
-        flex: 1,
-        position: 'absolute',
-        bottom: 20,
-    },
     listWrapper: {
         flex: 1,
         width: '100%',
-        height: '100%',
-        marginTop: 80,
-        marginBottom: 75,
-        backgroundColor: 'rgba(0, 0, 0, 1)',
+        marginBottom: 65
     },
     list : {
         flex: 1,
-        flexDirection: 'row',
         alignItems: 'stretch',
-        borderRadius: 10,
+        borderRadius: 10
     },
     listLabel: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
         fontSize: 17,
+        paddingLeft: 5,
+        paddingRight: 5,
     }
 });
 const mapStateToProps = state => ({

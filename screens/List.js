@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import {StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import {addList} from "../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
@@ -26,6 +26,11 @@ class List extends Component {
     }
     static navigationOptions = {
         title: 'List',
+        headerStyle: { backgroundColor: '#800000' },
+        headerTitleStyle: globalStyles.subHeading,
+        headerRight: () => (
+            <Text style={globalStyles.heading}>Shopping Mate</Text>
+        )
     };
     async getList(listId) {
         const itemsService = new ItemsService();
@@ -46,33 +51,36 @@ class List extends Component {
         });
     }
     render() {
+        const image = require('../assets/bg2.jpg');
         const { lists } = this.props;
         const list = lists && lists.list ? lists.list : this.state.list;
         const { navigate } = this.props.navigation;
         return (
             <View style={[globalStyles.container, styles.container]}>
-                <TextInput
-                    style={styles.textInput}
-                    onChangeText={(text) => this.setState({list: {id: list.id, label: text}})}
-                    value={this.state.list.label}
-                />
-                <View style={globalStyles.listWrapper}>
-                    <FlatList data={list.items || []}
-                              renderItem={({item}) =>
-                                  <Item listId={list.id} item={item} updateItemCount={updateItemCount} />
-                              }
+                <ImageBackground source={image} style={globalStyles.bgImage}>
+                    <TextInput
+                        style={styles.textInput}
+                        onChangeText={(text) => this.setState({list: {id: list.id, label: text}})}
+                        value={this.state.list.label}
                     />
-                </View>
-                <View style={globalButtons.bottomButtonsWrapper}>
-                    <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => this.saveList()}>
-                        <Text style={globalButtons.redButtonText}>Save List</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={globalButtons.redButton}
-                                      onPress={() => navigate('Items')}>
-                        <Text style={globalButtons.redButtonText}>Pick Items +</Text>
-                    </TouchableOpacity>
-                </View>
+                    <View style={globalStyles.listWrapper}>
+                        <FlatList data={list.items || []}
+                                  renderItem={({item}) =>
+                                      <Item listId={list.id} item={item} updateItemCount={updateItemCount} />
+                                  }
+                        />
+                    </View>
+                    <View style={globalButtons.bottomButtonsWrapper}>
+                        <TouchableOpacity style={globalButtons.redButton}
+                                          onPress={() => this.saveList()}>
+                            <Text style={globalButtons.redButtonText}>Save List</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={globalButtons.redButton}
+                                          onPress={() => navigate('Items')}>
+                            <Text style={globalButtons.redButtonText}>Pick Items +</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground>
             </View>
         );
     }
@@ -85,12 +93,11 @@ const styles = StyleSheet.create({
     textInput: {
         height: 50,
         borderColor: '#666',
-        borderWidth: 1,
+        borderBottomWidth: 1,
         marginTop: 20,
         marginLeft: 5,
         marginRight: 5,
         width: '90%',
-        borderRadius: 10,
         paddingLeft: 10,
         fontSize:20,
     },

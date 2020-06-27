@@ -3,27 +3,28 @@ import {
     StyleSheet,
     View,
     Text,
-    Button,
     ImageBackground,
     TouchableOpacity,
-    TextInput,
-    FlatList,
-    AsyncStorage
+    FlatList
 } from 'react-native';
-import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
 import * as _ from "lodash";
-import ItemsService from "../services/itemsService";
-import {setList, setLists} from "../actions/lists";
+import {setList} from "../actions/lists";
 import moment from "moment";
 
 class Lists extends Component {
     constructor(props) {
-        const itemsService = new ItemsService();
         super(props);
     }
-
+    static navigationOptions = {
+        title: 'Lists',
+        headerStyle: { backgroundColor: '#800000' },
+        headerTitleStyle: globalStyles.subHeading,
+        headerRight: () => (
+            <Text style={globalStyles.heading}>Shopping Mate</Text>
+        )
+    };
     render() {
         const {lists, setList} = this.props;
         const image = require('../assets/bg1.jpg');
@@ -31,7 +32,6 @@ class Lists extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <Text style={globalStyles.heading}>Shopping List</Text>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
                                   renderItem={({item}) =>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginTop: 100,
+        marginTop: 20,
         marginBottom: 75,
         paddingLeft: 10,
         paddingRight: 10
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     listLabel: {
-        fontSize: 25,
+        fontSize: 20,
         color: '#fff',
         paddingBottom: 5
     },
