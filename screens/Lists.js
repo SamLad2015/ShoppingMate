@@ -20,7 +20,7 @@ class Lists extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            fontSize="20"
+            size={30}
             backgroundColor="transparent"
             name="home">
         </Icon.Button>),
@@ -60,7 +60,9 @@ class Lists extends Component {
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
-                                backgroundColor='black'
+                                color='black'
+                                backgroundColor='transparent'
+                                size={30}
                                 name="shopping-basket"
                                 onPress={() => {
                                     setList(undefined)

@@ -17,14 +17,13 @@ const globalStyles = StyleSheet.create({
     heading: {
         fontFamily: 'notoserif',
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: 20,
         color: 'white',
         paddingRight: 20
     },
     subHeading: {
         fontFamily: 'notoserif',
         fontWeight: 'bold',
-        fontSize: 20,
         color: 'white',
     },
     itemRow: {
@@ -57,31 +56,30 @@ const globalStyles = StyleSheet.create({
     }
 });
 const globalButtons = StyleSheet.create({
-    redButton: {
-        justifyContent: 'center',
-        minWidth: 120,
-        marginLeft: 10,
-        marginRight: 10
+    iconButtonWrapper :{
+        marginLeft: 20,
+        marginRight: 20,
     },
-    redButtonText: {
-        backgroundColor: 'red',
-        color: '#fff',
-        fontWeight: 'bold',
-        padding: 10,
-        fontSize: 15,
-        borderRadius: 5,
-        textAlign: 'center',
+    iconButton: {
+        marginLeft: 10,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    iconButtonSmall: {
+        marginRight: 0
     },
     counterButtonWrapper: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        paddingRight: 5
     },
     counterButtonText: {
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 25,
         paddingLeft:10,
         paddingRight: 10,
+        color: 'blue'
     },
     bottomButtonsWrapper: {
         position: 'absolute',
@@ -90,8 +88,8 @@ const globalButtons = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         backgroundColor: 'white',
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
         justifyContent: 'center',
         alignItems: 'center'
     },

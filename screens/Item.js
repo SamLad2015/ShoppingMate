@@ -42,7 +42,9 @@ class Item extends Component {
                     <TouchableOpacity>
                         <Icon.Button
                             iconStyle={globalButtons.iconButtonSmall}
-                            backgroundColor="#333"
+                            backgroundColor="transparent"
+                            color="black"
+                            size={20}
                             name="minus"
                             onPress={() => {this.onChangeCount(this.state.item, 'decr')}}>
                         </Icon.Button>
@@ -51,7 +53,9 @@ class Item extends Component {
                     <TouchableOpacity>
                         <Icon.Button
                             iconStyle={globalButtons.iconButtonSmall}
-                            backgroundColor="#333"
+                            backgroundColor="transparent"
+                            color="black"
+                            size={20}
                             name="plus"
                             onPress={() => {this.onChangeCount(this.state.item, 'incr')}}>
                         </Icon.Button>

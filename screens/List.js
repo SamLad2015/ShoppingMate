@@ -27,7 +27,7 @@ class List extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            fontSize="20"
+            size={30}
             backgroundColor="transparent"
             name="shopping-cart">
         </Icon.Button>),
@@ -79,7 +79,9 @@ class List extends Component {
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
-                                backgroundColor="green"
+                                color='green'
+                                backgroundColor='transparent'
+                                size={30}
                                 name="check"
                                 onPress={() => this.saveList()}>
                             </Icon.Button>
@@ -87,7 +89,9 @@ class List extends Component {
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
-                                backgroundColor="black"
+                                color='black'
+                                backgroundColor='transparent'
+                                size={30}
                                 name="cart-plus"
                                 onPress={() => navigate('Items')}>
                             </Icon.Button>

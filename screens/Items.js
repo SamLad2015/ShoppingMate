@@ -14,7 +14,7 @@ class Items extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            fontSize="20"
+            size={30}
             backgroundColor="transparent"
             name="list">
         </Icon.Button>),
@@ -52,7 +52,9 @@ class Items extends Component {
                             <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                                 <Icon.Button
                                     iconStyle={globalButtons.iconButton}
-                                    backgroundColor="green"
+                                    color='green'
+                                    backgroundColor='transparent'
+                                    size={30}
                                     name="check"
                                     onPress={() => navigate('List')}>
                                 </Icon.Button>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 70
+        marginBottom: 65
     },
     list : {
         flex: 1,
