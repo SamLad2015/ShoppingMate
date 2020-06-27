@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     listLabel: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#fff',
         paddingBottom: 5
     },
