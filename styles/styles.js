@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 
+const iconStyles = {
+    size: 20
+};
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
@@ -53,7 +56,7 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         marginTop: 10,
         color: '#000',
-    }
+    },
 });
 const globalButtons = StyleSheet.create({
     iconButtonWrapper :{
@@ -94,4 +97,4 @@ const globalButtons = StyleSheet.create({
         alignItems: 'center'
     },
 });
-export { globalStyles, globalButtons }
+export { globalStyles, globalButtons, iconStyles }
