@@ -56,7 +56,7 @@ class List extends Component {
         const list = lists && lists.list ? lists.list : this.state.list;
         const { navigate } = this.props.navigation;
         return (
-            <View style={[globalStyles.container, styles.container]}>
+            <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <TextInput
                         style={styles.textInput}
@@ -86,10 +86,6 @@ class List extends Component {
     }
 }
 const styles = StyleSheet.create({
-    container: {
-        paddingLeft: 5,
-        paddingRight: 5,
-    },
     textInput: {
         height: 50,
         borderColor: '#666',
