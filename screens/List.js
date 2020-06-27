@@ -2,7 +2,7 @@ import React, { Component }  from 'react';
 import {StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import {addList} from "../actions/lists";
 import {connect} from "react-redux";
-import {globalStyles, globalButtons} from '../styles/Styles';
+import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
 import moment from 'moment';
 import ItemsService from "../services/itemsService";
 import {updateItemCount} from "../actions/items";
@@ -27,7 +27,7 @@ class List extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            size={30}
+            size={iconStyles.size}
             backgroundColor="transparent"
             name="shopping-cart">
         </Icon.Button>),
@@ -81,7 +81,7 @@ class List extends Component {
                                 iconStyle={globalButtons.iconButton}
                                 color='green'
                                 backgroundColor='transparent'
-                                size={30}
+                                size={iconStyles.size}
                                 name="check"
                                 onPress={() => this.saveList()}>
                             </Icon.Button>
@@ -91,7 +91,7 @@ class List extends Component {
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
                                 backgroundColor='transparent'
-                                size={30}
+                                size={iconStyles.size}
                                 name="cart-plus"
                                 onPress={() => navigate('Items')}>
                             </Icon.Button>

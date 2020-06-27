@@ -8,7 +8,7 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons} from '../styles/Styles';
+import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
 import * as _ from "lodash";
 import {setList} from "../actions/lists";
 import moment from "moment";
@@ -20,7 +20,7 @@ class Lists extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            size={30}
+            size={iconStyles.size}
             backgroundColor="transparent"
             name="home">
         </Icon.Button>),
@@ -62,7 +62,7 @@ class Lists extends Component {
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
                                 backgroundColor='transparent'
-                                size={30}
+                                size={iconStyles.size}
                                 name="shopping-basket"
                                 onPress={() => {
                                     setList(undefined)

@@ -4,7 +4,7 @@ import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 
 import {allItems} from '../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
-import {globalButtons, globalStyles} from "../styles/Styles";
+import {globalButtons, globalStyles, iconStyles} from "../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -14,7 +14,7 @@ class Items extends Component {
     }
     static navigationOptions = {
         headerTitle: (<Icon.Button
-            size={30}
+            size={iconStyles.size}
             backgroundColor="transparent"
             name="list">
         </Icon.Button>),
@@ -54,7 +54,7 @@ class Items extends Component {
                                     iconStyle={globalButtons.iconButton}
                                     color='green'
                                     backgroundColor='transparent'
-                                    size={30}
+                                    size={iconStyles.size}
                                     name="check"
                                     onPress={() => navigate('List')}>
                                 </Icon.Button>
