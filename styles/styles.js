@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -13,15 +12,20 @@ const globalStyles = StyleSheet.create({
         height: '100%',
         justifyContent: "center",
         alignItems: "center",
-        opacity: 0.7,
+        opacity: 0.7
     },
     heading: {
         fontFamily: 'notoserif',
         fontWeight: 'bold',
-        fontSize: 30,
-        color: 'red',
-        position: 'absolute',
-        top: 20,
+        fontSize: 25,
+        color: 'white',
+        paddingRight: 20
+    },
+    subHeading: {
+        fontFamily: 'notoserif',
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: 'white',
     },
     itemRow: {
         flexDirection: 'row',
@@ -36,15 +40,12 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginTop: 30,
-        marginBottom: 75,
+        marginBottom: 70
     },
     list : {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'stretch',
-        backgroundColor: 'rgba(250, 250, 250, 1)',
-        opacity: 1,
+        alignItems: 'stretch'
     },
     listLabel: {
         fontFamily: 'Roboto',
@@ -58,9 +59,9 @@ const globalStyles = StyleSheet.create({
 const globalButtons = StyleSheet.create({
     redButton: {
         justifyContent: 'center',
-        marginLeft: 10,
-        marginRight: 10,
         minWidth: 150,
+        marginLeft: 10,
+        marginRight: 10
     },
     redButtonText: {
         backgroundColor: 'red',
@@ -74,7 +75,7 @@ const globalButtons = StyleSheet.create({
     counterButtonWrapper: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-end'
     },
     counterButtonText: {
         fontWeight: 'bold',
@@ -84,10 +85,15 @@ const globalButtons = StyleSheet.create({
     },
     bottomButtonsWrapper: {
         position: 'absolute',
-        bottom:15,
+        bottom:0,
         flex: 1,
+        width: '100%',
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        backgroundColor: 'white',
+        paddingTop: 10,
+        paddingBottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 });
 export { globalStyles, globalButtons }
