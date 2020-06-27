@@ -59,7 +59,7 @@ const globalStyles = StyleSheet.create({
 const globalButtons = StyleSheet.create({
     redButton: {
         justifyContent: 'center',
-        minWidth: 150,
+        minWidth: 120,
         marginLeft: 10,
         marginRight: 10
     },
@@ -68,7 +68,7 @@ const globalButtons = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         padding: 10,
-        fontSize: 20,
+        fontSize: 15,
         borderRadius: 5,
         textAlign: 'center',
     },
