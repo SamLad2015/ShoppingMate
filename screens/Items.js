@@ -5,7 +5,7 @@ import {allItems} from '../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
 import {globalButtons, globalStyles} from "../styles/Styles";
-
+import * as _ from 'lodash';
 
 class Items extends Component {
     constructor(props) {
