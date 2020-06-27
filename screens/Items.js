@@ -6,13 +6,18 @@ import { connect } from 'react-redux';
 import { setItems } from '../actions/items';
 import {globalButtons, globalStyles} from "../styles/Styles";
 import * as _ from 'lodash';
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class Items extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        title: 'Items',
+        headerTitle: (<Icon.Button
+            fontSize="20"
+            backgroundColor="transparent"
+            name="list">
+        </Icon.Button>),
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
         headerRight: () => (
@@ -44,11 +49,13 @@ class Items extends Component {
                         selectedItems={lists.list ? lists.list.items : []}
                         onSelectionsChange={setItems} />
                         <View style={globalButtons.bottomButtonsWrapper}>
-                            <TouchableOpacity style={globalButtons.redButton}
-                                              onPress={() => {
-                                                  navigate('List');
-                                              }}>
-                                <Text style={globalButtons.redButtonText}>Add Items</Text>
+                            <TouchableOpacity style={globalButtons.iconButtonWrapper}>
+                                <Icon.Button
+                                    iconStyle={globalButtons.iconButton}
+                                    backgroundColor="green"
+                                    name="check"
+                                    onPress={() => navigate('List')}>
+                                </Icon.Button>
                             </TouchableOpacity>
                         </View>
                 </ImageBackground>
@@ -68,7 +75,7 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 60
+        marginBottom: 70
     },
     list : {
         flex: 1,

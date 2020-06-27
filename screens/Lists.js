@@ -12,13 +12,18 @@ import {globalStyles, globalButtons} from '../styles/Styles';
 import * as _ from "lodash";
 import {setList} from "../actions/lists";
 import moment from "moment";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Lists extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        title: 'Lists',
+        headerTitle: (<Icon.Button
+            fontSize="20"
+            backgroundColor="transparent"
+            name="home">
+        </Icon.Button>),
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
         headerRight: () => (
@@ -52,14 +57,18 @@ class Lists extends Component {
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.redButton}
-                                          onPress={() => {
-                                              setList(undefined)
-                                              navigate('List', {
-                                                  listId: -1
-                                              })
-                                          }}>
-                            <Text style={globalButtons.redButtonText}>Add List +</Text>
+                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
+                            <Icon.Button
+                                iconStyle={globalButtons.iconButton}
+                                backgroundColor='black'
+                                name="shopping-basket"
+                                onPress={() => {
+                                    setList(undefined)
+                                    navigate('List', {
+                                        listId: -1
+                                    })
+                                }}>
+                            </Icon.Button>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

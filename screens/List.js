@@ -7,6 +7,7 @@ import moment from 'moment';
 import ItemsService from "../services/itemsService";
 import {updateItemCount} from "../actions/items";
 import Item from "./Item";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 class List extends Component {
     constructor(props) {
@@ -25,7 +26,11 @@ class List extends Component {
         }
     }
     static navigationOptions = {
-        title: 'List',
+        headerTitle: (<Icon.Button
+            fontSize="20"
+            backgroundColor="transparent"
+            name="shopping-cart">
+        </Icon.Button>),
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
         headerRight: () => (
@@ -71,13 +76,21 @@ class List extends Component {
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.redButton}
-                                          onPress={() => this.saveList()}>
-                            <Text style={globalButtons.redButtonText}>Save List</Text>
+                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
+                            <Icon.Button
+                                iconStyle={globalButtons.iconButton}
+                                backgroundColor="green"
+                                name="check"
+                                onPress={() => this.saveList()}>
+                            </Icon.Button>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.redButton}
-                                          onPress={() => navigate('Items')}>
-                            <Text style={globalButtons.redButtonText}>Pick Items +</Text>
+                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
+                            <Icon.Button
+                                iconStyle={globalButtons.iconButton}
+                                backgroundColor="black"
+                                name="cart-plus"
+                                onPress={() => navigate('Items')}>
+                            </Icon.Button>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

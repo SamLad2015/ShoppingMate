@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {globalStyles, globalButtons} from '../styles/Styles';
 import {updateItemCount} from "../actions/items";
 import ItemsService from "../services/itemsService";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 
 class Item extends Component {
@@ -38,14 +39,22 @@ class Item extends Component {
                     <Text style={globalStyles.listLabel}>{this.state.item.label}</Text>
                 </View>
                 <View style={globalButtons.counterButtonWrapper}>
-                    <TouchableOpacity
-                        onPress={() => {this.onChangeCount(this.state.item, 'decr')}}>
-                        <Text style={globalButtons.counterButtonText}>-</Text>
+                    <TouchableOpacity>
+                        <Icon.Button
+                            iconStyle={globalButtons.iconButtonSmall}
+                            backgroundColor="#333"
+                            name="minus"
+                            onPress={() => {this.onChangeCount(this.state.item, 'decr')}}>
+                        </Icon.Button>
                     </TouchableOpacity>
                     <Text style={globalButtons.counterButtonText}>{this.state.item.count}</Text>
-                    <TouchableOpacity
-                        onPress={() => {this.onChangeCount(this.state.item, 'incr')}}>
-                        <Text style={globalButtons.counterButtonText}>+</Text>
+                    <TouchableOpacity>
+                        <Icon.Button
+                            iconStyle={globalButtons.iconButtonSmall}
+                            backgroundColor="#333"
+                            name="plus"
+                            onPress={() => {this.onChangeCount(this.state.item, 'incr')}}>
+                        </Icon.Button>
                     </TouchableOpacity>
                 </View>
             </View>
