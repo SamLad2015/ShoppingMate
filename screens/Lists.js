@@ -10,28 +10,22 @@ import {
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
 import * as _ from "lodash";
-import {setList} from "../actions/lists";
+import {removeList, setList} from "../actions/lists";
 import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Header from "./Header";
 
 class Lists extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        headerTitle: (<Icon.Button
-            size={iconStyles.size}
-            backgroundColor="transparent"
-            name="home">
-        </Icon.Button>),
+        headerTitle: () => <Header/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
-        headerRight: () => (
-            <Text style={globalStyles.heading}>Shopping Mate</Text>
-        )
     };
     render() {
-        const {lists, setList} = this.props;
+        const {lists, setList, removeList} = this.props;
         const image = require('../assets/bg1.jpg');
         const { navigate } = this.props.navigation;
         return (
@@ -39,6 +33,7 @@ class Lists extends Component {
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
+                                  keyExtractor={(item) => item.id.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.itemRow}>
                                           <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
@@ -50,6 +45,16 @@ class Lists extends Component {
                                               <View style={styles.listDetails}>
                                                   <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
                                                   <Text style={styles.dateTimeStampLabel}>{moment(item.createdOn).format('ddd, DD MMM YYYY hh:mm A')}</Text>
+                                              </View>
+                                              <View style={styles.deleteIcon}>
+                                                  <Icon.Button
+                                                      iconStyle={globalButtons.deleteIconButton}
+                                                      color='white'
+                                                      backgroundColor='transparent'
+                                                      size={25}
+                                                      name="minus-circle"
+                                                      onPress={() => removeList(item)}>
+                                                  </Icon.Button>
                                               </View>
                                           </TouchableOpacity>
                                       </View>
@@ -99,7 +104,10 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     listDetails: {
-        flex: 1
+        flex: 0.8
+    },
+    deleteIcon: {
+        flex: 0.2
     },
     listLabel: {
         fontSize: 15,
@@ -116,4 +124,4 @@ const mapStateToProps = state => ({
     lists: state.lists,
     list: state.list
 });
-export default connect(mapStateToProps, {setList})(Lists)
+export default connect(mapStateToProps, {setList, removeList})(Lists)

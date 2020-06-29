@@ -1,4 +1,4 @@
-import {SET_LISTS, SET_INIT_LISTS, SET_LIST, ADD_LIST} from '../constants';
+import {SET_LISTS, SET_INIT_LISTS, SET_LIST, ADD_LIST, REMOVE_LIST} from '../constants';
 export function setLists(lists) {
     return {
         type: SET_LISTS,
@@ -14,6 +14,12 @@ export function setList(list) {
 export function addList(list) {
     return {
         type: ADD_LIST,
+        payload: list
+    }
+}
+export function removeList(list) {
+    return {
+        type: REMOVE_LIST,
         payload: list
     }
 }

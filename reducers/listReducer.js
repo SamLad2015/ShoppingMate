@@ -1,4 +1,4 @@
-import {SET_LISTS, SET_INIT_LISTS, SET_LIST, SET_ITEMS, ADD_LIST, UPDATE_ITEM_COUNT} from '../constants';
+import {SET_LISTS, SET_INIT_LISTS, SET_LIST, SET_ITEMS, ADD_LIST, REMOVE_LIST, UPDATE_ITEM_COUNT} from '../constants';
 import * as _ from 'lodash';
 const initialState = {
     lists: [],
@@ -26,6 +26,17 @@ const listReducer = (state = initialState, action) => {
                 })
             }
             state.lists.push(action.payload);
+            return {
+                ...state,
+            };
+        case REMOVE_LIST:
+            if (!state.lists) {
+                state.lists = [];
+            } else {
+                state.lists = _.filter(state.lists, (l) => {
+                    return l.id !== action.payload.id;
+                })
+            }
             return {
                 ...state,
             };

@@ -8,6 +8,7 @@ import ItemsService from "../services/itemsService";
 import {updateItemCount} from "../actions/items";
 import Item from "./Item";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Header from "./Header";
 
 class List extends Component {
     constructor(props) {
@@ -26,16 +27,9 @@ class List extends Component {
         }
     }
     static navigationOptions = {
-        headerTitle: (<Icon.Button
-            size={iconStyles.size}
-            backgroundColor="transparent"
-            name="shopping-cart">
-        </Icon.Button>),
+        headerTitle: () => <Header/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
-        headerRight: () => (
-            <Text style={globalStyles.heading}>Shopping Mate</Text>
-        )
     };
     async getList(listId) {
         const itemsService = new ItemsService();
@@ -70,6 +64,7 @@ class List extends Component {
                     />
                     <View style={globalStyles.listWrapper}>
                         <FlatList data={list.items || []}
+                                  keyExtractor={(item) => item.value.toString()}
                                   renderItem={({item}) =>
                                       <Item listId={list.id} item={item} updateItemCount={updateItemCount} />
                                   }

@@ -7,22 +7,16 @@ import { setItems } from '../actions/items';
 import {globalButtons, globalStyles, iconStyles} from "../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
+import Header from "./Header";
 
 class Items extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        headerTitle: (<Icon.Button
-            size={iconStyles.size}
-            backgroundColor="transparent"
-            name="list">
-        </Icon.Button>),
+        headerTitle: () => <Header/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
-        headerRight: () => (
-            <Text style={globalStyles.heading}>Shopping Mate</Text>
-        )
     };
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
