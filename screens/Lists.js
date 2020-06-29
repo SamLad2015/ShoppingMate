@@ -14,6 +14,7 @@ import {removeList, setList} from "../actions/lists";
 import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "./Header";
+import ItemsService from "../services/itemsService";
 
 class Lists extends Component {
     constructor(props) {
@@ -24,8 +25,15 @@ class Lists extends Component {
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
     };
+    deleteList(list) {
+        const itemsService = new ItemsService();
+        const { removeList } = this.props;
+        itemsService.deleteListFromStorage(list).then(() => {
+            removeList(list);
+        });
+    }
     render() {
-        const {lists, setList, removeList} = this.props;
+        const {lists, setList} = this.props;
         const image = require('../assets/bg1.jpg');
         const { navigate } = this.props.navigation;
         return (
@@ -53,7 +61,7 @@ class Lists extends Component {
                                                       backgroundColor='transparent'
                                                       size={25}
                                                       name="minus-circle"
-                                                      onPress={() => removeList(item)}>
+                                                      onPress={() => this.deleteList(item)}>
                                                   </Icon.Button>
                                               </View>
                                           </TouchableOpacity>

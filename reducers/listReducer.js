@@ -21,9 +21,7 @@ const listReducer = (state = initialState, action) => {
             if (!state.lists) {
                 state.lists = [];
             } else {
-                state.lists = _.filter(state.lists, (l) => {
-                    return l.id !== action.payload.id;
-                })
+                state.lists = _.reject(state.lists, {id: action.payload.id});
             }
             state.lists.push(action.payload);
             return {
@@ -33,9 +31,7 @@ const listReducer = (state = initialState, action) => {
             if (!state.lists) {
                 state.lists = [];
             } else {
-                state.lists = _.filter(state.lists, (l) => {
-                    return l.id !== action.payload.id;
-                })
+                state.lists = _.reject(state.lists, {id: action.payload.id});
             }
             return {
                 ...state,

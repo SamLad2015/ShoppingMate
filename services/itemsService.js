@@ -29,5 +29,11 @@ export default class ItemsService {
         await this.setListsIntoStorage(lists);
         return list;
     }
+    async deleteListFromStorage(list){
+        let lists = await this.getListsFromStorage();
+        lists = JSON.parse(lists);
+        await this.setListsIntoStorage(_.reject(lists, {id: list.id}));
+        return list;
+    }
 }
 

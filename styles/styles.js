@@ -21,7 +21,7 @@ const globalStyles = StyleSheet.create({
         fontFamily: 'notoserif',
         fontWeight: 'bold',
         fontSize: 20,
-        color: 'yellow',
+        color: 'orange',
         textAlign: 'right'
     },
     subHeading: {
