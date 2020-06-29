@@ -21,8 +21,8 @@ const globalStyles = StyleSheet.create({
         fontFamily: 'notoserif',
         fontWeight: 'bold',
         fontSize: 20,
-        color: 'white',
-        paddingRight: 20
+        color: 'yellow',
+        textAlign: 'right'
     },
     subHeading: {
         fontFamily: 'notoserif',
@@ -67,6 +67,10 @@ const globalButtons = StyleSheet.create({
         marginLeft: 10,
         marginTop: 5,
         marginBottom: 5,
+    },
+    deleteIconButton: {
+        marginLeft: 20,
+        marginTop: 10
     },
     iconButtonSmall: {
         marginRight: 0
