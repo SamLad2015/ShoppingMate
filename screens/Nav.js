@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator} from 'react-navigation-stack';
+import { createStackNavigator, TransitionPresets } from 'react-navigation-stack';
 
 import Lists from './Lists';
 import List from './List';
@@ -13,7 +13,9 @@ const Nav = createStackNavigator({
         Items: { screen: Items },
     },
     {
-        initialRouteName: 'Lists',
+        defaultNavigationOptions: {
+            ...TransitionPresets.SlideFromRightIOS,
+        },
     }
 );
 export default createAppContainer(Nav);
