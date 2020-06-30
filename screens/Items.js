@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 55
+        marginBottom: 45
     },
     list : {
         flex: 1,
