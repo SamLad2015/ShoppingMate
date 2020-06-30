@@ -15,7 +15,7 @@ const Nav = createStackNavigator({
     {
         defaultNavigationOptions: {
             ...TransitionPresets.SlideFromRightIOS,
-        },
+        }
     }
 );
 export default createAppContainer(Nav);
