@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ImageBackground, TextInput, TouchableOpacity, View} from 'react-native';
+import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View} from 'react-native';
 import {globalButtons, globalStyles, iconStyles} from '../styles/Styles';
 import Header from "./Header";
 import {connect} from "react-redux";
@@ -28,15 +28,15 @@ class Login extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <View>
+                    <View style={styles.loginPanel}>
                         <TextInput
-                            style={globalStyles.textInput}
+                            style={[globalStyles.textInput, styles.loginTextInput]}
                             placeholder="User Name"
                             onChangeText={text => this.setState({loginDetails: {username: text, password: this.state.loginDetails.password}})}
                             value={this.state.loginDetails.username}
                         />
                         <TextInput
-                            style={globalStyles.textInput}
+                            style={[globalStyles.textInput, styles.loginTextInput]}
                             placeholder="Password"
                             onChangeText={text => this.setState({loginDetails: {username: this.state.loginDetails.username, password: text}})}
                             value={this.state.loginDetails.password}
@@ -73,4 +73,19 @@ class Login extends Component {
         );
     }
 }
+const styles = StyleSheet.create({
+    loginPanel: {
+        position: 'absolute',
+        bottom: 120,
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    loginTextInput: {
+        textAlign: 'right'
+    }
+});
 export default connect(null, null)(Login)
