@@ -95,8 +95,6 @@ const globalButtons = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         backgroundColor: 'white',
-        paddingTop: 5,
-        paddingBottom: 5,
         justifyContent: 'center',
         alignItems: 'center'
     },
