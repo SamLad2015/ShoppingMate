@@ -23,7 +23,7 @@ class Login extends Component {
         headerRight: () => <Header/>
     };
     render() {
-        const image = require('../assets/bg1.jpg');
+        const image = require('../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>

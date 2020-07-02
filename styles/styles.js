@@ -9,6 +9,18 @@ const globalStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    textInput: {
+        height: 50,
+        borderColor: '#666',
+        borderBottomWidth: 1,
+        marginTop: 20,
+        marginLeft: 5,
+        marginRight: 5,
+        width: '90%',
+        paddingLeft: 10,
+        fontSize:20,
+        color: '#333'
+    },
     bgImage: {
         flex: 1,
         width: '100%',
