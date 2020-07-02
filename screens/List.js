@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import {StyleSheet, View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import {addList} from "../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
@@ -59,8 +59,8 @@ class List extends Component {
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <TextInput
-                        style={styles.textInput}
-                        onChangeText={(text) => this.setState({list: {id: list.id, label: text}})}
+                        style={globalStyles.textInput}
+                        onChangeText={text => this.setState({list: {id: list.id, label: text}})}
                         value={this.state.list.label}
                     />
                     <View style={globalStyles.listWrapper}>
@@ -98,19 +98,6 @@ class List extends Component {
         );
     }
 }
-const styles = StyleSheet.create({
-    textInput: {
-        height: 50,
-        borderColor: '#666',
-        borderBottomWidth: 1,
-        marginTop: 20,
-        marginLeft: 5,
-        marginRight: 5,
-        width: '90%',
-        paddingLeft: 10,
-        fontSize:20,
-    },
-});
 const mapStateToProps = state => ({
     lists: state.lists,
     item: state.item
