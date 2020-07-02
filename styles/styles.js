@@ -19,7 +19,7 @@ const globalStyles = StyleSheet.create({
         width: '90%',
         paddingLeft: 10,
         fontSize:20,
-        color: '#333'
+        color: '#000'
     },
     bgImage: {
         flex: 1,
