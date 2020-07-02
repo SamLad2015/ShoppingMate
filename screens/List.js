@@ -27,9 +27,10 @@ class List extends Component {
         }
     }
     static navigationOptions = {
-        headerTitle: () => <Header/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
+        headerBackTitle: null,
+        headerRight: () => <Header/>
     };
     async getList(listId) {
         const itemsService = new ItemsService();

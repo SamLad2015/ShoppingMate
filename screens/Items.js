@@ -8,15 +8,17 @@ import {globalButtons, globalStyles, iconStyles} from "../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "./Header";
+import Profile from "./Profile";
 
 class Items extends Component {
     constructor(props) {
         super(props);
     }
     static navigationOptions = {
-        headerTitle: () => <Header/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
+        headerBackTitle: null,
+        headerRight: () => <Header/>
     };
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 45
+        marginBottom: 50
     },
     list : {
         flex: 1,

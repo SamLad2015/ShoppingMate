@@ -15,16 +15,18 @@ import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "./Header";
 import ItemsService from "../services/itemsService";
+import Profile from "./Profile";
 
 class Lists extends Component {
     constructor(props) {
         super(props);
     }
-    static navigationOptions = {
-        headerTitle: () => <Header/>,
+    static navigationOptions = ({ navigation }) =>  ({
+        headerTitle: () => <Profile navigation={navigation}/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
-    };
+        headerRight: () => <Header/>
+    });
     deleteList(list) {
         const itemsService = new ItemsService();
         const { removeList } = this.props;
@@ -126,6 +128,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: 'yellow',
         fontStyle: 'italic'
+    },
+    modalStyle: {
+        marginTop: 55,
+        marginBottom: 0,
+        marginLeft: 0,
+        marginRight: 0
     }
 });
 const mapStateToProps = state => ({

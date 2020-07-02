@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const iconStyles = {
-    size: 20
+    size: 25
 };
 const globalStyles = StyleSheet.create({
     container: {
@@ -22,12 +22,13 @@ const globalStyles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 20,
         color: 'orange',
-        textAlign: 'right'
+        textAlign: 'right',
+        paddingRight: 20
     },
     subHeading: {
-        fontFamily: 'notoserif',
         fontWeight: 'bold',
         color: 'white',
+        textAlign: 'left'
     },
     itemRow: {
         flexDirection: 'row',
