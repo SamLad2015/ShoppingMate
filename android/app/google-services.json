@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "645161230048",
+    "firebase_url": "https://shoppingmate-cb438.firebaseio.com",
+    "project_id": "shoppingmate-cb438",
+    "storage_bucket": "shoppingmate-cb438.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:645161230048:android:aef1c565e53fde6723ba85",
+        "android_client_info": {
+          "package_name": "com.technoverse.shoppingmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "645161230048-8qtmv50bhhqgqo88ib2rr2b1mttgvkdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi13e6_Tp9ZpXj5bR44fm0fo2bO8Mx7T4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "645161230048-8qtmv50bhhqgqo88ib2rr2b1mttgvkdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
