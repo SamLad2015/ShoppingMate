@@ -61,7 +61,7 @@ class Lists extends Component {
                                                       iconStyle={globalButtons.deleteIconButton}
                                                       color='white'
                                                       backgroundColor='transparent'
-                                                      size={iconStyles.size}
+                                                      size={iconStyles.size-5}
                                                       name="minus-circle"
                                                       onPress={() => this.deleteList(item)}>
                                                   </Icon.Button>
