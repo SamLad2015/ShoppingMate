@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text} from 'react-native';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from '../../styles/Styles';
-import Header from "../Header";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
+import {FacebookLogin} from "./FacebookLogin";
 
 class Login extends Component {
     constructor(props) {
@@ -45,6 +45,7 @@ class Login extends Component {
                             {this.state.loginDetails.errorMessage &&
                             <Text style={[styles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
                         </View>
+                        <FacebookLogin />
                     </View>
                     <View style={styles.loginPanel}>
                         <TextInput
