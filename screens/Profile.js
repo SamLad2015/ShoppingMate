@@ -31,10 +31,10 @@ export default class Profile extends Component {
     render() {
         return (
             <View style={styles.profileView}>
-                <TouchableOpacity>
+                <TouchableOpacity style={styles.profileViewButton}>
                     <Icon.Button
                         iconStyle={styles.profileButton}
-                        backgroundColor='transparent'
+                        backgroundColor='#800000'
                         size={25}
                         name="user"
                         onPress={this.handleRedirect}>
@@ -47,12 +47,14 @@ export default class Profile extends Component {
 }
 const styles = StyleSheet.create({
     profileView: {
+        flex:1,
+        width:'60%'
+    },
+    profileViewButton :{
         flex:1
     },
     profileButton: {
-        color: '#ffffff',
-        marginTop: 5,
-        marginBottom: 5,
+        color: '#ffffff'
     },
     profileName : {
         color: '#ffffff'
