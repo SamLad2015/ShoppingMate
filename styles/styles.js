@@ -46,7 +46,7 @@ const globalStyles = StyleSheet.create({
         fontSize: 20,
         color: 'orange',
         textAlign: 'right',
-        paddingRight: 20
+        paddingRight: 20,
     },
     itemRow: {
         flexDirection: 'row',
