@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text} from 'react-native';
-import {globalButtons, globalStyles, iconStyles} from '../../styles/Styles';
+import {globalButtons, globalStyles, headerStyles, iconStyles} from '../../styles/Styles';
 import Header from "../Header";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -30,12 +30,7 @@ class Register extends Component {
                 errorMessage: error.message
             }));
     }
-    static navigationOptions = {
-        headerStyle: { backgroundColor: '#800000' },
-        headerTitleStyle: globalStyles.subHeading,
-        headerBackTitle: null,
-        headerRight: () => <Header/>
-    };
+    static navigationOptions = headerStyles;
     render() {
         const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
@@ -78,7 +73,7 @@ class Register extends Component {
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
-                                backgroundColor='transparent'
+                                backgroundColor='#fff'
                                 size={iconStyles.size}
                                 name="remove"
                                 onPress={() => {

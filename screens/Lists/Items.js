@@ -4,22 +4,15 @@ import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 
 import {allItems} from '../../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../../actions/items';
-import {globalButtons, globalStyles, iconStyles} from "../../styles/Styles";
+import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "../Header";
-import Profile from "../Profile";
 
 class Items extends Component {
     constructor(props) {
         super(props);
     }
-    static navigationOptions = {
-        headerStyle: { backgroundColor: '#800000' },
-        headerTitleStyle: globalStyles.subHeading,
-        headerBackTitle: null,
-        headerRight: () => <Header/>
-    };
+    static navigationOptions = headerStyles;
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
     }
@@ -49,7 +42,7 @@ class Items extends Component {
                                 <Icon.Button
                                     iconStyle={globalButtons.iconButton}
                                     color='green'
-                                    backgroundColor='transparent'
+                                    backgroundColor='#fff'
                                     size={iconStyles.size}
                                     name="check"
                                     onPress={() => navigate('List')}>

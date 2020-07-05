@@ -3,6 +3,17 @@ import { StyleSheet } from 'react-native';
 const iconStyles = {
     size: 25
 };
+const subHeaderStyles = {
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'right',
+    flex: 1
+};
+const headerStyles = {
+    headerStyle: { backgroundColor: '#800000' },
+    headerTitleStyle: subHeaderStyles,
+    headerBackTitle: null
+};
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
@@ -36,11 +47,6 @@ const globalStyles = StyleSheet.create({
         color: 'orange',
         textAlign: 'right',
         paddingRight: 20
-    },
-    subHeading: {
-        fontWeight: 'bold',
-        color: 'white',
-        textAlign: 'left'
     },
     itemRow: {
         flexDirection: 'row',
@@ -77,9 +83,7 @@ const globalButtons = StyleSheet.create({
         marginRight: 20,
     },
     iconButton: {
-        marginLeft: 10,
-        marginTop: 5,
-        marginBottom: 5,
+        marginLeft: 10
     },
     deleteIconButton: {
         marginLeft: 20,
@@ -109,7 +113,9 @@ const globalButtons = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: 5,
+        paddingBottom: 5
     },
 });
-export { globalStyles, globalButtons, iconStyles }
+export { globalStyles, globalButtons, iconStyles, headerStyles, subHeaderStyles }

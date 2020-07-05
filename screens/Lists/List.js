@@ -2,13 +2,12 @@ import React, { Component }  from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import {addList} from "../../actions/lists";
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles} from '../../styles/Styles';
+import {globalStyles, globalButtons, iconStyles, headerStyles} from '../../styles/Styles';
 import moment from 'moment';
 import ItemsService from "../../services/itemsService";
 import {updateItemCount} from "../../actions/items";
 import Item from "./Item";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "../Header";
 
 class List extends Component {
     constructor(props) {
@@ -26,12 +25,8 @@ class List extends Component {
             this.getList(listId).then(list => this.setState({list: list}));
         }
     }
-    static navigationOptions = {
-        headerStyle: { backgroundColor: '#800000' },
-        headerTitleStyle: globalStyles.subHeading,
-        headerBackTitle: null,
-        headerRight: () => <Header/>
-    };
+    static navigationOptions = headerStyles;
+
     async getList(listId) {
         const itemsService = new ItemsService();
         return  await itemsService.getListFromStorage(listId);
@@ -76,7 +71,7 @@ class List extends Component {
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
                                 color='green'
-                                backgroundColor='transparent'
+                                backgroundColor='#fff'
                                 size={iconStyles.size}
                                 name="check"
                                 onPress={() => this.saveList()}>
@@ -86,7 +81,7 @@ class List extends Component {
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
-                                backgroundColor='transparent'
+                                backgroundColor='#fff'
                                 size={iconStyles.size}
                                 name="cart-plus"
                                 onPress={() => navigate('Items')}>

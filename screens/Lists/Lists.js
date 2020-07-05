@@ -8,7 +8,7 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles} from '../../styles/Styles';
+import {globalStyles, globalButtons, iconStyles, subHeaderStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
 import moment from "moment";
@@ -27,7 +27,7 @@ class Lists extends Component {
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: (state) => <Profile navigation={navigation} displayName={state.displayName}/>,
         headerStyle: { backgroundColor: '#800000' },
-        headerTitleStyle: globalStyles.subHeading,
+        headerTitleStyle: subHeaderStyles,
         headerRight: () => <Header/>
     });
     componentDidMount() {
@@ -82,7 +82,7 @@ class Lists extends Component {
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
-                                backgroundColor='transparent'
+                                backgroundColor='#fff'
                                 size={iconStyles.size}
                                 name="shopping-basket"
                                 onPress={() => {
