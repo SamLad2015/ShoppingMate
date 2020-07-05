@@ -121,7 +121,7 @@ const globalButtons = StyleSheet.create({
         flex: 1,
         width: '100%',
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: 'rgba(250, 250, 250, 0.5)',
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 5,
