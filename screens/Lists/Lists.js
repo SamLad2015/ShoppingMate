@@ -8,25 +8,31 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
+import {globalStyles, globalButtons, iconStyles} from '../../styles/Styles';
 import * as _ from "lodash";
-import {removeList, setList} from "../actions/lists";
+import {removeList, setList} from "../../actions/lists";
 import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Header from "./Header";
-import ItemsService from "../services/itemsService";
-import Profile from "./Profile";
+import Header from "../Header";
+import ItemsService from "../../services/itemsService";
+import Profile from "../Profile";
 
 class Lists extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            displayName: ''
+        };
     }
     static navigationOptions = ({ navigation }) =>  ({
-        headerTitle: () => <Profile navigation={navigation}/>,
+        headerTitle: (state) => <Profile navigation={navigation} displayName={state.displayName}/>,
         headerStyle: { backgroundColor: '#800000' },
         headerTitleStyle: globalStyles.subHeading,
         headerRight: () => <Header/>
     });
+    componentDidMount() {
+        this.state.displayName = 'sam';
+    }
     deleteList(list) {
         const itemsService = new ItemsService();
         const { removeList } = this.props;
@@ -36,7 +42,7 @@ class Lists extends Component {
     }
     render() {
         const {lists, setList} = this.props;
-        const image = require('../assets/bg1.jpg');
+        const image = require('../../assets/bg1.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>

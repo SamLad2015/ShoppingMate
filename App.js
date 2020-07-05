@@ -3,24 +3,16 @@ import storeFunc from "./store/configureStore";
 import { Provider } from 'react-redux';
 import Nav from './screens/Nav';
 import * as firebase from "firebase";
+import {firebaseConfig} from "./firebase/firebase.config";
 
 const store = storeFunc.configureStore()
 
 export default class App extends React.Component {
     constructor() {
         super();
-        const firebaseConfig = {
-            apiKey: "AIzaSyA0yFzTVGkg6fPWYkrSq7O9-ufJ32uj6cs",
-            authDomain: "shoppingmate-cb438.firebaseapp.com",
-            databaseURL: "https://shoppingmate-cb438.firebaseio.com",
-            projectId: "shoppingmate-cb438",
-            storageBucket: "shoppingmate-cb438.appspot.com",
-            messagingSenderId: "645161230048",
-            appId: "1:645161230048:web:d5497b1a199b14df23ba85",
-            measurementId: "G-8P68S1BY1Y"
-            };
-        firebase.initializeApp(firebaseConfig);
-
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
         store.dispatch(storeFunc.getAsyncStorage());
     }
     render() {

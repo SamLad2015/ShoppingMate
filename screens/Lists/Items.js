@@ -1,14 +1,14 @@
 import React, { Component }  from 'react';
 import SelectMultiple from 'react-native-select-multiple';
 import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 'react-native';
-import {allItems} from '../data/items.json';
+import {allItems} from '../../data/items.json';
 import { connect } from 'react-redux';
-import { setItems } from '../actions/items';
-import {globalButtons, globalStyles, iconStyles} from "../styles/Styles";
+import { setItems } from '../../actions/items';
+import {globalButtons, globalStyles, iconStyles} from "../../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "./Header";
-import Profile from "./Profile";
+import Header from "../Header";
+import Profile from "../Profile";
 
 class Items extends Component {
     constructor(props) {
@@ -24,7 +24,7 @@ class Items extends Component {
         this.setState({selectedItems});
     }
     render() {
-        const image = require('../assets/bg3.jpg');
+        const image = require('../../assets/bg3.jpg');
         let { lists, setItems } = this.props;
         const { navigate } = this.props.navigation;
         const renderLabel = (item) => {

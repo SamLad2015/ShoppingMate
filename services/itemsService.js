@@ -3,14 +3,14 @@ import * as _ from 'lodash';
 
 export default class ItemsService {
     async getListsFromStorage() {
-        return await AsyncStorage.getItem('lists');
+        return await AsyncStorage.getItem('lists', null);
     }
     async getListFromStorage(listId) {
-        const lists = await AsyncStorage.getItem('lists');
+        const lists = await AsyncStorage.getItem('lists', null);
         return _.find(JSON.parse(lists), {id: listId});
     }
     async getListItemFromStorage(listId, itemCode) {
-        const lists = await AsyncStorage.getItem('lists');
+        const lists = await AsyncStorage.getItem('lists', null);
         const list = _.find(JSON.parse(lists), {id: listId});
         return _.find(list.items, {value: itemCode});
     }

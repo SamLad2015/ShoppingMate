@@ -1,9 +1,9 @@
 import React, { Component }  from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
-import {updateItemCount} from "../actions/items";
-import ItemsService from "../services/itemsService";
+import {globalStyles, globalButtons, iconStyles} from '../../styles/Styles';
+import {updateItemCount} from "../../actions/items";
+import ItemsService from "../../services/itemsService";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 

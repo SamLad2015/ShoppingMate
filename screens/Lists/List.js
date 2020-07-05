@@ -1,14 +1,14 @@
 import React, { Component }  from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
-import {addList} from "../actions/lists";
+import {addList} from "../../actions/lists";
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles} from '../styles/Styles';
+import {globalStyles, globalButtons, iconStyles} from '../../styles/Styles';
 import moment from 'moment';
-import ItemsService from "../services/itemsService";
-import {updateItemCount} from "../actions/items";
+import ItemsService from "../../services/itemsService";
+import {updateItemCount} from "../../actions/items";
 import Item from "./Item";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Header from "./Header";
+import Header from "../Header";
 
 class List extends Component {
     constructor(props) {
@@ -51,7 +51,7 @@ class List extends Component {
         });
     }
     render() {
-        const image = require('../assets/bg2.jpg');
+        const image = require('../../assets/bg2.jpg');
         const { lists } = this.props;
         const list = lists && lists.list ? lists.list : this.state.list;
         const { navigate } = this.props.navigation;

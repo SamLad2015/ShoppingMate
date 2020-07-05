@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text} from 'react-native';
-import {globalButtons, globalStyles, iconStyles} from '../styles/Styles';
-import Header from "./Header";
+import {globalButtons, globalStyles, iconStyles} from '../../styles/Styles';
+import Header from "../Header";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 
-class Login extends Component {
+class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loginDetails: {
-                email: '',
-                password: '',
-                errorMessage: null
-            }
+            fullName: '',
+            email: '',
+            password: '',
+            errorMessage: null
         };
     }
-    handleLogin = () => {
-        const {email, password} = this.state.loginDetails;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then(() => this.props.navigation.navigate('Lists'))
+    handleSignUp = () => {
+        const {fullName, email, password} = this.state;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
+                return userCredentials.user.updateProfile({
+                    displayName: fullName
+                }).then(() => {
+                    this.props.navigation.navigate('Login');
+                });
+            })
             .catch(error => this.setState({
-            loginDetails: {errorMessage: error.message}
-        }));
+                errorMessage: error.message
+            }));
     }
     static navigationOptions = {
         headerStyle: { backgroundColor: '#800000' },
@@ -32,43 +37,40 @@ class Login extends Component {
         headerRight: () => <Header/>
     };
     render() {
-        const image = require('../assets/bg0.jpg');
+        const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <View style={styles.welcome}>
-                        <View style={styles.success}>
-                            <Text style={[styles.introText, styles.welcomeText]}>Welcome</Text>
-                        </View>
-                        <View style={styles.error}>
-                            {this.state.loginDetails.errorMessage &&
-                            <Text style={[styles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
-                        </View>
+                    <View style={styles.error}>
+                        {this.state.errorMessage &&
+                        <Text style={[styles.introText, styles.errorText]}>{this.state.errorMessage}</Text>}
                     </View>
-                    <View style={styles.loginPanel}>
+                    <View style={styles.regPanel}>
+                        <TextInput
+                            autoCapitalize="none"
+                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            placeholder="Full Name"
+                            onChangeText={fullName => this.setState({fullName})}
+                            value={this.state.fullName}
+                        />
                         <TextInput
                             autoCapitalize="none"
                             style={[globalStyles.textInput, styles.loginTextInput]}
                             placeholder="Email Address"
-                            onChangeText={text => this.setState({loginDetails: {email: text, password: this.state.loginDetails.password}})}
-                            value={this.state.loginDetails.email}
+                            onChangeText={email => this.setState({email})}
+                            value={this.state.email}
                         />
                         <TextInput
                             secureTextEntry
                             autoCapitalize="none"
                             style={[globalStyles.textInput, styles.loginTextInput]}
                             placeholder="Password"
-                            onChangeText={text => this.setState({loginDetails: {email: this.state.loginDetails.email, password: text}})}
-                            value={this.state.loginDetails.password}
+                            onChangeText={password => this.setState({password})}
+                            value={this.state.password}
                         />
-                        <TouchableOpacity style={styles.loginButton} onPress={this.handleLogin}>
-                            <Text style={styles.loginButtonText}>Sign In</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.signUp}>
-                            <Text>
-                                New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
-                            </Text>
+                        <TouchableOpacity style={styles.regButton} onPress={this.handleSignUp}>
+                            <Text style={styles.regButtonText}>Register</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
@@ -91,9 +93,27 @@ class Login extends Component {
     }
 }
 const styles = StyleSheet.create({
-    loginPanel: {
+    register :{
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 20
+    },
+    registerText: {
+        fontSize: 20,
+        fontWeight: '700',
+        color: 'black'
+    },
+    error: {
+        flex: 1,
+    },
+    introText: {
+        fontSize: 17,
+        fontWeight: '700',
+        textAlign: 'center'
+    },
+    regPanel: {
         position: 'absolute',
-        bottom: 120,
+        bottom: 100,
         width: '100%',
         flex: 1,
         justifyContent: 'center',
@@ -104,41 +124,9 @@ const styles = StyleSheet.create({
     loginTextInput: {
         textAlign: 'right'
     },
-    welcome: {
+    regButton: {
         flex: 1,
-        flexDirection: 'column',
-        marginTop: 20
-    },
-    success: {
-        flex: 1,
-        textAlign: 'center'
-    },
-    error: {
-        flex: 1,
-    },
-    introText: {
-        fontSize: 17,
-        fontWeight: '700',
-        textAlign: 'center'
-    },
-    welcomeText: {
-        color: 'green'
-    },
-    errorText: {
-        color: 'red'
-    },
-    signUp: {
-        flex: 1,
-        marginTop: 32
-    },
-    signUpLink: {
-        fontWeight: "700",
-        color: "#E9446A",
-        fontSize: 15
-    },
-    loginButton: {
-        flex: 1,
-        marginTop: 32,
+        marginTop: 52,
         marginHorizontal: 30,
         backgroundColor: "#333",
         borderRadius: 4,
@@ -146,10 +134,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center"
     },
-    loginButtonText: {
+    regButtonText: {
         color: '#FFF',
         fontSize: 20,
         padding: 20
     }
 });
-export default connect(null, null)(Login)
+export default connect(null, null)(Register)

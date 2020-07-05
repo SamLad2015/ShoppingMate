@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import {globalStyles} from "../styles/Styles";
+import {globalStyles} from "../../styles/Styles";
 import ActivityIndicator from "react-native-web/dist/exports/ActivityIndicator";
 import * as firebase from 'firebase';
 
