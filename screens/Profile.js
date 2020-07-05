@@ -38,7 +38,7 @@ export default class Profile extends Component {
                         size={25}
                         name="user"
                         onPress={this.handleRedirect}>
-                        {this.state.displayName}
+                        {this.state.displayName || 'Login'}
                     </Icon.Button>
                 </TouchableOpacity>
             </View>
