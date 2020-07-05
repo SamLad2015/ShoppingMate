@@ -13,7 +13,7 @@ export default class Profile extends Component {
         const {navigation} = this.props;
         this.focusListener = navigation.addListener('didFocus', () => {
             AsyncStorage.getItem('user', null).then((user) => {
-                this.setState({displayName: user ? JSON.parse(user).displayName : null});
+                this.setState({displayName: user ? JSON.parse(user).displayName.split(' ')[0] : null});
             });
         });
     }
