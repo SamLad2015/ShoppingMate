@@ -21,12 +21,12 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     textInput: {
-        height: 50,
         borderColor: '#666',
         borderBottomWidth: 1,
-        marginTop: 20,
+        marginTop: 15,
         marginLeft: 5,
         marginRight: 5,
+        marginBottom: 15,
         width: '90%',
         paddingLeft: 10,
         fontSize:20,
@@ -76,6 +76,16 @@ const globalStyles = StyleSheet.create({
         marginTop: 10,
         color: '#000',
     },
+    loginPanel: {
+        position: 'absolute',
+        bottom: 100,
+        width: '100%',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 20,
+        paddingRight: 20
+    }
 });
 const globalButtons = StyleSheet.create({
     iconButtonWrapper :{
@@ -117,5 +127,20 @@ const globalButtons = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5
     },
+    loginButton: {
+        flex: 1,
+        marginTop: 32,
+        marginHorizontal: 30,
+        backgroundColor: "#333",
+        borderRadius: 4,
+        height: 40,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    loginButtonText: {
+        color: '#FFF',
+        fontSize: 20,
+        padding: 20
+    }
 });
 export { globalStyles, globalButtons, iconStyles, headerStyles, subHeaderStyles }

@@ -64,8 +64,8 @@ class Register extends Component {
                             onChangeText={password => this.setState({password})}
                             value={this.state.password}
                         />
-                        <TouchableOpacity style={styles.regButton} onPress={this.handleSignUp}>
-                            <Text style={styles.regButtonText}>Register</Text>
+                        <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleSignUp}>
+                            <Text style={globalButtons.loginButtonText}>Register</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
@@ -118,21 +118,6 @@ const styles = StyleSheet.create({
     },
     loginTextInput: {
         textAlign: 'right'
-    },
-    regButton: {
-        flex: 1,
-        marginTop: 52,
-        marginHorizontal: 30,
-        backgroundColor: "#333",
-        borderRadius: 4,
-        height: 40,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    regButtonText: {
-        color: '#FFF',
-        fontSize: 20,
-        padding: 20
     }
 });
 export default connect(null, null)(Register)

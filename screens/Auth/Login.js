@@ -37,15 +37,12 @@ class Login extends Component {
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <View style={styles.welcome}>
-                        <View style={styles.success}>
-                            <Text style={[styles.introText, styles.welcomeText]}>Welcome</Text>
-                        </View>
                         <View style={styles.error}>
                             {this.state.loginDetails.errorMessage &&
                             <Text style={[styles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
                         </View>
                     </View>
-                    <View style={styles.loginPanel}>
+                    <View style={globalStyles.loginPanel}>
                         <TextInput
                             autoCapitalize="none"
                             style={[globalStyles.textInput, styles.loginTextInput]}
@@ -61,8 +58,8 @@ class Login extends Component {
                             onChangeText={text => this.setState({loginDetails: {email: this.state.loginDetails.email, password: text}})}
                             value={this.state.loginDetails.password}
                         />
-                        <TouchableOpacity style={styles.loginButton} onPress={this.handleLogin}>
-                            <Text style={styles.loginButtonText}>Sign In</Text>
+                        <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogin}>
+                            <Text style={globalButtons.loginButtonText}>Sign In</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text>
@@ -90,16 +87,6 @@ class Login extends Component {
     }
 }
 const styles = StyleSheet.create({
-    loginPanel: {
-        position: 'absolute',
-        bottom: 100,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20
-    },
     loginTextInput: {
         textAlign: 'right'
     },
@@ -133,21 +120,6 @@ const styles = StyleSheet.create({
         fontWeight: "700",
         color: "#E9446A",
         fontSize: 15
-    },
-    loginButton: {
-        flex: 1,
-        marginTop: 52,
-        marginHorizontal: 30,
-        backgroundColor: "#333",
-        borderRadius: 4,
-        height: 40,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    loginButtonText: {
-        color: '#FFF',
-        fontSize: 20,
-        padding: 20
     }
 });
 export default connect(null, null)(Login)

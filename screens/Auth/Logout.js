@@ -47,9 +47,9 @@ class Logout extends Component {
                             </Text>
                         </View>
                     </View>
-                    <View style={styles.loginPanel}>
-                        <TouchableOpacity style={styles.loginButton} onPress={this.handleLogout}>
-                            <Text style={styles.loginButtonText}>Sign Out</Text>
+                    <View style={globalStyles.loginPanel}>
+                        <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogout}>
+                            <Text style={globalButtons.loginButtonText}>Sign Out</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
@@ -72,16 +72,6 @@ class Logout extends Component {
     }
 }
 const styles = StyleSheet.create({
-    loginPanel: {
-        position: 'absolute',
-        bottom: 100,
-        width: '100%',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingLeft: 20,
-        paddingRight: 20
-    },
     welcome: {
         flex: 1,
         flexDirection: 'column',
@@ -102,21 +92,6 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         color: 'black'
-    },
-    loginButton: {
-        flex: 1,
-        marginTop: 52,
-        marginHorizontal: 30,
-        backgroundColor: "#333",
-        borderRadius: 4,
-        height: 40,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    loginButtonText: {
-        color: '#FFF',
-        fontSize: 20,
-        padding: 20
     },
     userEmail: {
         paddingLeft: 5,
