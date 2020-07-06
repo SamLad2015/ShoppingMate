@@ -73,6 +73,7 @@ class List extends Component {
                                 color='green'
                                 backgroundColor='#fff'
                                 size={iconStyles.size}
+                                borderRadius={iconStyles.size + 5}
                                 name="check"
                                 onPress={() => this.saveList()}>
                             </Icon.Button>
@@ -83,6 +84,7 @@ class List extends Component {
                                 color='black'
                                 backgroundColor='#fff'
                                 size={iconStyles.size}
+                                borderRadius={iconStyles.size + 5}
                                 name="cart-plus"
                                 onPress={() => navigate('Items')}>
                             </Icon.Button>

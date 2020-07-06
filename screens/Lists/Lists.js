@@ -67,7 +67,7 @@ class Lists extends Component {
                                                       iconStyle={globalButtons.deleteIconButton}
                                                       color='white'
                                                       backgroundColor='transparent'
-                                                      size={iconStyles.size-5}
+                                                      size={iconStyles.size + 7}
                                                       name="minus-circle"
                                                       onPress={() => this.deleteList(item)}>
                                                   </Icon.Button>
@@ -83,6 +83,7 @@ class Lists extends Component {
                                 iconStyle={globalButtons.iconButton}
                                 color='black'
                                 backgroundColor='#fff'
+                                borderRadius={iconStyles.size + 5}
                                 size={iconStyles.size}
                                 name="shopping-basket"
                                 onPress={() => {
@@ -102,7 +103,7 @@ class Lists extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         flexDirection: 'row',
-        paddingLeft: 20,
+        paddingLeft: 10,
         paddingBottom: 10,
         marginBottom: 15,
         borderBottomColor: '#c0c0c0',
@@ -123,7 +124,8 @@ const styles = StyleSheet.create({
         flex: 0.8
     },
     deleteIcon: {
-        flex: 0.2
+        flex: 0.2,
+        alignItems: 'flex-end'
     },
     listLabel: {
         fontSize: 15,
@@ -134,12 +136,6 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: 'yellow',
         fontStyle: 'italic'
-    },
-    modalStyle: {
-        marginTop: 55,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0
     }
 });
 const mapStateToProps = state => ({

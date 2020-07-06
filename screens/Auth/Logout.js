@@ -59,6 +59,7 @@ class Logout extends Component {
                                 color='black'
                                 backgroundColor='#fff'
                                 size={iconStyles.size}
+                                borderRadius={iconStyles.size + 5}
                                 name="remove"
                                 onPress={() => {
                                     navigate('Lists')

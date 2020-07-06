@@ -33,7 +33,7 @@ export default class Profile extends Component {
             <View style={styles.profileView}>
                 <TouchableOpacity style={styles.profileViewButton}>
                     <Icon.Button
-                        iconStyle={styles.profileButton}
+                        iconStyle={this.state.displayName ? styles.profileButtonActive : styles.profileButton}
                         backgroundColor='#800000'
                         size={25}
                         name="user"
@@ -55,6 +55,9 @@ const styles = StyleSheet.create({
     },
     profileButton: {
         color: '#ffffff'
+    },
+    profileButtonActive: {
+        color: '#83f52c'
     },
     profileName : {
         color: '#ffffff'

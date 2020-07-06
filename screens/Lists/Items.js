@@ -44,6 +44,7 @@ class Items extends Component {
                                     color='green'
                                     backgroundColor='#fff'
                                     size={iconStyles.size}
+                                    borderRadius={iconStyles.size + 5}
                                     name="check"
                                     onPress={() => navigate('List')}>
                                 </Icon.Button>

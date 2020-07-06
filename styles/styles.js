@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const iconStyles = {
-    size: 25
+    size: 15
 };
 const subHeaderStyles = {
     fontWeight: 'bold',
@@ -50,7 +50,7 @@ const globalStyles = StyleSheet.create({
     },
     itemRow: {
         flexDirection: 'row',
-        paddingLeft: 20,
+        paddingLeft: 10,
         paddingTop: 10,
         paddingBottom: 10,
         marginBottom: 1,
@@ -93,7 +93,9 @@ const globalButtons = StyleSheet.create({
         marginRight: 20,
     },
     iconButton: {
-        marginLeft: 10
+        marginLeft: 10,
+        marginTop:5,
+        marginBottom:5
     },
     deleteIconButton: {
         marginLeft: 20,
@@ -110,10 +112,11 @@ const globalButtons = StyleSheet.create({
     },
     counterButtonText: {
         fontWeight: 'bold',
-        fontSize: 25,
+        fontSize: 17,
         paddingLeft:10,
         paddingRight: 10,
-        color: 'blue'
+        color: 'blue',
+        paddingTop:3
     },
     bottomButtonsWrapper: {
         position: 'absolute',

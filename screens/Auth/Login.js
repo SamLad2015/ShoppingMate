@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
+import PhoneAuth from "./PhoneAuth";
 
 class Login extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class Login extends Component {
     }
     doLogin = () => {
         const {email, password} = this.state.loginDetails;
+        firebase.auth().si
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null).then(() => this.props.navigation.navigate('Lists')))
             .catch(error => this.setState({
@@ -43,6 +45,7 @@ class Login extends Component {
                         </View>
                     </View>
                     <View style={globalStyles.loginPanel}>
+                        <PhoneAuth/>
                         <TextInput
                             autoCapitalize="none"
                             style={[globalStyles.textInput, styles.loginTextInput]}
@@ -74,6 +77,7 @@ class Login extends Component {
                                 color='black'
                                 backgroundColor='#fff'
                                 size={iconStyles.size}
+                                borderRadius={iconStyles.size + 5}
                                 name="remove"
                                 onPress={() => {
                                     navigate('Lists')
