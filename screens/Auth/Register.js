@@ -22,13 +22,16 @@ class Register extends Component {
             .then((userCredentials) => {
                 return userCredentials.user.updateProfile({
                     displayName: fullName
-                }).then(() => {
-                    this.props.navigation.navigate('Login');
-                });
+                }).then(() => this.handleAccountSetUp(userCredentials.user));
             })
             .catch(error => this.setState({
                 errorMessage: error.message
             }));
+    }
+    handleAccountSetUp(user) {
+        user.sendEmailVerification().then(() => {
+            this.props.navigation.navigate('Login');
+        });
     }
     static navigationOptions = headerStyles;
     render() {
@@ -39,19 +42,19 @@ class Register extends Component {
                 <ImageBackground source={image} style={globalStyles.bgImage}>
                     <View style={styles.error}>
                         {this.state.errorMessage &&
-                        <Text style={[styles.introText, styles.errorText]}>{this.state.errorMessage}</Text>}
+                        <Text style={[globalStyles.introText, styles.errorText]}>{this.state.errorMessage}</Text>}
                     </View>
                     <View style={styles.regPanel}>
                         <TextInput
                             autoCapitalize="none"
-                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
                             placeholder="Full Name"
                             onChangeText={fullName => this.setState({fullName})}
                             value={this.state.fullName}
                         />
                         <TextInput
                             autoCapitalize="none"
-                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
                             placeholder="Email Address"
                             onChangeText={email => this.setState({email})}
                             value={this.state.email}
@@ -59,7 +62,7 @@ class Register extends Component {
                         <TextInput
                             secureTextEntry
                             autoCapitalize="none"
-                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
                             placeholder="Password"
                             onChangeText={password => this.setState({password})}
                             value={this.state.password}
@@ -102,11 +105,6 @@ const styles = StyleSheet.create({
     error: {
         flex: 1,
     },
-    introText: {
-        fontSize: 17,
-        fontWeight: '700',
-        textAlign: 'center'
-    },
     regPanel: {
         position: 'absolute',
         bottom: 100,
@@ -116,9 +114,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20
-    },
-    loginTextInput: {
-        textAlign: 'right'
     }
 });
 export default connect(null, null)(Register)

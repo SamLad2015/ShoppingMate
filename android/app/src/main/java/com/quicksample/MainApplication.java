@@ -1,4 +1,4 @@
-package com.quicksample;
+package com.shoppingmate;
 
 import android.app.Application;
 

@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
-import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text} from 'react-native';
+import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text, Animated} from 'react-native';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from '../../styles/Styles';
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
-import PhoneAuth from "./PhoneAuth";
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            fadeIn: new Animated.Value(0),
+            fadeOut: new Animated.Value(1),
+            user: null,
             loginDetails: {
                 email: '',
                 password: '',
@@ -24,13 +26,47 @@ class Login extends Component {
     }
     doLogin = () => {
         const {email, password} = this.state.loginDetails;
-        firebase.auth().si
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null).then(() => this.props.navigation.navigate('Lists')))
+            .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null).then(() => this.handleAccountSetUp(response.user)))
             .catch(error => this.setState({
-                errorMessage: error.message
+                loginDetails: {
+                    errorMessage: error.message
+                }
             }));
     }
+    handleAccountSetUp(user) {
+        if (user.emailVerified) {
+            this.props.navigation.navigate('Lists');
+        } else {
+            this.fadeIn();
+            this.setState({
+                loginDetails: {
+                    errorMessage:'Please verify your account on the link sent to your registered email.'
+                }
+            });
+        }
+    }
+    fadeIn() {
+        this.state.fadeIn.setValue(0)
+        Animated.timing(
+            this.state.fadeIn,
+            {
+                toValue: 1,
+                duration: 1000,
+            }
+        ).start(() => this.fadeOut());
+    }
+
+    fadeOut() {
+        Animated.timing(
+            this.state.fadeIn,
+            {
+                toValue: 0,
+                duration: 2000,
+            }
+        ).start();
+    }
+
     static navigationOptions = headerStyles;
     render() {
         const image = require('../../assets/bg0.jpg');
@@ -38,17 +74,10 @@ class Login extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={image} style={globalStyles.bgImage}>
-                    <View style={styles.welcome}>
-                        <View style={styles.error}>
-                            {this.state.loginDetails.errorMessage &&
-                            <Text style={[styles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
-                        </View>
-                    </View>
                     <View style={globalStyles.loginPanel}>
-                        <PhoneAuth/>
                         <TextInput
                             autoCapitalize="none"
-                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
                             placeholder="Email Address"
                             onChangeText={text => this.setState({loginDetails: {email: text, password: this.state.loginDetails.password}})}
                             value={this.state.loginDetails.email}
@@ -56,7 +85,7 @@ class Login extends Component {
                         <TextInput
                             secureTextEntry
                             autoCapitalize="none"
-                            style={[globalStyles.textInput, styles.loginTextInput]}
+                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
                             placeholder="Password"
                             onChangeText={text => this.setState({loginDetails: {email: this.state.loginDetails.email, password: text}})}
                             value={this.state.loginDetails.password}
@@ -67,6 +96,11 @@ class Login extends Component {
                         <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text>
                                 New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('ResetPassword')}>
+                            <Text>
+                                Forgotten Password? <Text style={styles.signUpLink}>Reset</Text>
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -85,44 +119,32 @@ class Login extends Component {
                             </Icon.Button>
                         </TouchableOpacity>
                     </View>
+                    <Animated.View style={[styles.error, {opacity: this.state.fadeIn}]}>
+                        {this.state.loginDetails.errorMessage &&
+                        <Text style={[globalStyles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
+                    </Animated.View>
                 </ImageBackground>
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
-    loginTextInput: {
-        textAlign: 'right'
-    },
-    welcome: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 20
-    },
-    success: {
-        flex: 1
-    },
     error: {
-        flex: 1,
-    },
-    introText: {
-        fontSize: 17,
-        fontWeight: '700',
-        textAlign: 'center'
-    },
-    welcomeText: {
-        color: 'green'
+        backgroundColor: '#fff',
+        height: 75,
+        position: 'absolute',
+        bottom: 0
     },
     errorText: {
         color: 'red'
     },
     signUp: {
         flex: 1,
-        marginTop: 32
+        marginTop: 15
     },
     signUpLink: {
         fontWeight: "700",
-        color: "#E9446A",
+        color: "#800000",
         fontSize: 15
     }
 });

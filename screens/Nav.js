@@ -9,11 +9,13 @@ import Items from './lists/Items';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Logout from "./auth/Logout";
+import ResetPassword from "./auth/ResetPassword";
 
 const Nav = createStackNavigator({
         Login: { screen: Login },
         Logout: { screen: Logout },
         Register: { screen: Register },
+        ResetPassword: { screen: ResetPassword },
         Lists: { screen: Lists },
         List: { screen: List },
         Items: { screen: Items }
