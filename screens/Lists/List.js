@@ -23,7 +23,7 @@ class List extends Component {
             }
         };
         if (listId >= 0) {
-            this.getList(listId).then(list => this.setState({list: list}));
+            this.getList(listId).then(list => this.setState({list}));
         }
     }
     static navigationOptions = headerStyles;

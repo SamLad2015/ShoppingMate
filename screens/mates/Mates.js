@@ -8,53 +8,46 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles, subHeaderStyles} from '../../styles/Styles';
+import {globalStyles, globalButtons, iconStyles, headerStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
-import moment from "moment";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Header from "../Header";
-import ItemsService from "../../services/itemsService";
-import Profile from "../Profile";
 import GetBgImageUrl from "../../configs/asset.config";
+import MatesService from "../../services/matesService";
+import moment from "moment";
 
-class Lists extends Component {
+class Mates extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            mates: []
+        }
+        this.getList().then(mates => this.setState({mates}));
     }
-    static navigationOptions = ({ navigation }) =>  ({
-        headerTitle: () => <Profile navigation={navigation}/>,
-        headerStyle: { backgroundColor: '#800000' },
-        headerTitleStyle: subHeaderStyles,
-        headerRight: () => <Header/>
-    });
-    deleteList(list) {
-        const itemsService = new ItemsService();
-        const { removeList } = this.props;
-        itemsService.deleteListFromStorage(list).then(() => {
-            removeList(list);
-        });
+    static navigationOptions = headerStyles;
+    async getList() {
+        const matesService = new MatesService();
+        return await matesService.getMatesFromStorage();
     }
     render() {
-        const {lists, setList} = this.props;
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
-                        <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
+                        <FlatList data={_.orderBy(this.state.mates, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.id.toString()}
                                   renderItem={({item}) =>
                                       <View style={styles.itemRow}>
                                           <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                                                                setList(item)
-                                                                navigate('List', {
-                                                                    listId: item.id
-                                                                })
-                                                            }}>
+                                              setList(item)
+                                              navigate('List', {
+                                                  listId: item.id
+                                              })
+                                          }}>
                                               <View style={styles.listDetails}>
-                                                  <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
-                                                  <Text style={styles.dateTimeStampLabel}>{moment(item.createdOn).format('ddd, DD MMM YYYY hh:mm A')}</Text>
+                                                  <Text style={styles.listLabel}>{item.name}</Text>
+                                                  <Text style={styles.listCountLabel}>{item.listCount}</Text>
                                               </View>
                                               <View style={styles.deleteIcon}>
                                                   <Icon.Button
@@ -75,17 +68,12 @@ class Lists extends Component {
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                             <Icon.Button
                                 iconStyle={globalButtons.iconButton}
-                                color='black'
+                                color='green'
                                 backgroundColor='#fff'
-                                borderRadius={iconStyles.size + 5}
                                 size={iconStyles.size}
-                                name="shopping-basket"
-                                onPress={() => {
-                                    setList(undefined)
-                                    navigate('List', {
-                                        listId: -1
-                                    })
-                                }}>
+                                borderRadius={iconStyles.size + 5}
+                                name="check"
+                                onPress={() => this.saveList()}>
                             </Icon.Button>
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
@@ -95,10 +83,10 @@ class Lists extends Component {
                                 backgroundColor='#fff'
                                 borderRadius={iconStyles.size + 5}
                                 size={iconStyles.size}
-                                name="users"
+                                name="user"
                                 onPress={() => {
                                     setList(undefined)
-                                    navigate('Mates', {
+                                    navigate('Mate', {
                                         listId: -1
                                     })
                                 }}>
@@ -119,7 +107,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#c0c0c0',
         borderBottomWidth: 1,
         backgroundColor: '#000',
-        borderRadius: 10
+        borderRadius: 10,
     },
     listWrapper: {
         flex: 1,
@@ -131,25 +119,37 @@ const styles = StyleSheet.create({
         paddingRight: 10
     },
     listDetails: {
-        flex: 0.8
+        flex: 0.8,
+        flexDirection: 'row'
     },
     deleteIcon: {
         flex: 0.2,
         alignItems: 'flex-end'
     },
     listLabel: {
-        fontSize: 15,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        fontSize: 17,
+        marginTop: 10,
         color: '#fff',
-        paddingBottom: 5
+        paddingTop: 5
     },
-    dateTimeStampLabel: {
-        fontSize: 10,
-        color: 'yellow',
-        fontStyle: 'italic'
+    listCountLabel: {
+        fontSize: 15,
+        color: '#000',
+        marginTop: 15,
+        marginLeft: 10,
+        fontWeight: 'bold',
+        borderRadius: 12,
+        paddingLeft: 0,
+        paddingTop: 1,
+        height: 24,
+        width: 24,
+        backgroundColor: '#83f52c',
+        textAlign: 'center'
     }
 });
 const mapStateToProps = state => ({
-    lists: state.lists,
-    list: state.list
+    lists: state.lists
 });
-export default connect(mapStateToProps, {setList, removeList})(Lists)
+export default connect(mapStateToProps, {setList, removeList})(Mates)

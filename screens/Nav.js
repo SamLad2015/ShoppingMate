@@ -10,6 +10,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Logout from "./auth/Logout";
 import ResetPassword from "./auth/ResetPassword";
+import Mates from "./mates/Mates";
 
 const Nav = createStackNavigator({
         Login: { screen: Login },
@@ -17,6 +18,7 @@ const Nav = createStackNavigator({
         Register: { screen: Register },
         ResetPassword: { screen: ResetPassword },
         Lists: { screen: Lists },
+        Mates: { screen: Mates },
         List: { screen: List },
         Items: { screen: Items }
     },
