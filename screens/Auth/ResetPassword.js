@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {AsyncStorage, ImageBackground, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {globalStyles} from "../../styles/Styles";
+import {globalStyles, headerStyles} from "../../styles/Styles";
 import * as firebase from "firebase";
 import {globalButtons, iconStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
+import GetBgImageUrl from "../../configs/asset.config";
 
 export default class ResetPassword extends Component {
     constructor(props) {
@@ -21,12 +22,12 @@ export default class ResetPassword extends Component {
             this.setState({passwordResetLinkSent : true});
         });
     }
+    static navigationOptions = headerStyles;
     render() {
-        const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg6.jpg')} style={globalStyles.bgImage}>
                     {!this.state.passwordResetLinkSent && <View style={globalStyles.loginPanel}>
                         <TextInput
                             autoCapitalize="none"

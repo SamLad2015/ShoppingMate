@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class Login extends Component {
     constructor(props) {
@@ -69,11 +70,10 @@ class Login extends Component {
 
     static navigationOptions = headerStyles;
     render() {
-        const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg0.jpg')} style={globalStyles.bgImage}>
                     <View style={globalStyles.loginPanel}>
                         <TextInput
                             autoCapitalize="none"

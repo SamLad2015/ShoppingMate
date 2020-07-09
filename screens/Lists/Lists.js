@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "../Header";
 import ItemsService from "../../services/itemsService";
 import Profile from "../Profile";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class Lists extends Component {
     constructor(props) {
@@ -42,11 +43,10 @@ class Lists extends Component {
     }
     render() {
         const {lists, setList} = this.props;
-        const image = require('../../assets/bg1.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.id.toString()}
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     },
     dateTimeStampLabel: {
-        fontSize: 12,
+        fontSize: 10,
         color: 'yellow',
         fontStyle: 'italic'
     }

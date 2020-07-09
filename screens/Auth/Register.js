@@ -5,6 +5,7 @@ import Header from "../Header";
 import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class Register extends Component {
     constructor(props) {
@@ -35,11 +36,10 @@ class Register extends Component {
     }
     static navigationOptions = headerStyles;
     render() {
-        const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg5.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.error}>
                         {this.state.errorMessage &&
                         <Text style={[globalStyles.introText, styles.errorText]}>{this.state.errorMessage}</Text>}

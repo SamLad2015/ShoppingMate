@@ -7,6 +7,7 @@ import { setItems } from '../../actions/items';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../styles/Styles";
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class Items extends Component {
     constructor(props) {
@@ -17,7 +18,6 @@ class Items extends Component {
         this.setState({selectedItems});
     }
     render() {
-        const image = require('../../assets/bg3.jpg');
         let { lists, setItems } = this.props;
         const { navigate } = this.props.navigation;
         const renderLabel = (item) => {
@@ -30,7 +30,7 @@ class Items extends Component {
 
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg3.jpg')} style={globalStyles.bgImage}>
                     <SelectMultiple
                         style={styles.listWrapper}
                         items={_.orderBy(allItems, 'label')}

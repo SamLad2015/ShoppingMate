@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class Logout extends Component {
     constructor(props) {
@@ -32,17 +33,16 @@ class Logout extends Component {
     }
     static navigationOptions = headerStyles;
     render() {
-        const image = require('../../assets/bg0.jpg');
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg4.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.welcome}>
-                        <View style={styles.success}>
-                            <Text style={[styles.introText, styles.welcomeText]}>Welcome {this.state.displayName || ''}</Text>
-                            <Text style={[styles.introText, styles.emailText]}>
+                        <View style={globalStyles.success}>
+                            <Text style={[globalStyles.introText, styles.welcomeText]}>Welcome {this.state.displayName || ''}</Text>
+                            <Text style={[globalStyles.introText, globalStyles.emailText]}>
                                 You are currently registered with Email:
-                                <Text style={styles.userEmail}> {this.state.email || ''} </Text>
+                                <Text style={globalStyles.userEmail}> {this.state.email || ''} </Text>
                                 click on Sign Out to log out.
                             </Text>
                         </View>
@@ -76,28 +76,11 @@ const styles = StyleSheet.create({
     welcome: {
         flex: 1,
         flexDirection: 'column',
-        marginTop: 20
-    },
-    success: {
-        flex: 1
-    },
-    emailText: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 50
-    },
-    introText: {
-        fontSize: 17,
-        fontWeight: '700',
-        textAlign: 'center'
+        position: 'absolute',
+        bottom: 170
     },
     welcomeText: {
         color: 'black'
-    },
-    userEmail: {
-        paddingLeft: 5,
-        paddingRight: 5,
-        color: 'blue'
     }
 });
 export default connect(null, null)(Logout)

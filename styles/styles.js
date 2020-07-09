@@ -61,7 +61,7 @@ const globalStyles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginBottom: 70
+        marginBottom: 60
     },
     list : {
         flex: 1,
@@ -85,6 +85,27 @@ const globalStyles = StyleSheet.create({
         alignItems: 'center',
         paddingLeft: 20,
         paddingRight: 20
+    },
+    success: {
+        flex: 1
+    },
+    emailText: {
+        flex: 1,
+        flexDirection: 'column',
+        marginTop: 50
+    },
+    introText: {
+        fontSize: 17,
+        fontWeight: '700',
+        textAlign: 'center'
+    },
+    userEmail: {
+        paddingLeft: 5,
+        paddingRight: 5,
+        color: 'blue'
+    },
+    loginTextInput: {
+        textAlign: 'right'
     }
 });
 const globalButtons = StyleSheet.create({

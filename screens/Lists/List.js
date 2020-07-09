@@ -8,6 +8,7 @@ import ItemsService from "../../services/itemsService";
 import {updateItemCount} from "../../actions/items";
 import Item from "./Item";
 import Icon from "react-native-vector-icons/FontAwesome";
+import GetBgImageUrl from "../../configs/asset.config";
 
 class List extends Component {
     constructor(props) {
@@ -46,13 +47,12 @@ class List extends Component {
         });
     }
     render() {
-        const image = require('../../assets/bg2.jpg');
         const { lists } = this.props;
         const list = lists && lists.list ? lists.list : this.state.list;
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={image} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl('bg2.jpg')} style={globalStyles.bgImage}>
                     <TextInput
                         style={globalStyles.textInput}
                         onChangeText={text => this.setState({list: {id: list.id, label: text}})}
