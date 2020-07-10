@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import GetBgImageUrl from "../../configs/asset.config";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class Register extends Component {
     constructor(props) {
@@ -73,17 +74,11 @@ class Register extends Component {
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="remove"
-                                onPress={() => {
-                                    navigate('Lists')
-                                }}>
-                            </Icon.Button>
+                            <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
+                                <Fontisto name='close-a'
+                                          size={iconStyles.size}
+                                          color='#fff'/>
+                            </TouchableOpacity>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

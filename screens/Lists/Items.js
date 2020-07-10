@@ -8,6 +8,7 @@ import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../style
 import * as _ from 'lodash';
 import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class Items extends Component {
     constructor(props) {
@@ -38,16 +39,10 @@ class Items extends Component {
                         selectedItems={lists.list ? lists.list.items : []}
                         onSelectionsChange={setItems} />
                         <View style={globalButtons.bottomButtonsWrapper}>
-                            <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                                <Icon.Button
-                                    iconStyle={globalButtons.iconButton}
-                                    color='green'
-                                    backgroundColor='#fff'
-                                    size={iconStyles.size}
-                                    borderRadius={iconStyles.size + 5}
-                                    name="check"
-                                    onPress={() => navigate('List')}>
-                                </Icon.Button>
+                            <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('List')}>
+                                <Fontisto name='check'
+                                          size={iconStyles.size}
+                                          color='#fff'/>
                             </TouchableOpacity>
                         </View>
                 </ImageBackground>

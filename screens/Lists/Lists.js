@@ -5,7 +5,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     ImageBackground,
-    FlatList
+    FlatList,
+    Button
 } from 'react-native';
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, subHeaderStyles} from '../../styles/Styles';
@@ -18,6 +19,7 @@ import ItemsService from "../../services/itemsService";
 import Profile from "../Profile";
 import GetBgImageUrl from "../../configs/asset.config";
 import Swipeout from "react-native-swipeout";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class Lists extends Component {
     constructor(props) {
@@ -25,7 +27,7 @@ class Lists extends Component {
     }
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: () => <Profile navigation={navigation}/>,
-        headerStyle: { backgroundColor: '#800000' },
+        headerStyle: { backgroundColor: '#640E27' },
         headerTitleStyle: subHeaderStyles,
         headerRight: () => <Header/>
     });
@@ -54,17 +56,21 @@ class Lists extends Component {
     }
     renderItem = ({item, index}) => {
         const { navigate } = this.props.navigation;
-        const swipeButtons = [{
-                text: 'Send',
-                backgroundColor: '#228B22',
-                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-                onPress: () => { this.sendList(item) }
-            },{
+        let swipeButtons = [{
             text: 'Delete',
             backgroundColor: 'red',
             underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
             onPress: () => { this.deleteList(item) }
         }];
+        if (item.items && item.items.length > 0) {
+            const sendButton = {
+                text: 'Send',
+                backgroundColor: '#228B22',
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+                onPress: () => { this.sendList(item) }
+            };
+            swipeButtons.unshift(sendButton);
+        }
         return (
             <Swipeout right={swipeButtons}
                       style={styles.itemRow}
@@ -78,8 +84,13 @@ class Lists extends Component {
                         })
                     }}>
                         <View style={styles.listDetails}>
-                            <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
-                            <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
+                            <View>
+                                <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
+                                <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
+                            </View>
+                            <View>
+                                {item.items && item.items.length > 0 && <Text style={styles.itemsCountLabel}>{item.items.length}</Text>}
+                            </View>
                         </View>
                     </TouchableOpacity>
                </View>
@@ -94,42 +105,27 @@ class Lists extends Component {
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
-                                  keyExtractor={(item) => item.id.toString()}
                                   renderItem={this.renderItem}
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                borderRadius={iconStyles.size + 5}
-                                size={iconStyles.size}
-                                name="shopping-basket"
-                                onPress={() => {
-                                    setList(undefined)
-                                    navigate('List', {
-                                        listId: -1
-                                    })
-                                }}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
+                            setList(undefined)
+                            navigate('List', {
+                                listId: -1
+                            })}}>
+                            <Fontisto name='shopping-bag-1'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                borderRadius={iconStyles.size + 5}
-                                size={iconStyles.size}
-                                name="users"
-                                onPress={() => {
-                                    setList(undefined)
-                                    navigate('Mates', {
-                                        listId: -1
-                                    })
-                                }}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
+                            setList(undefined)
+                            navigate('Mates', {
+                                listId: -1
+                            })}}>
+                            <Fontisto name='persons'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -140,7 +136,6 @@ class Lists extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         paddingLeft: 20,
-        marginBottom: 15,
         borderBottomColor: '#c0c0c0',
         borderBottomWidth: .5
     },
@@ -148,11 +143,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginTop: 20,
         marginBottom: 75
     },
     listDetails: {
         flex: 1,
+        flexDirection: 'row',
+        paddingTop: 10,
         paddingBottom: 10
     },
     listLabel: {
@@ -164,6 +160,20 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: 'yellow',
         fontStyle: 'italic'
+    },
+    itemsCountLabel: {
+        fontSize: 12,
+        color: '#000',
+        marginTop: 12,
+        marginLeft: 10,
+        fontWeight: 'bold',
+        borderRadius: 10,
+        paddingLeft: 0,
+        paddingTop: 2,
+        height: 20,
+        width: 20,
+        backgroundColor: '#00FFEF',
+        textAlign: 'center'
     }
 });
 const mapStateToProps = state => ({

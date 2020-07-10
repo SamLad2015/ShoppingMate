@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 const iconStyles = {
-    size: 15
+    size: 25,
+    smallSize: 15
 };
 const subHeaderStyles = {
     fontWeight: 'bold',
@@ -10,7 +11,7 @@ const subHeaderStyles = {
     flex: 1
 };
 const headerStyles = {
-    headerStyle: { backgroundColor: '#800000' },
+    headerStyle: { backgroundColor: '#640E27' },
     headerTitleStyle: subHeaderStyles,
     headerBackTitle: null
 };
@@ -97,12 +98,13 @@ const globalStyles = StyleSheet.create({
     introText: {
         fontSize: 17,
         fontWeight: '700',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#fff'
     },
     userEmail: {
         paddingLeft: 5,
         paddingRight: 5,
-        color: 'blue'
+        color: 'pink'
     },
     loginTextInput: {
         textAlign: 'right'
@@ -151,9 +153,16 @@ const globalButtons = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5
     },
+    bottomButton: {
+        borderColor: '#fff',
+        marginTop: 10,
+        marginLeft: 25,
+        marginBottom: 10,
+        marginRight: 25
+    },
     loginButton: {
         flex: 1,
-        marginTop: 32,
+        marginTop: 22,
         marginHorizontal: 30,
         backgroundColor: "#fff",
         borderRadius: 4,

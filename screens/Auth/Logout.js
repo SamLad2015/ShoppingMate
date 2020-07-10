@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
 import GetBgImageUrl from "../../configs/asset.config";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class Logout extends Component {
     constructor(props) {
@@ -53,18 +54,10 @@ class Logout extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="remove"
-                                onPress={() => {
-                                    navigate('Lists')
-                                }}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
+                            <Fontisto name='close-a'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -80,7 +73,7 @@ const styles = StyleSheet.create({
         bottom: 170
     },
     welcomeText: {
-        color: 'black'
+        color: '#fff'
     }
 });
 export default connect(null, null)(Logout)

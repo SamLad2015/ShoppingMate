@@ -5,6 +5,7 @@ import * as firebase from "firebase";
 import {globalButtons, iconStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 export default class ResetPassword extends Component {
     constructor(props) {
@@ -50,17 +51,11 @@ export default class ResetPassword extends Component {
                     </View>}
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="remove"
-                                onPress={() => {
-                                    navigate('Lists')
-                                }}>
-                            </Icon.Button>
+                            <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
+                                <Fontisto name='close-a'
+                                          size={iconStyles.size}
+                                          color='#fff'/>
+                            </TouchableOpacity>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>

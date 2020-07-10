@@ -9,6 +9,7 @@ import {updateItemCount} from "../../actions/items";
 import Item from "./Item";
 import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class List extends Component {
     constructor(props) {
@@ -67,27 +68,15 @@ class List extends Component {
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='green'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="check"
-                                onPress={() => this.saveList()}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={this.saveList}>
+                            <Fontisto name='check'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="cart-plus"
-                                onPress={() => navigate('Items')}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Items')}>
+                            <Fontisto name='shopping-bag'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
