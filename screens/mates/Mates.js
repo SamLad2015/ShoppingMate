@@ -21,7 +21,8 @@ class Mates extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mates: []
+            mates: [],
+            activeRow: null
         }
         this.getList().then(mates => this.setState({mates}));
     }
@@ -30,22 +31,41 @@ class Mates extends Component {
         const matesService = new MatesService();
         return await matesService.getMatesFromStorage();
     }
+    onSwipeOpen = (rowId) => {
+        this.setState({ activeRow: rowId });
+    }
+    onSwipeClose = (rowId) => {
+        if (rowId === this.state.activeRow) {
+            this.setState({ activeRow: null });
+        }
+    }
     renderItem = ({item, index}) => {
         const { navigate } = this.props.navigation;
         const swipeButtons = [{
+            component: (
+                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
+                    <Fontisto name='trash'
+                              size={iconStyles.size}
+                              color='#fff'/>
+                </TouchableOpacity>
+            ),
             text: 'Delete',
             backgroundColor: 'red',
-            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-            onPress: () => { this.deleteList(item) }
+            autoClose: true
         }];
         return (
             <Swipeout right={swipeButtons}
                       style={styles.itemRow}
-                      autoClose='true'
+                      close={this.state.activeRow!==item.id}
+                      autoClose={true}
+                      onOpen={() => this.onSwipeOpen(item.id)}
+                      onClose={() => this.onSwipeClose(item.id)}
+                      rowId={item.id}
+                      sectionId={1}
                       backgroundColor= 'transparent'>
                 <View>
                     <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                            setList(item)
+                            setList(item);
                             navigate('List', {
                                 listId: item.id
                             })

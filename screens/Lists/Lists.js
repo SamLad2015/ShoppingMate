@@ -5,15 +5,13 @@ import {
     TouchableOpacity,
     StyleSheet,
     ImageBackground,
-    FlatList,
-    Button
+    FlatList
 } from 'react-native';
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, subHeaderStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
 import moment from "moment";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from "../Header";
 import ItemsService from "../../services/itemsService";
 import Profile from "../Profile";
@@ -24,6 +22,9 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 class Lists extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeRow : null
+        };
     }
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: () => <Profile navigation={navigation}/>,
@@ -33,9 +34,11 @@ class Lists extends Component {
     });
     sendList(list) {
         const { navigate } = this.props.navigation;
+        this.setState({closed: false});
+        this.onSwipeClose(list.id);
         navigate('Mates', {
             listId: list.id
-        })
+        });
     }
     deleteList(list) {
         const itemsService = new ItemsService();
@@ -54,27 +57,50 @@ class Lists extends Component {
         }
        return moment(createdOn).format('ddd, DD MMM YYYY hh:mm A');
     }
+    onSwipeOpen = (rowId) => {
+        this.setState({ activeRow: rowId });
+    }
+    onSwipeClose = (rowId) => {
+        if (rowId === this.state.activeRow) {
+            this.setState({ activeRow: null });
+        }
+    }
     renderItem = ({item, index}) => {
         const { navigate } = this.props.navigation;
         let swipeButtons = [{
-            text: 'Delete',
+            component: (
+                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
+                    <Fontisto name='trash'
+                              size={iconStyles.size}
+                              color='#fff'/>
+                </TouchableOpacity>
+            ),
             backgroundColor: 'red',
-            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-            onPress: () => { this.deleteList(item) }
+            underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
         }];
         if (item.items && item.items.length > 0) {
             const sendButton = {
-                text: 'Send',
+                component: (
+                    <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.sendList(item)}>
+                        <Fontisto name='share-a'
+                                  size={iconStyles.size}
+                                  color='#fff'/>
+                    </TouchableOpacity>
+                ),
                 backgroundColor: '#228B22',
-                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
-                onPress: () => { this.sendList(item) }
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
             };
             swipeButtons.unshift(sendButton);
         }
         return (
             <Swipeout right={swipeButtons}
                       style={styles.itemRow}
-                      autoClose='true'
+                      close={this.state.activeRow!==item.id}
+                      autoClose={true}
+                      onOpen={() => this.onSwipeOpen(item.id)}
+                      onClose={() => this.onSwipeClose(item.id)}
+                      rowId={item.id}
+                      sectionId={1}
                       backgroundColor= 'transparent'>
                 <View>
                     <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
@@ -105,6 +131,7 @@ class Lists extends Component {
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
+                                  keyExtractor={item => item.id.toString()}
                                   renderItem={this.renderItem}
                         />
                     </View>

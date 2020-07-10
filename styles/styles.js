@@ -120,9 +120,9 @@ const globalButtons = StyleSheet.create({
         marginTop:5,
         marginBottom:5
     },
-    deleteIconButton: {
-        marginLeft: 20,
-        marginTop: 10
+    swipeIconButton: {
+        marginTop: 20,
+        alignItems: 'center'
     },
     iconButtonSmall: {
         marginRight: 0

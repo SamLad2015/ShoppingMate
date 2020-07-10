@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { setItems } from '../../actions/items';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../styles/Styles";
 import * as _ from 'lodash';
-import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
 

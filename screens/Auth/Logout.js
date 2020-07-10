@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {ImageBackground, StyleSheet, TextInput, TouchableOpacity, View, Text} from 'react-native';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from '../../styles/Styles';
-import Header from "../Header";
 import {connect} from "react-redux";
-import Icon from "react-native-vector-icons/FontAwesome";
 import * as firebase from "firebase";
 import {AsyncStorage} from "react-native";
 import GetBgImageUrl from "../../configs/asset.config";

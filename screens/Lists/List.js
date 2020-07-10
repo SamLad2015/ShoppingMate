@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
+import { View, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
 import {addList} from "../../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, headerStyles} from '../../styles/Styles';
@@ -7,7 +7,6 @@ import moment from 'moment';
 import ItemsService from "../../services/itemsService";
 import {updateItemCount} from "../../actions/items";
 import Item from "./Item";
-import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
 

@@ -3,7 +3,6 @@ import {AsyncStorage, ImageBackground, Text, TextInput, TouchableOpacity, View} 
 import {globalStyles, headerStyles} from "../../styles/Styles";
 import * as firebase from "firebase";
 import {globalButtons, iconStyles} from "../../styles/Styles";
-import Icon from "react-native-vector-icons/FontAwesome";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
 
