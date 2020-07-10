@@ -191,14 +191,14 @@ const styles = StyleSheet.create({
     itemsCountLabel: {
         fontSize: 12,
         color: '#000',
-        marginTop: 12,
+        marginTop: 10,
         marginLeft: 10,
         fontWeight: 'bold',
-        borderRadius: 10,
+        borderRadius: 12,
         paddingLeft: 0,
-        paddingTop: 2,
-        height: 20,
-        width: 20,
+        paddingTop: 4,
+        height: 24,
+        width: 24,
         backgroundColor: '#00FFEF',
         textAlign: 'center'
     }
