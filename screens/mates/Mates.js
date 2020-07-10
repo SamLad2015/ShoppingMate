@@ -8,7 +8,7 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles, headerStyles} from '../../styles/Styles';
+import {globalStyles, globalButtons, iconStyles, headerStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -49,8 +49,8 @@ class Mates extends Component {
                               color='#fff'/>
                 </TouchableOpacity>
             ),
-            text: 'Delete',
-            backgroundColor: 'red',
+            backgroundColor: swipeStyles.red,
+            underlayColor: swipeStyles.underlayColor,
             autoClose: true
         }];
         return (
