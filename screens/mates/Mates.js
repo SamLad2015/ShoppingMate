@@ -101,22 +101,19 @@ class Mates extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         flexDirection: 'row',
-        paddingLeft: 10,
+        paddingLeft: 20,
         paddingBottom: 10,
         marginBottom: 15,
         borderBottomColor: '#c0c0c0',
-        borderBottomWidth: 1,
-        backgroundColor: '#000',
-        borderRadius: 10,
+        borderBottomWidth: .5,
+        backgroundColor: 'transparent'
     },
     listWrapper: {
         flex: 1,
         width: '100%',
         height: '100%',
         marginTop: 20,
-        marginBottom: 75,
-        paddingLeft: 10,
-        paddingRight: 10
+        marginBottom: 75
     },
     listDetails: {
         flex: 0.8,
@@ -135,17 +132,17 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
     listCountLabel: {
-        fontSize: 15,
+        fontSize: 12,
         color: '#000',
-        marginTop: 15,
+        marginTop: 17,
         marginLeft: 10,
         fontWeight: 'bold',
-        borderRadius: 12,
+        borderRadius: 10,
         paddingLeft: 0,
         paddingTop: 1,
-        height: 24,
-        width: 24,
-        backgroundColor: '#83f52c',
+        height: 20,
+        width: 20,
+        backgroundColor: '#228B22',
         textAlign: 'center'
     }
 });

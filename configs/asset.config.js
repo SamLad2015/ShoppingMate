@@ -1,7 +1,7 @@
-const remoteImgUriBase = 'http://technoverseweb.com/mobile/images/';
+const imgUriBase = '../assets/';
 
-const GetBgImageUrl = (imgFileName) => {
-  return { uri: remoteImgUriBase + imgFileName };
+const GetBgImageUrl = () => {
+  return require(imgUriBase + 'bg.jpg')
 };
 
 export default GetBgImageUrl
