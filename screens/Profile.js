@@ -34,7 +34,7 @@ export default class Profile extends Component {
                 <TouchableOpacity style={styles.profileViewButton}>
                     <Icon.Button
                         iconStyle={this.state.displayName ? styles.profileButtonActive : styles.profileButton}
-                        backgroundColor='#800000'
+                        backgroundColor='#640E27'
                         size={25}
                         name="user"
                         onPress={this.handleRedirect}>

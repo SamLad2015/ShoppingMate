@@ -1,10 +1,18 @@
 {
   "mates" : [
     {
-      "id": 1, "name" : "Sam Lad", "email" : "lad.sangram@gmail.com", "listCount": 2
+      "id": 1,
+      "name" : "Sam Lad",
+      "email" : "lad.sangram@gmail.com",
+      "gender": "male",
+      "listCount": 2
     },
     {
-      "id": 2, "name" : "Swapna Lad", "email" : "dreams14@gmail.com", "listCount": 1
+      "id": 2,
+      "name" : "Swapna Lad",
+      "email" : "dreams14@gmail.com",
+      "gender": "female",
+      "listCount": 1
     }
   ]
 }

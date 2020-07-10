@@ -1,7 +1,5 @@
-const imgUriBase = '../assets/';
-
 const GetBgImageUrl = () => {
-  return require(imgUriBase + 'bg.jpg')
+  return require('../assets/bg.jpg');
 };
 
-export default GetBgImageUrl
+export default GetBgImageUrl;

@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import GetBgImageUrl from "../../configs/asset.config";
 import MatesService from "../../services/matesService";
 import Swipeout from "react-native-swipeout";
+import Fontisto from "react-native-vector-icons/Fontisto";
 
 class Mates extends Component {
     constructor(props) {
@@ -44,14 +45,19 @@ class Mates extends Component {
                       backgroundColor= 'transparent'>
                 <View>
                     <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                        setList(item)
-                        navigate('List', {
-                            listId: item.id
-                        })
-                    }}>
-                        <View style={styles.listDetails}>
-                            <Text style={styles.listLabel}>{item.name}</Text>
-                            <Text style={styles.listCountLabel}>{item.listCount}</Text>
+                            setList(item)
+                            navigate('List', {
+                                listId: item.id
+                            })
+                        }}>
+                        <View style={styles.mateRow}>
+                            <View style={styles.mateIcon}>
+                                <Fontisto name={item.gender} size={25}color='#fff' />
+                            </View>
+                            <View style={styles.listDetails}>
+                                <Text style={styles.listLabel}>{item.name}</Text>
+                                <Text style={styles.listCountLabel}>{item.listCount}</Text>
+                            </View>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -70,32 +76,19 @@ class Mates extends Component {
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='green'
-                                backgroundColor='#fff'
-                                size={iconStyles.size}
-                                borderRadius={iconStyles.size + 5}
-                                name="check"
-                                onPress={() => this.saveList()}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={this.saveList}>
+                            <Fontisto name='check'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.iconButtonWrapper}>
-                            <Icon.Button
-                                iconStyle={globalButtons.iconButton}
-                                color='black'
-                                backgroundColor='#fff'
-                                borderRadius={iconStyles.size + 5}
-                                size={iconStyles.size}
-                                name="user"
-                                onPress={() => {
-                                    setList(undefined)
-                                    navigate('Mate', {
-                                        listId: -1
-                                    })
-                                }}>
-                            </Icon.Button>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
+                            setList(undefined)
+                            navigate('Mates', {
+                                listId: -1
+                            })}}>
+                            <Fontisto name='person'
+                                      size={iconStyles.size}
+                                      color='#fff'/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
@@ -106,7 +99,6 @@ class Mates extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         paddingLeft: 20,
-        marginBottom: 15,
         borderBottomColor: '#c0c0c0',
         borderBottomWidth: .5
     },
@@ -114,26 +106,32 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         height: '100%',
-        marginTop: 20,
         marginBottom: 75
     },
-    listDetails: {
+    mateRow: {
         flex: 1,
         flexDirection: 'row',
-        paddingBottom: 15
+        paddingTop: 20,
+        paddingBottom: 20
+    },
+    mateIcon: {
+        flex: 0.1
+    },
+    listDetails: {
+        flex: 0.9,
+        flexDirection: 'row',
+        marginLeft: 15
     },
     listLabel: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-        fontSize: 17,
-        marginTop: 10,
+        fontSize: 18,
         color: '#fff',
-        paddingTop: 5
     },
     listCountLabel: {
         fontSize: 12,
         color: '#000',
-        marginTop: 17,
+        marginTop: 2,
         marginLeft: 10,
         fontWeight: 'bold',
         borderRadius: 10,
