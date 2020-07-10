@@ -14,7 +14,7 @@ import {removeList, setList} from "../../actions/lists";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GetBgImageUrl from "../../configs/asset.config";
 import MatesService from "../../services/matesService";
-import moment from "moment";
+import Swipeout from "react-native-swipeout";
 
 class Mates extends Component {
     constructor(props) {
@@ -29,6 +29,35 @@ class Mates extends Component {
         const matesService = new MatesService();
         return await matesService.getMatesFromStorage();
     }
+    renderItem = ({item, index}) => {
+        const { navigate } = this.props.navigation;
+        const swipeButtons = [{
+            text: 'Delete',
+            backgroundColor: 'red',
+            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+            onPress: () => { this.deleteList(item) }
+        }];
+        return (
+            <Swipeout right={swipeButtons}
+                      style={styles.itemRow}
+                      autoClose='true'
+                      backgroundColor= 'transparent'>
+                <View>
+                    <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
+                        setList(item)
+                        navigate('List', {
+                            listId: item.id
+                        })
+                    }}>
+                        <View style={styles.listDetails}>
+                            <Text style={styles.listLabel}>{item.name}</Text>
+                            <Text style={styles.listCountLabel}>{item.listCount}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </Swipeout>
+        );
+    }
     render() {
         const { navigate } = this.props.navigation;
         return (
@@ -37,31 +66,7 @@ class Mates extends Component {
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(this.state.mates, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.id.toString()}
-                                  renderItem={({item}) =>
-                                      <View style={styles.itemRow}>
-                                          <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                                              setList(item)
-                                              navigate('List', {
-                                                  listId: item.id
-                                              })
-                                          }}>
-                                              <View style={styles.listDetails}>
-                                                  <Text style={styles.listLabel}>{item.name}</Text>
-                                                  <Text style={styles.listCountLabel}>{item.listCount}</Text>
-                                              </View>
-                                              <View style={styles.deleteIcon}>
-                                                  <Icon.Button
-                                                      iconStyle={globalButtons.deleteIconButton}
-                                                      color='white'
-                                                      backgroundColor='transparent'
-                                                      size={iconStyles.size + 7}
-                                                      name="minus-circle"
-                                                      onPress={() => this.deleteList(item)}>
-                                                  </Icon.Button>
-                                              </View>
-                                          </TouchableOpacity>
-                                      </View>
-                                  }
+                                  renderItem={this.renderItem}
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
@@ -100,13 +105,10 @@ class Mates extends Component {
 }
 const styles = StyleSheet.create({
     itemRow: {
-        flexDirection: 'row',
         paddingLeft: 20,
-        paddingBottom: 10,
         marginBottom: 15,
         borderBottomColor: '#c0c0c0',
-        borderBottomWidth: .5,
-        backgroundColor: 'transparent'
+        borderBottomWidth: .5
     },
     listWrapper: {
         flex: 1,
@@ -116,12 +118,9 @@ const styles = StyleSheet.create({
         marginBottom: 75
     },
     listDetails: {
-        flex: 0.8,
-        flexDirection: 'row'
-    },
-    deleteIcon: {
-        flex: 0.2,
-        alignItems: 'flex-end'
+        flex: 1,
+        flexDirection: 'row',
+        paddingBottom: 15
     },
     listLabel: {
         fontFamily: 'Roboto',

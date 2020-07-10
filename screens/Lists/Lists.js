@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {
-    StyleSheet,
     View,
     Text,
-    ImageBackground,
     TouchableOpacity,
+    StyleSheet,
+    ImageBackground,
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
@@ -17,6 +17,7 @@ import Header from "../Header";
 import ItemsService from "../../services/itemsService";
 import Profile from "../Profile";
 import GetBgImageUrl from "../../configs/asset.config";
+import Swipeout from "react-native-swipeout";
 
 class Lists extends Component {
     constructor(props) {
@@ -28,6 +29,12 @@ class Lists extends Component {
         headerTitleStyle: subHeaderStyles,
         headerRight: () => <Header/>
     });
+    sendList(list) {
+        const { navigate } = this.props.navigation;
+        navigate('Mates', {
+            listId: list.id
+        })
+    }
     deleteList(list) {
         const itemsService = new ItemsService();
         const { removeList } = this.props;
@@ -45,6 +52,40 @@ class Lists extends Component {
         }
        return moment(createdOn).format('ddd, DD MMM YYYY hh:mm A');
     }
+    renderItem = ({item, index}) => {
+        const { navigate } = this.props.navigation;
+        const swipeButtons = [{
+                text: 'Send',
+                backgroundColor: '#228B22',
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+                onPress: () => { this.sendList(item) }
+            },{
+            text: 'Delete',
+            backgroundColor: 'red',
+            underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+            onPress: () => { this.deleteList(item) }
+        }];
+        return (
+            <Swipeout right={swipeButtons}
+                      style={styles.itemRow}
+                      autoClose='true'
+                      backgroundColor= 'transparent'>
+                <View>
+                    <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
+                        setList(item)
+                        navigate('List', {
+                            listId: item.id
+                        })
+                    }}>
+                        <View style={styles.listDetails}>
+                            <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
+                            <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
+                        </View>
+                    </TouchableOpacity>
+               </View>
+            </Swipeout>
+                );
+    }
     render() {
         const {lists, setList} = this.props;
         const { navigate } = this.props.navigation;
@@ -54,31 +95,7 @@ class Lists extends Component {
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.id.toString()}
-                                  renderItem={({item}) =>
-                                      <View style={styles.itemRow}>
-                                          <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                                                                setList(item)
-                                                                navigate('List', {
-                                                                    listId: item.id
-                                                                })
-                                                            }}>
-                                              <View style={styles.listDetails}>
-                                                  <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
-                                                  <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
-                                              </View>
-                                              <View style={styles.deleteIcon}>
-                                                  <Icon.Button
-                                                      iconStyle={globalButtons.deleteIconButton}
-                                                      color='white'
-                                                      backgroundColor='transparent'
-                                                      size={iconStyles.size + 7}
-                                                      name="minus-circle"
-                                                      onPress={() => this.deleteList(item)}>
-                                                  </Icon.Button>
-                                              </View>
-                                          </TouchableOpacity>
-                                      </View>
-                                  }
+                                  renderItem={this.renderItem}
                         />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
@@ -122,13 +139,10 @@ class Lists extends Component {
 }
 const styles = StyleSheet.create({
     itemRow: {
-        flexDirection: 'row',
         paddingLeft: 20,
-        paddingBottom: 10,
         marginBottom: 15,
         borderBottomColor: '#c0c0c0',
-        borderBottomWidth: .5,
-        backgroundColor: 'transparent'
+        borderBottomWidth: .5
     },
     listWrapper: {
         flex: 1,
@@ -138,11 +152,8 @@ const styles = StyleSheet.create({
         marginBottom: 75
     },
     listDetails: {
-        flex: 0.8
-    },
-    deleteIcon: {
-        flex: 0.2,
-        alignItems: 'flex-end'
+        flex: 1,
+        paddingBottom: 10
     },
     listLabel: {
         fontSize: 17,
