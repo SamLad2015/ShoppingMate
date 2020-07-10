@@ -30,7 +30,7 @@ class Items extends Component {
 
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg3.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <SelectMultiple
                         style={styles.listWrapper}
                         items={_.orderBy(allItems, 'label')}
@@ -67,19 +67,22 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 50
+        marginBottom: 50,
+        opacity: 0.7
     },
     list : {
         flex: 1,
         alignItems: 'stretch',
-        borderRadius: 10
+        borderRadius: 10,
+        opacity: 1,
+        color: '#fff'
     },
     listLabel: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
         fontSize: 17,
         paddingLeft: 5,
-        paddingRight: 5,
+        paddingRight: 5
     }
 });
 const mapStateToProps = state => ({

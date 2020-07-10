@@ -43,7 +43,7 @@ class Item extends Component {
                         <Icon.Button
                             iconStyle={globalButtons.iconButtonSmall}
                             backgroundColor="transparent"
-                            color="black"
+                            color="#fff"
                             size={iconStyles.size}
                             name="minus"
                             onPress={() => {this.onChangeCount(this.state.item, 'decr')}}>
@@ -54,7 +54,7 @@ class Item extends Component {
                         <Icon.Button
                             iconStyle={globalButtons.iconButtonSmall}
                             backgroundColor="transparent"
-                            color="black"
+                            color="#fff"
                             size={iconStyles.size}
                             name="plus"
                             onPress={() => {this.onChangeCount(this.state.item, 'incr')}}>

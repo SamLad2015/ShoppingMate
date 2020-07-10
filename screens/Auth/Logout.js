@@ -36,7 +36,7 @@ class Logout extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg4.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.welcome}>
                         <View style={globalStyles.success}>
                             <Text style={[globalStyles.introText, styles.welcomeText]}>Welcome {this.state.displayName || ''}</Text>

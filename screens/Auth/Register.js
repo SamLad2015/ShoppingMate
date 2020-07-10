@@ -39,7 +39,7 @@ class Register extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg5.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.error}>
                         {this.state.errorMessage &&
                         <Text style={[globalStyles.introText, styles.errorText]}>{this.state.errorMessage}</Text>}

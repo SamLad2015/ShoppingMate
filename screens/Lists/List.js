@@ -52,7 +52,7 @@ class List extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg2.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <TextInput
                         style={globalStyles.textInput}
                         onChangeText={text => this.setState({list: {id: list.id, label: text}})}

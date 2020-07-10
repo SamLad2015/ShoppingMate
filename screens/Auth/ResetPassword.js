@@ -27,7 +27,7 @@ export default class ResetPassword extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg6.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     {!this.state.passwordResetLinkSent && <View style={globalStyles.loginPanel}>
                         <TextInput
                             autoCapitalize="none"

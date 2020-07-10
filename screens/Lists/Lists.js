@@ -35,12 +35,22 @@ class Lists extends Component {
             removeList(list);
         });
     }
+    getDateLabel = (createdOn) => {
+        const dateDiff = moment().diff(moment(createdOn), 'days');
+        if (dateDiff === 0) {
+            return 'Today at ' + moment(createdOn).format('hh:mm A');
+        }
+        if (dateDiff === 1) {
+            return 'Yesterday at ' + moment(createdOn).format('hh:mm A');
+        }
+       return moment(createdOn).format('ddd, DD MMM YYYY hh:mm A');
+    }
     render() {
         const {lists, setList} = this.props;
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
                         <FlatList data={_.orderBy(lists.lists, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.id.toString()}
@@ -54,7 +64,7 @@ class Lists extends Component {
                                                             }}>
                                               <View style={styles.listDetails}>
                                                   <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
-                                                  <Text style={styles.dateTimeStampLabel}>{moment(item.createdOn).format('ddd, DD MMM YYYY hh:mm A')}</Text>
+                                                  <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
                                               </View>
                                               <View style={styles.deleteIcon}>
                                                   <Icon.Button
@@ -113,22 +123,19 @@ class Lists extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         flexDirection: 'row',
-        paddingLeft: 10,
+        paddingLeft: 20,
         paddingBottom: 10,
         marginBottom: 15,
         borderBottomColor: '#c0c0c0',
-        borderBottomWidth: 1,
-        backgroundColor: '#000',
-        borderRadius: 10
+        borderBottomWidth: .5,
+        backgroundColor: 'transparent'
     },
     listWrapper: {
         flex: 1,
         width: '100%',
         height: '100%',
         marginTop: 20,
-        marginBottom: 75,
-        paddingLeft: 10,
-        paddingRight: 10
+        marginBottom: 75
     },
     listDetails: {
         flex: 0.8
@@ -138,12 +145,12 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end'
     },
     listLabel: {
-        fontSize: 15,
+        fontSize: 17,
         color: '#fff',
         paddingBottom: 5
     },
     dateTimeStampLabel: {
-        fontSize: 10,
+        fontSize: 12,
         color: 'yellow',
         fontStyle: 'italic'
     }

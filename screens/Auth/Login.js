@@ -73,7 +73,7 @@ class Login extends Component {
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
-                <ImageBackground source={GetBgImageUrl('bg0.jpg')} style={globalStyles.bgImage}>
+                <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={globalStyles.loginPanel}>
                         <TextInput
                             autoCapitalize="none"
@@ -94,12 +94,12 @@ class Login extends Component {
                             <Text style={globalButtons.loginButtonText}>Sign In</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('Register')}>
-                            <Text>
+                            <Text style={styles.bottomText}>
                                 New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
                             </Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('ResetPassword')}>
-                            <Text>
+                            <Text style={styles.bottomText}>
                                 Forgotten Password? <Text style={styles.signUpLink}>Reset</Text>
                             </Text>
                         </TouchableOpacity>
@@ -144,8 +144,11 @@ const styles = StyleSheet.create({
     },
     signUpLink: {
         fontWeight: "700",
-        color: "#800000",
+        color: "pink",
         fontSize: 15
+    },
+    bottomText: {
+        color: '#fff'
     }
 });
 export default connect(null, null)(Login)

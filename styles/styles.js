@@ -18,7 +18,7 @@ const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     textInput: {
         borderColor: '#666',
@@ -30,7 +30,7 @@ const globalStyles = StyleSheet.create({
         width: '90%',
         paddingLeft: 10,
         fontSize:20,
-        color: '#000'
+        color: '#fff'
     },
     bgImage: {
         flex: 1,
@@ -38,7 +38,7 @@ const globalStyles = StyleSheet.create({
         height: '100%',
         justifyContent: "center",
         alignItems: "center",
-        opacity: 0.7
+        opacity: 0.9
     },
     heading: {
         fontFamily: 'notoserif',
@@ -46,7 +46,7 @@ const globalStyles = StyleSheet.create({
         fontSize: 20,
         color: 'orange',
         textAlign: 'right',
-        paddingRight: 20,
+        paddingRight: 20
     },
     itemRow: {
         flexDirection: 'row',
@@ -74,7 +74,7 @@ const globalStyles = StyleSheet.create({
         fontSize: 17,
         flex: 1,
         marginTop: 10,
-        color: '#000',
+        color: '#fff',
     },
     loginPanel: {
         position: 'absolute',
@@ -136,7 +136,7 @@ const globalButtons = StyleSheet.create({
         fontSize: 17,
         paddingLeft:10,
         paddingRight: 10,
-        color: 'blue',
+        color: '#fff',
         paddingTop:3
     },
     bottomButtonsWrapper: {
@@ -145,7 +145,7 @@ const globalButtons = StyleSheet.create({
         flex: 1,
         width: '100%',
         flexDirection: 'row',
-        backgroundColor: 'rgba(250, 250, 250, 0.5)',
+        backgroundColor: 'rgba(250, 250, 250, 0.3)',
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 5,
@@ -155,16 +155,17 @@ const globalButtons = StyleSheet.create({
         flex: 1,
         marginTop: 32,
         marginHorizontal: 30,
-        backgroundColor: "#333",
+        backgroundColor: "#fff",
         borderRadius: 4,
         height: 40,
         alignItems: "center",
         justifyContent: "center"
     },
     loginButtonText: {
-        color: '#FFF',
-        fontSize: 20,
-        padding: 20
+        color: '#000',
+        fontSize: 15,
+        padding: 15,
+        fontWeight: 'bold'
     }
 });
 export { globalStyles, globalButtons, iconStyles, headerStyles, subHeaderStyles }
