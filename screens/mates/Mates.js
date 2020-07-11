@@ -11,11 +11,11 @@ import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, headerStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import GetBgImageUrl from "../../configs/asset.config";
 import MatesService from "../../services/matesService";
 import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import MateProfile from "./MateProfile";
 
 class Mates extends Component {
     constructor(props) {
@@ -31,6 +31,15 @@ class Mates extends Component {
         const matesService = new MatesService();
         return await matesService.getMatesFromStorage();
     }
+    addListToMate = (mateId) => {
+        const { params } = this.props.navigation.state;
+        const listId = params ? params.listId : -1;
+        if (listId > -1) {
+            let mates = this.state.mates;
+            _.find(mates, {id: mateId}).lists.push(listId);
+            this.setState({mates});
+        }
+    }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
     }
@@ -40,7 +49,6 @@ class Mates extends Component {
         }
     }
     renderItem = ({item, index}) => {
-        const { navigate } = this.props.navigation;
         const swipeButtons = [{
             component: (
                 <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
@@ -65,20 +73,9 @@ class Mates extends Component {
                       backgroundColor= 'transparent'>
                 <View>
                     <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                            setList(item);
-                            navigate('List', {
-                                listId: item.id
-                            })
+                            this.addListToMate(item.id);
                         }}>
-                        <View style={styles.mateRow}>
-                            <View style={styles.mateIcon}>
-                                <Fontisto name={item.gender} size={25}color='#fff' />
-                            </View>
-                            <View style={styles.listDetails}>
-                                <Text style={styles.listLabel}>{item.name}</Text>
-                                <Text style={styles.listCountLabel}>{item.listCount}</Text>
-                            </View>
-                        </View>
+                        <MateProfile mate={item} isSmall={false} />
                     </TouchableOpacity>
                 </View>
             </Swipeout>
@@ -127,40 +124,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         marginBottom: 75
-    },
-    mateRow: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingTop: 20,
-        paddingBottom: 20
-    },
-    mateIcon: {
-        flex: 0.1
-    },
-    listDetails: {
-        flex: 0.9,
-        flexDirection: 'row',
-        marginLeft: 15
-    },
-    listLabel: {
-        fontFamily: 'Roboto',
-        fontWeight: 'bold',
-        fontSize: 18,
-        color: '#fff',
-    },
-    listCountLabel: {
-        fontSize: 12,
-        color: '#000',
-        marginTop: 2,
-        marginLeft: 10,
-        fontWeight: 'bold',
-        borderRadius: 10,
-        paddingLeft: 0,
-        paddingTop: 1,
-        height: 20,
-        width: 20,
-        backgroundColor: '#228B22',
-        textAlign: 'center'
     }
 });
 const mapStateToProps = state => ({

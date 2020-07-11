@@ -18,13 +18,17 @@ import Profile from "../Profile";
 import GetBgImageUrl from "../../configs/asset.config";
 import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import MatesService from "../../services/matesService";
+import MateProfile from "../mates/MateProfile";
 
 class Lists extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeRow : null
+            activeRow : null,
+            mates: []
         };
+        this.getMatesList().then(mates => this.setState({mates}));
     }
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: () => <Profile navigation={navigation}/>,
@@ -32,12 +36,12 @@ class Lists extends Component {
         headerTitleStyle: subHeaderStyles,
         headerRight: () => <Header/>
     });
-    sendList(list) {
+    sendList(listId) {
         const { navigate } = this.props.navigation;
         this.setState({closed: false});
-        this.onSwipeClose(list.id);
+        this.onSwipeClose(listId);
         navigate('Mates', {
-            listId: list.id
+            listId: listId
         });
     }
     deleteList(list) {
@@ -65,9 +69,16 @@ class Lists extends Component {
             this.setState({ activeRow: null });
         }
     }
+    async getMatesList() {
+        const matesService = new MatesService();
+        return await matesService.getMatesFromStorage();
+    }
     renderItem = ({item, index}) => {
         const { setList} = this.props;
         const { navigate } = this.props.navigation;
+        const mate = _.find(this.state.mates, (m) => {
+            return m.lists.indexOf(item.id) > -1;
+        });
         let swipeButtons = [{
             component: (
                 <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
@@ -82,7 +93,7 @@ class Lists extends Component {
         if (item.items && item.items.length > 0) {
             const sendButton = {
                 component: (
-                    <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.sendList(item)}>
+                    <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.sendList(item.id)}>
                         <Fontisto name='share-a'
                                   size={iconStyles.size}
                                   color='#fff'/>
@@ -103,24 +114,25 @@ class Lists extends Component {
                       rowId={item.id}
                       sectionId={1}
                       backgroundColor= 'transparent'>
-                <View>
-                    <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                        setList(item);
-                        navigate('List', {
-                            listId: item.id
-                        })
-                    }}>
-                        <View style={styles.listDetails}>
-                            <View>
-                                <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
-                                <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
+                      <View>
+                         <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
+                                setList(item);
+                                navigate('List', {
+                                    listId: item.id
+                                })
+                         }}>
+                            <View style={styles.listDetails}>
+                               <View>
+                                  <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
+                                  <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
+                               </View>
+                               <View>
+                                  {item.items && item.items.length > 0 && <Text style={styles.itemsCountLabel}>{item.items.length}</Text>}
+                               </View>
+                                {mate && <MateProfile mate={mate} isSmall={true} />}
                             </View>
-                            <View>
-                                {item.items && item.items.length > 0 && <Text style={styles.itemsCountLabel}>{item.items.length}</Text>}
-                            </View>
-                        </View>
-                    </TouchableOpacity>
-               </View>
+                         </TouchableOpacity>
+                      </View>
             </Swipeout>
                 );
     }

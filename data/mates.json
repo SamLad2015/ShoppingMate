@@ -5,14 +5,14 @@
       "name" : "Sam Lad",
       "email" : "lad.sangram@gmail.com",
       "gender": "male",
-      "listCount": 2
+      "lists": []
     },
     {
       "id": 2,
       "name" : "Swapna Lad",
       "email" : "dreams14@gmail.com",
       "gender": "female",
-      "listCount": 1
+      "lists": [0]
     }
   ]
 }
