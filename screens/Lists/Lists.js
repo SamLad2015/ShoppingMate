@@ -66,6 +66,7 @@ class Lists extends Component {
         }
     }
     renderItem = ({item, index}) => {
+        const { setList} = this.props;
         const { navigate } = this.props.navigation;
         let swipeButtons = [{
             component: (
@@ -104,7 +105,7 @@ class Lists extends Component {
                       backgroundColor= 'transparent'>
                 <View>
                     <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                        setList(item)
+                        setList(item);
                         navigate('List', {
                             listId: item.id
                         })
@@ -146,7 +147,6 @@ class Lists extends Component {
                                       color='#fff'/>
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
-                            setList(undefined)
                             navigate('Mates', {
                                 listId: -1
                             })}}>
