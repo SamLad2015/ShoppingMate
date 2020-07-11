@@ -8,7 +8,7 @@ import {
     FlatList
 } from 'react-native';
 import {connect} from "react-redux";
-import {globalStyles, globalButtons, iconStyles, subHeaderStyles} from '../../styles/Styles';
+import {globalStyles, globalButtons, iconStyles, subHeaderStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
 import moment from "moment";
@@ -75,8 +75,8 @@ class Lists extends Component {
                               color='#fff'/>
                 </TouchableOpacity>
             ),
-            backgroundColor: 'red',
-            underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
+            backgroundColor: swipeStyles.green,
+            underlayColor: swipeStyles.underlayColor
         }];
         if (item.items && item.items.length > 0) {
             const sendButton = {
@@ -87,8 +87,8 @@ class Lists extends Component {
                                   color='#fff'/>
                     </TouchableOpacity>
                 ),
-                backgroundColor: '#228B22',
-                underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
+                backgroundColor: swipeStyles.red,
+                underlayColor: swipeStyles.underlayColor
             };
             swipeButtons.unshift(sendButton);
         }

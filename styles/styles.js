@@ -1,5 +1,10 @@
 import { StyleSheet } from 'react-native';
 
+const swipeStyles = {
+    green: '#8E1600',
+    red: '#0A3B10',
+    underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
+};
 const iconStyles = {
     size: 25,
     smallSize: 15
@@ -177,4 +182,4 @@ const globalButtons = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-export { globalStyles, globalButtons, iconStyles, headerStyles, subHeaderStyles }
+export { globalStyles, globalButtons, iconStyles, headerStyles, subHeaderStyles, swipeStyles }
