@@ -19,7 +19,7 @@ class Items extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            items: []
+            items: null
         }
         this.getItems();
     }
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     listWrapper: {
         flex: 1,
         width: '100%',
-        marginBottom: 50,
+        marginBottom: 55,
         opacity: 0.7
     },
     list : {
