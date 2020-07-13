@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, TouchableOpacity, View, AsyncStorage} from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
+import CommonHelpers from "../helpers/commonHelpers";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class Profile extends Component {
         const {navigation} = this.props;
         this.focusListener = navigation.addListener('didFocus', () => {
             AsyncStorage.getItem('user', null).then((user) => {
-                this.setState({displayName: user ? JSON.parse(user).displayName.split(' ')[0] : null});
+                this.setState({displayName: user ? CommonHelpers.getShortDisplayName(JSON.parse(user).displayName) : null});
             });
         });
     }

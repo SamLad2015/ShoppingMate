@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, StyleSheet} from "react-native";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import CommonHelpers from "../../helpers/commonHelpers";
 
 export default class MateProfile extends Component {
     render() {
@@ -11,7 +12,9 @@ export default class MateProfile extends Component {
                     <Fontisto name={mate.gender} size={isSmall ? 15 : 25} color='#fff'/>
                 </View>
                 <View style={isSmall ? styles.smallListDetails : styles.listDetails}>
-                    <Text style={isSmall ? styles.listLabelSmall : styles.listLabel}>{mate.name}</Text>
+                    <Text style={isSmall ? styles.listLabelSmall : styles.listLabel}>
+                        {isSmall ? CommonHelpers.getShortDisplayName(mate.name) : mate.name}
+                    </Text>
                     {!isSmall && mate.lists && mate.lists.length > 0 &&
                     <Text style={styles.listCountLabel}>{mate.lists.length}</Text>}
                 </View>
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     smallMateRow: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 15,
+        marginTop: 10,
         marginLeft: 10,
         alignItems : 'flex-start',
         justifyContent: 'flex-start'

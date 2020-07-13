@@ -1,7 +1,6 @@
 import React, { Component }  from 'react';
 import SelectMultiple from 'react-native-select-multiple';
 import {StyleSheet, View, Text, Button, ImageBackground, TouchableOpacity} from 'react-native';
-import {allItems} from '../../data/items.json';
 import { connect } from 'react-redux';
 import { setItems } from '../../actions/items';
 import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../styles/Styles";
@@ -12,8 +11,15 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 class Items extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            items: []
+        }
+        this.getAllItems().then(items => this.setState({items}));
     }
     static navigationOptions = headerStyles;
+    async getAllItems() {
+
+    }
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
     }
@@ -33,7 +39,7 @@ class Items extends Component {
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <SelectMultiple
                         style={styles.listWrapper}
-                        items={_.orderBy(allItems, 'label')}
+                        items={_.orderBy(this.state.items, 'label')}
                         renderLabel={renderLabel}
                         selectedItems={lists.list ? lists.list.items : []}
                         onSelectionsChange={setItems} />

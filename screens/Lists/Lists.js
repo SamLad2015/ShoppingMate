@@ -122,12 +122,14 @@ class Lists extends Component {
                                 })
                          }}>
                             <View style={styles.listDetails}>
+                                <View>
+                                    <Text style={[styles.itemsCountLabel, !item.items || item.items.length === 0 ? styles.noItemsCountLabel : '']}>
+                                        {item.items ? item.items.length : 0}
+                                    </Text>
+                                </View>
                                <View>
                                   <Text style={[globalStyles.listLabel, styles.listLabel]}>{item.label}</Text>
                                   <Text style={styles.dateTimeStampLabel}>{this.getDateLabel(item.createdOn)}</Text>
-                               </View>
-                               <View>
-                                  {item.items && item.items.length > 0 && <Text style={styles.itemsCountLabel}>{item.items.length}</Text>}
                                </View>
                                 {mate && <MateProfile mate={mate} isSmall={true} />}
                             </View>
@@ -174,7 +176,7 @@ class Lists extends Component {
 }
 const styles = StyleSheet.create({
     itemRow: {
-        paddingLeft: 20,
+        paddingLeft: 10,
         borderBottomColor: '#c0c0c0',
         borderBottomWidth: .5
     },
@@ -193,26 +195,31 @@ const styles = StyleSheet.create({
     listLabel: {
         fontSize: 17,
         color: '#fff',
-        paddingBottom: 5
+        paddingBottom: 5,
+        marginTop: 5
     },
     dateTimeStampLabel: {
         fontSize: 12,
         color: 'yellow',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        marginBottom: 5
     },
     itemsCountLabel: {
-        fontSize: 12,
+        fontSize: 25,
         color: '#000',
-        marginTop: 10,
-        marginLeft: 10,
+        marginTop: 5,
+        marginRight: 10,
         fontWeight: 'bold',
-        borderRadius: 12,
+        borderRadius: 22,
         paddingLeft: 0,
         paddingTop: 4,
-        height: 24,
-        width: 24,
+        height: 44,
+        width: 44,
         backgroundColor: '#00FFEF',
         textAlign: 'center'
+    },
+    noItemsCountLabel: {
+        backgroundColor: '#666666'
     }
 });
 const mapStateToProps = state => ({
