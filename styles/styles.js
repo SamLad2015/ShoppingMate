@@ -113,6 +113,9 @@ const globalStyles = StyleSheet.create({
     },
     loginTextInput: {
         textAlign: 'right'
+    },
+    loadingIndicator: {
+
     }
 });
 const globalButtons = StyleSheet.create({

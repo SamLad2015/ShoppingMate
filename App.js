@@ -2,17 +2,11 @@ import React from 'react';
 import storeFunc from "./store/configureStore";
 import { Provider } from 'react-redux';
 import Nav from './screens/Nav';
-import * as firebase from "firebase";
-import {firebaseConfig} from "./firebase/firebase.config";
-
 const store = storeFunc.configureStore()
 
 export default class App extends React.Component {
     constructor() {
         super();
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
         store.dispatch(storeFunc.getAsyncStorage());
     }
     render() {

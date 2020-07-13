@@ -1,4 +1,8 @@
-export const firebaseConfig = {
+import * as firebase from 'firebase';
+import '@firebase/auth';
+import '@firebase/firestore';
+
+const firebaseConfig = {
     apiKey: "AIzaSyA0yFzTVGkg6fPWYkrSq7O9-ufJ32uj6cs",
     authDomain: "shoppingmate-cb438.firebaseapp.com",
     databaseURL: "https://shoppingmate-cb438.firebaseio.com",
@@ -9,3 +13,8 @@ export const firebaseConfig = {
     measurementId: "G-8P68S1BY1Y",
     persistence: true
 };
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+export { firebase };

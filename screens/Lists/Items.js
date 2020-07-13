@@ -7,6 +7,13 @@ import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../style
 import * as _ from 'lodash';
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import {firebase} from '../../firebase/firebase.config';
+import {decode, encode} from 'base-64'
+import Loading from "../common/Loading";
+
+if (!global.btoa) {  global.btoa = encode }
+
+if (!global.atob) { global.atob = decode }
 
 class Items extends Component {
     constructor(props) {
@@ -14,12 +21,25 @@ class Items extends Component {
         this.state = {
             items: []
         }
-        this.getAllItems().then(items => this.setState({items}));
+        this.getItems();
+    }
+    getItems() {
+        const entityRef = firebase.firestore().collection('items')
+        entityRef
+            .onSnapshot(
+                querySnapshot => {
+                    let items = [];
+                    querySnapshot.forEach(doc => {
+                        items.push(doc.data())
+                    });
+                    this.setState({items});
+                },
+                error => {
+                    throw(error);
+                }
+            )
     }
     static navigationOptions = headerStyles;
-    async getAllItems() {
-
-    }
     onSelectionsChange = (selectedItems) => {
         this.setState({selectedItems});
     }
@@ -37,12 +57,13 @@ class Items extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
-                    <SelectMultiple
+                    {!this.state.items && <Loading />}
+                    {this.state.items && <SelectMultiple
                         style={styles.listWrapper}
                         items={_.orderBy(this.state.items, 'label')}
                         renderLabel={renderLabel}
                         selectedItems={lists.list ? lists.list.items : []}
-                        onSelectionsChange={setItems} />
+                        onSelectionsChange={setItems} />}
                         <View style={globalButtons.bottomButtonsWrapper}>
                             <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('List')}>
                                 <Fontisto name='check'
