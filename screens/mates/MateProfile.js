@@ -9,7 +9,7 @@ export default class MateProfile extends Component {
         return (
             <View style={isSmall ? styles.smallMateRow : styles.mateRow}>
                 <View style={isSmall ? styles.smallMateIcon : styles.mateIcon}>
-                    <Fontisto name={mate.gender} size={isSmall ? 15 : 25} color='#fff'/>
+                    <Fontisto name={mate.gender || 'male'} size={isSmall ? 15 : 25} color='#fff'/>
                 </View>
                 <View style={isSmall ? styles.smallListDetails : styles.listDetails}>
                     <Text style={isSmall ? styles.listLabelSmall : styles.listLabel}>

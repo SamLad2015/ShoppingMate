@@ -114,8 +114,17 @@ const globalStyles = StyleSheet.create({
     loginTextInput: {
         textAlign: 'right'
     },
-    loadingIndicator: {
-
+    error: {
+        backgroundColor: '#fff',
+        height: 75,
+        position: 'absolute',
+        bottom: 0
+    },
+    errorText: {
+        color: 'red'
+    },
+    mateProfile: {
+        padding: 0
     }
 });
 const globalButtons = StyleSheet.create({
@@ -182,6 +191,21 @@ const globalButtons = StyleSheet.create({
         color: '#000',
         fontSize: 15,
         padding: 15,
+        fontWeight: 'bold'
+    },
+    addButtonWrapper: {
+        paddingTop: 10
+    },
+    addButton: {
+        backgroundColor: '#fff',
+        marginHorizontal: 30,
+        borderRadius: 4,
+        alignItems: "center"
+    },
+    addButtonText: {
+        color: '#000',
+        fontSize: 15,
+        padding: 7,
         fontWeight: 'bold'
     }
 });

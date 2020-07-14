@@ -20,6 +20,7 @@ import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MatesService from "../../services/matesService";
 import MateProfile from "../mates/MateProfile";
+import {AsyncStorage} from "react-native-web";
 
 class Lists extends Component {
     constructor(props) {
@@ -161,9 +162,12 @@ class Lists extends Component {
                                       color='#fff'/>
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
-                            navigate('Mates', {
-                                listId: -1
-                            })}}>
+                            AsyncStorage.getItem('user', null).then((user) => {
+                                navigate('Mates', {
+                                    uid: JSON.parse(user).uid
+                                });
+                            });
+                           }}>
                             <Fontisto name='persons'
                                       size={iconStyles.size}
                                       color='#fff'/>

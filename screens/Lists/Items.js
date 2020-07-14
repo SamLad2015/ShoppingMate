@@ -7,9 +7,9 @@ import {globalButtons, globalStyles, headerStyles, iconStyles} from "../../style
 import * as _ from 'lodash';
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import {firebase} from '../../firebase/firebase.config';
 import {decode, encode} from 'base-64'
 import Loading from "../common/Loading";
+import FirebaseService from "../../services/firebaseService";
 
 if (!global.btoa) {  global.btoa = encode }
 
@@ -24,20 +24,8 @@ class Items extends Component {
         this.getItems();
     }
     getItems() {
-        const entityRef = firebase.firestore().collection('items')
-        entityRef
-            .onSnapshot(
-                querySnapshot => {
-                    let items = [];
-                    querySnapshot.forEach(doc => {
-                        items.push(doc.data())
-                    });
-                    this.setState({items});
-                },
-                error => {
-                    throw(error);
-                }
-            )
+        const fbService = new FirebaseService();
+        fbService.getItems('items').then(items => this.setState({items}));
     }
     static navigationOptions = headerStyles;
     onSelectionsChange = (selectedItems) => {

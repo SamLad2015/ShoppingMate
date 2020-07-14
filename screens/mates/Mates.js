@@ -12,24 +12,40 @@ import {globalStyles, globalButtons, iconStyles, headerStyles, swipeStyles} from
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
 import GetBgImageUrl from "../../configs/asset.config";
-import MatesService from "../../services/matesService";
 import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MateProfile from "./MateProfile";
+import FirebaseService from "../../services/firebaseService";
+import Loading from "../common/Loading";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class Mates extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mates: [],
+            mates: null,
             activeRow: null
         }
-        this.getList().then(mates => this.setState({mates}));
+    }
+    componentDidMount() {
+        const {navigation} = this.props;
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.getList();
+        });
+    }
+    componentWillUnmount() {
+        if (this.focusListener) {
+            this.focusListener.remove();
+        }
     }
     static navigationOptions = headerStyles;
-    async getList() {
-        const matesService = new MatesService();
-        return await matesService.getMatesFromStorage();
+    getList() {
+        const { params } = this.props.navigation.state;
+        const uid = params ? params.uid : null;
+        if (uid) {
+            const fbService = new FirebaseService();
+            fbService.searchItem('mates', 'mateUid', '==', uid, true).then(users => this.setState({mates: users}));
+        }
     }
     addListToMate = (mateId) => {
         const { params } = this.props.navigation.state;
@@ -39,6 +55,10 @@ class Mates extends Component {
             _.find(mates, {id: mateId}).lists.push(listId);
             this.setState({mates});
         }
+    }
+    deleteMate = (id) => {
+        const fbService = new FirebaseService();
+        fbService.removeItem('mates', id).then(() => this.getList());
     }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
@@ -51,7 +71,7 @@ class Mates extends Component {
     renderItem = ({item, index}) => {
         const swipeButtons = [{
             component: (
-                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
+                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteMate(item.id)}>
                     <Fontisto name='trash'
                               size={iconStyles.size}
                               color='#fff'/>
@@ -71,26 +91,37 @@ class Mates extends Component {
                       rowId={item.id}
                       sectionId={1}
                       backgroundColor= 'transparent'>
-                <View>
-                    <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
-                            this.addListToMate(item.id);
-                        }}>
-                        <MateProfile mate={item} isSmall={false} />
-                    </TouchableOpacity>
-                </View>
+                      <View>
+                         <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
+                                    this.addListToMate(item.id);
+                                }}>
+                             <View style={styles.mates}>
+                                 <View style={styles.mateProfile}>
+                                     <MateProfile mate={item} isSmall={false} />
+                                 </View>
+                                 {!item.approved && <View style={styles.invitationStatus}>
+                                     <Icon name='account-question' size={iconStyles.size} color='orange' type='material-community' />
+                                     <Text style={item.approved? styles.inviteButtonText: styles.invitationPending}>Invitation Pending</Text>
+                                 </View>}
+                             </View>
+                         </TouchableOpacity>
+                      </View>
             </Swipeout>
         );
     }
     render() {
         const { navigate } = this.props.navigation;
+        const { params } = this.props.navigation.state;
+        const uid = params ? params.uid : null;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
-                        <FlatList data={_.orderBy(this.state.mates, 'createdOn', 'desc')}
-                                  keyExtractor={(item) => item.id.toString()}
+                        {!this.state.mates && <Loading />}
+                        {this.state.mates && <FlatList data={_.orderBy(this.state.mates, 'createdOn', 'desc')}
+                                  keyExtractor={(item) => item.uid.toString()}
                                   renderItem={this.renderItem}
-                        />
+                        />}
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={this.saveList}>
@@ -100,9 +131,7 @@ class Mates extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
                             setList(undefined)
-                            navigate('Mates', {
-                                listId: -1
-                            })}}>
+                            navigate('AddMate', {uid})}}>
                             <Fontisto name='person'
                                       size={iconStyles.size}
                                       color='#fff'/>
@@ -124,6 +153,30 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         marginBottom: 75
+    },
+    mates: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        paddingLeft: 20
+    },
+    cancelMate: {
+        marginTop: 5
+    },
+    invitationStatus: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20,
+        marginLeft: 20,
+        alignContent: 'flex-end'
+    },
+    inviteButtonText: {
+        color: '#fff',
+        marginLeft: 10
+    },
+    invitationPending: {
+        color: 'orange',
+        marginLeft: 10
     }
 });
 const mapStateToProps = state => ({

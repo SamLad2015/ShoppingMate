@@ -113,9 +113,9 @@ class Login extends Component {
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </View>
-                    <Animated.View style={[styles.error, {opacity: this.state.fadeIn}]}>
+                    <Animated.View style={[globalStyles.error, {opacity: this.state.fadeIn}]}>
                         {this.state.loginDetails.errorMessage &&
-                        <Text style={[globalStyles.introText, styles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
+                        <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
                     </Animated.View>
                 </ImageBackground>
             </View>
@@ -123,15 +123,6 @@ class Login extends Component {
     }
 }
 const styles = StyleSheet.create({
-    error: {
-        backgroundColor: '#fff',
-        height: 75,
-        position: 'absolute',
-        bottom: 0
-    },
-    errorText: {
-        color: 'red'
-    },
     signUp: {
         flex: 1,
         marginTop: 20

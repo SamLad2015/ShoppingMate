@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import * as firebase from "firebase";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import FirebaseService from "../../services/firebaseService";
 
 class Register extends Component {
     constructor(props) {
@@ -30,8 +31,19 @@ class Register extends Component {
     }
     handleAccountSetUp(user) {
         user.sendEmailVerification().then(() => {
+            this.addUserToFbDb(user);
             this.props.navigation.navigate('Login');
         });
+    }
+    addUserToFbDb(user) {
+        const userToAdd = {
+            uid: user.uid,
+            name: user.displayName,
+            email: user.email,
+            gender: 'male'
+        }
+        const fbService = new FirebaseService();
+        fbService.addItem('users', userToAdd)
     }
     static navigationOptions = headerStyles;
     render() {
