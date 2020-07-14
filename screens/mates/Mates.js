@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     invitationStatus: {
-        flex: 0.2,
+        flex: 0.3,
         flexDirection: 'row',
         marginTop: 20,
         marginLeft: 20,

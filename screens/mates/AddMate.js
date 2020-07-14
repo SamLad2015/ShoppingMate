@@ -7,8 +7,7 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    StyleSheet,
-    AsyncStorage
+    StyleSheet
 } from "react-native";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
@@ -20,7 +19,7 @@ export default class AddMate extends Component {
     constructor() {
         super();
         this.state ={
-            email: 'dreams14@gmail.com',
+            email: '',
             errorMessage: null,
             mate: null,
             loading: false
