@@ -28,7 +28,7 @@ export default class AddMate extends Component {
     searchMate = () => {
         this.setState({loading: true});
         const fbService = new FirebaseService();
-        fbService.searchItem('users', 'email', '==', this.state.email)
+        fbService.searchItem('users', 'email', '==', this.state.email.trim())
             .then((mate) => {
                 this.setState({mate: mate, loading: false});
             });
@@ -80,7 +80,13 @@ export default class AddMate extends Component {
                                         <Icon name='account-plus' size={iconStyles.size} color='#fff' type='material-community' />
                                     </View>
                                     <View style={styles.mateName}>
-                                        <Text style={styles.addText}>{this.state.mate.name}</Text>
+                                        <View>
+                                            <Text style={styles.addText}>{this.state.mate.name}</Text>
+                                        </View>
+                                        {!this.state.mate.approved && <View style={styles.invitationStatus}>
+                                            <Icon name='account-question' size={iconStyles.size} color='orange' type='material-community' />
+                                            <Text style={this.state.mate.approved? styles.inviteButtonText: styles.invitationPending}>Pending</Text>
+                                        </View>}
                                     </View>
                                 </TouchableOpacity>
                             </View>

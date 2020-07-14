@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     invitationPending: {
         color: 'orange',
         marginLeft: 10,
+        marginTop: 5,
         fontSize: 12
     },
     mates: {

@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
     listLabel: {
         fontFamily: 'Roboto',
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 15,
         color: '#fff',
+        marginTop: 2
     },
     listLabelSmall: {
         fontFamily: 'Roboto',
