@@ -13,21 +13,26 @@ import {
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import FirebaseService from "../../services/firebaseService";
-import MateProfile from "./MateProfile";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Loading from "../common/Loading";
 
 export default class AddMate extends Component {
     constructor() {
         super();
         this.state ={
-            email: '',
+            email: 'dreams14@gmail.com',
             errorMessage: null,
-            mate: null
+            mate: null,
+            loading: false
         };
     }
     searchMate = () => {
+        this.setState({loading: true});
         const fbService = new FirebaseService();
         fbService.searchItem('users', 'email', '==', this.state.email)
-            .then((mate) => this.setState({mate}));
+            .then((mate) => {
+                this.setState({mate: mate, loading: false});
+            });
     }
     addMate = () => {
         const {navigate} = this.props.navigation;
@@ -50,33 +55,39 @@ export default class AddMate extends Component {
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={styles.mateLookUpPanel}>
                         <View style={styles.searchPanel}>
-                            <TextInput
-                                autoCapitalize="none"
-                                style={[globalStyles.textInput, styles.mateSearchInput]}
-                                placeholder="Add by Email"
-                                onChangeText={email => this.setState( {email})}
-                                value={this.state.email}
-                            />
-                            <TouchableOpacity style={styles.searchIcon} onPress={() => this.searchMate()}>
-                                <Fontisto name='search'
-                                          size={iconStyles.size}
-                                          color='#fff'/>
-                            </TouchableOpacity>
-                        </View>
-                        {this.state.mate &&
-                        <View style={styles.mates}>
-                            <View style={globalStyles.mateProfile}>
-                                <MateProfile mate={this.state.mate} isSmall={false} />
+                            <View style={styles.mateSearchInput}>
+                                <TextInput
+                                    autoCapitalize="none"
+                                    style={globalStyles.textInput}
+                                    placeholder="Add by Email"
+                                    onChangeText={email => this.setState( {email})}
+                                    value={this.state.email}
+                                />
                             </View>
-                            <View style={globalButtons.addButtonWrapper}>
-                                <TouchableOpacity style={globalButtons.addButton} onPress={() => this.addMate()}>
-                                    <Text style={globalButtons.addButtonText}>Add Mate</Text>
+                            <View style={styles.searchIconWrapper}>
+                                <TouchableOpacity onPress={() => this.searchMate()}>
+                                    <Fontisto name='search'
+                                              size={iconStyles.size - 5}
+                                              color='#fff'/>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        {this.state.loading && <Loading />}
+                        {!this.state.loading && this.state.mate &&
+                        <View style={styles.mates}>
+                            <View style={styles.mateProfile}>
+                                <TouchableOpacity style={styles.profileWrapper} onPress={() => this.addMate()}>
+                                    <View style={styles.addMateIcon}>
+                                        <Icon name='account-plus' size={iconStyles.size} color='#fff' type='material-community' />
+                                    </View>
+                                    <View style={styles.mateName}>
+                                        <Text style={styles.addText}>{this.state.mate.name}</Text>
+                                    </View>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         }
                     </View>
-
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
                             <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Mates')}>
@@ -112,9 +123,10 @@ const styles = StyleSheet.create({
     mateSearchInput: {
         flex: 0.9
     },
-    searchIcon: {
+    searchIconWrapper: {
         flex: 0.1,
-        marginLeft: 20
+        alignItems: 'flex-start',
+        marginTop: 15
     },
     mates: {
         position: 'absolute',
@@ -124,5 +136,25 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         paddingLeft: 20,
         top: 100
+    },
+    mateProfile: {
+        flex: 1,
+        flexDirection: 'row',
+        paddingLeft: 10
+    },
+    profileWrapper: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    addMateIcon: {
+        flex: 0.1
+    },
+    mateName: {
+        flex: 0.9
+    },
+    addText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        paddingTop: 5
     }
 });

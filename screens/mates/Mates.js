@@ -96,7 +96,7 @@ class Mates extends Component {
                                     this.addListToMate(item.id);
                                 }}>
                              <View style={styles.mates}>
-                                 <View style={styles.mateProfile}>
+                                 <View style={globalStyles.mateProfile}>
                                      <MateProfile mate={item} isSmall={false} />
                                  </View>
                                  {!item.approved && <View style={styles.invitationStatus}>
@@ -124,7 +124,7 @@ class Mates extends Component {
                         />}
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
-                        <TouchableOpacity style={globalButtons.bottomButton} onPress={this.saveList}>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
                             <Fontisto name='check'
                                       size={iconStyles.size}
                                       color='#fff'/>
@@ -154,17 +154,11 @@ const styles = StyleSheet.create({
         height: '100%',
         marginBottom: 75
     },
-    mates: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        paddingLeft: 20
-    },
     cancelMate: {
         marginTop: 5
     },
     invitationStatus: {
-        flex: 1,
+        flex: 0.2,
         flexDirection: 'row',
         marginTop: 20,
         marginLeft: 20,
@@ -177,6 +171,10 @@ const styles = StyleSheet.create({
     invitationPending: {
         color: 'orange',
         marginLeft: 10
+    },
+    mates: {
+        flex: 1,
+        flexDirection: 'row'
     }
 });
 const mapStateToProps = state => ({
