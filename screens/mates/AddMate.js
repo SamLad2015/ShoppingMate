@@ -80,13 +80,7 @@ export default class AddMate extends Component {
                                         <Icon name='account-plus' size={iconStyles.size} color='#fff' type='material-community' />
                                     </View>
                                     <View style={styles.mateName}>
-                                        <View>
-                                            <Text style={styles.addText}>{this.state.mate.name}</Text>
-                                        </View>
-                                        {!this.state.mate.approved && <View style={styles.invitationStatus}>
-                                            <Icon name='account-question' size={iconStyles.size} color='orange' type='material-community' />
-                                            <Text style={this.state.mate.approved? styles.inviteButtonText: styles.invitationPending}>Pending</Text>
-                                        </View>}
+                                        <Text style={styles.addText}>{this.state.mate.name}</Text>
                                     </View>
                                 </TouchableOpacity>
                             </View>
