@@ -34,7 +34,8 @@ const globalStyles = StyleSheet.create({
         marginRight: 5,
         marginBottom: 15,
         width: '90%',
-        paddingLeft: 10,
+        paddingLeft: 5,
+        paddingBottom: 2,
         fontSize:20,
         color: '#fff'
     },

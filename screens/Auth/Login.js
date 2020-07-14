@@ -27,7 +27,7 @@ class Login extends Component {
     }
     doLogin = () => {
         const {email, password} = this.state.loginDetails;
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email.trim(), password)
             .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null).then(() => this.handleAccountSetUp(response.user)))
             .catch(error => this.setState({
                 loginDetails: {

@@ -19,10 +19,10 @@ class Register extends Component {
     }
     handleSignUp = () => {
         const {fullName, email, password} = this.state;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
+        firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
             .then((userCredentials) => {
                 return userCredentials.user.updateProfile({
-                    displayName: fullName
+                    displayName: fullName.trim()
                 }).then(() => this.handleAccountSetUp(userCredentials.user));
             })
             .catch(error => this.setState({
