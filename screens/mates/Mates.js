@@ -92,7 +92,7 @@ class Mates extends Component {
                                  </View>
                                  {!item.approved && <View style={styles.invitationStatus}>
                                      <Icon name='account-question' size={iconStyles.size} color='orange' type='material-community' />
-                                     <Text style={item.approved? styles.inviteButtonText: styles.invitationPending}>Invitation Pending</Text>
+                                     <Text style={item.approved? styles.inviteButtonText: styles.invitationPending}>Pending</Text>
                                  </View>}
                              </View>
                          </TouchableOpacity>
@@ -157,11 +157,13 @@ const styles = StyleSheet.create({
     },
     inviteButtonText: {
         color: '#fff',
-        marginLeft: 10
+        marginLeft: 10,
+        fontSize: 12
     },
     invitationPending: {
         color: 'orange',
-        marginLeft: 10
+        marginLeft: 10,
+        fontSize: 12
     },
     mates: {
         flex: 1,
