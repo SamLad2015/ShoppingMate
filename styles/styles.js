@@ -124,6 +124,7 @@ const globalStyles = StyleSheet.create({
         color: 'red'
     },
     mateProfile: {
+        flex: 0.7,
         padding: 0
     }
 });

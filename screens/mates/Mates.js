@@ -26,17 +26,8 @@ class Mates extends Component {
             mates: null,
             activeRow: null
         }
-    }
-    componentDidMount() {
-        const {navigation} = this.props;
-        this.focusListener = navigation.addListener('didFocus', () => {
-            this.getList();
-        });
-    }
-    componentWillUnmount() {
-        if (this.focusListener) {
-            this.focusListener.remove();
-        }
+        this.getList();
+
     }
     static navigationOptions = headerStyles;
     getList() {

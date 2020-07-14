@@ -5,7 +5,9 @@ import {
     TouchableOpacity,
     StyleSheet,
     ImageBackground,
-    FlatList
+    FlatList,
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, subHeaderStyles, swipeStyles} from '../../styles/Styles';
@@ -20,7 +22,6 @@ import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MatesService from "../../services/matesService";
 import MateProfile from "../mates/MateProfile";
-import {AsyncStorage} from "react-native-web";
 
 class Lists extends Component {
     constructor(props) {
@@ -37,6 +38,26 @@ class Lists extends Component {
         headerTitleStyle: subHeaderStyles,
         headerRight: () => <Header/>
     });
+    showLoginAlert = () => {
+        const title = 'Please Log-in';
+        const message = 'Please Log in to view mates';
+        Alert.alert(title, message);
+    }
+    doCheckLogin = async() => {
+        const { navigate } = this.props.navigation;
+        try {
+            const user = await AsyncStorage.getItem('user');
+            if (user) {
+                navigate('Mates', {
+                    uid: JSON.parse(user).uid
+                });
+            } else {
+                this.showLoginAlert();
+            }
+        } catch (e) {
+            this.showLoginAlert();
+        }
+    }
     sendList(listId) {
         const { navigate } = this.props.navigation;
         this.setState({closed: false});
@@ -140,8 +161,8 @@ class Lists extends Component {
                 );
     }
     render() {
-        const {lists, setList} = this.props;
         const { navigate } = this.props.navigation;
+        const {lists, setList} = this.props;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
@@ -161,16 +182,10 @@ class Lists extends Component {
                                       size={iconStyles.size}
                                       color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
-                            AsyncStorage.getItem('user', null).then((user) => {
-                                navigate('Mates', {
-                                    uid: JSON.parse(user).uid
-                                });
-                            });
-                           }}>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => this.doCheckLogin()}>
                             <Fontisto name='persons'
-                                      size={iconStyles.size}
-                                      color='#fff'/>
+                                          size={iconStyles.size}
+                                          color='#fff'/>
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
