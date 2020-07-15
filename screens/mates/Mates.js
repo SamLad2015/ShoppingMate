@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = state => ({
-    mates: state.mates
+    mates: state.mates,
+    uid: state.uid
 });
 export default connect(mapStateToProps, {removeMate})(Mates)

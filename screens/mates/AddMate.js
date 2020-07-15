@@ -14,8 +14,10 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import FirebaseService from "../../services/firebaseService";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Loading from "../common/Loading";
+import {connect} from "react-redux";
+import {addMate} from "../../actions/mates";
 
-export default class AddMate extends Component {
+class AddMate extends Component {
     constructor() {
         super();
         this.state ={
@@ -34,17 +36,16 @@ export default class AddMate extends Component {
             });
     }
     addMate = () => {
+        const {uid} = this.props;
         const {navigate} = this.props.navigation;
-        const { params } = this.props.navigation.state;
-        const uid = params ? params.uid : null;
-        if (uid) {
-            this.state.mate.mateUid = uid;
-            this.state.mate.approved = false;
-            const fbService = new FirebaseService();
-            fbService.addItem('mates', this.state.mate).then(() => {
-                navigate('Mates', {uid});
-            });
-        }
+        this.state.mate.mateUid = uid;
+        this.state.mate.approved = false;
+        const fbService = new FirebaseService();
+        fbService.addItem('mates', this.state.mate).then(res => {
+            this.state.mate.uid = res.id;
+            addMate(this.state.mate);
+            navigate('Mates');
+        });
     }
     static navigationOptions = headerStyles;
     render() {
@@ -157,3 +158,8 @@ const styles = StyleSheet.create({
         paddingTop: 5
     }
 });
+const mapStateToProps = state => ({
+    mates: state.mates,
+    uid: state.uid
+});
+export default connect(mapStateToProps, {addMate})(AddMate)

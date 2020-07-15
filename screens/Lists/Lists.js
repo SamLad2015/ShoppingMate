@@ -13,6 +13,7 @@ import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, subHeaderStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
+import {setUser, setMates} from "../../actions/mates";
 import moment from "moment";
 import Header from "../Header";
 import ItemsService from "../../services/itemsService";
@@ -20,17 +21,18 @@ import Profile from "../Profile";
 import GetBgImageUrl from "../../configs/asset.config";
 import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import MatesService from "../../services/matesService";
 import MateProfile from "../mates/MateProfile";
+import FirebaseService from "../../services/firebaseService";
 
 class Lists extends Component {
     constructor(props) {
         super(props);
         this.state = {
             activeRow : null,
+            uid: null,
             mates: []
         };
-        this.getMatesList().then(mates => this.setState({mates}));
+        this.checkLogin();
     }
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: () => <Profile navigation={navigation}/>,
@@ -43,13 +45,34 @@ class Lists extends Component {
         const message = 'Please Log in to view mates';
         Alert.alert(title, message);
     }
-    doCheckLogin = async() => {
+    checkUserUid = async() => {
+        const user = await AsyncStorage.getItem('user');
+        if (user) {
+            return JSON.parse(user).uid;
+        } else {
+            return null;
+        }
+    }
+    checkLogin = () => {
+        try {
+            this.checkUserUid().then((uid) => {
+               if (uid) {
+                  this.setState({uid});
+               }
+            });
+        } catch (e) {
+            this.setState({uid:null});
+        }
+    }
+    goToMates = async() => {
         const { navigate } = this.props.navigation;
         try {
-            const user = await AsyncStorage.getItem('user');
-            if (user) {
-                navigate('Mates', {
-                    uid: JSON.parse(user).uid
+            if (this.state.uid) {
+                setUser(this.state.uid);
+                this.getMates().then(() => {
+                    navigate('Mates', {
+                        uid: this.state.uid
+                    });
                 });
             } else {
                 this.showLoginAlert();
@@ -91,16 +114,20 @@ class Lists extends Component {
             this.setState({ activeRow: null });
         }
     }
+    getMates() {
+        return this.getMatesList().then(mates => {
+            this.setState({mates});
+            setMates(mates);
+        });
+    }
     async getMatesList() {
-        const matesService = new MatesService();
-        return await matesService.getMatesFromStorage();
+        const fbService = new FirebaseService();
+        return await fbService.searchItem('mates', 'mateUid', '==', this.state.uid, true);
     }
     renderItem = ({item, index}) => {
         const { setList} = this.props;
         const { navigate } = this.props.navigation;
-        const mate = _.find(this.state.mates, (m) => {
-            return m.lists.indexOf(item.id) > -1;
-        });
+        const mate = null;
         let swipeButtons = [{
             component: (
                 <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteList(item)}>
@@ -182,7 +209,7 @@ class Lists extends Component {
                                       size={iconStyles.size}
                                       color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => this.doCheckLogin()}>
+                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => this.goToMates()}>
                             <Fontisto name='persons'
                                           size={iconStyles.size}
                                           color='#fff'/>
@@ -243,6 +270,8 @@ const styles = StyleSheet.create({
 });
 const mapStateToProps = state => ({
     lists: state.lists,
-    list: state.list
+    mates: state.mates,
+    list: state.list,
+    uid: state.uid
 });
-export default connect(mapStateToProps, {setList, removeList})(Lists)
+export default connect(mapStateToProps, {setList, removeList, setUser, setMates})(Lists)

@@ -5,6 +5,7 @@ export const SET_ITEMS = 'SET_ITEMS';
 export const ADD_LIST = 'ADD_LIST';
 export const REMOVE_LIST = 'REMOVE_LIST';
 export const UPDATE_ITEM_COUNT = 'UPDATE_ITEM_COUNT';
+export const SET_USER = 'SET_USER';
 export const SET_MATES = 'SET_MATES';
 export const ADD_MATE = 'ADD_MATE';
 export const REMOVE_MATE = 'REMOVE_MATE';
