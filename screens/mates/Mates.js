@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     mates: {
         flex: 1,
         flexDirection: 'row',
+        marginTop: 5,
         marginBottom: 5
     }
 });
