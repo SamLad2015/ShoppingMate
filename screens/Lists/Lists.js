@@ -30,11 +30,9 @@ class Lists extends Component {
         super(props);
         this.state = {
             activeRow : null,
-            uid: null,
             matesLoading: false,
             mates: []
         };
-        this.checkLogin();
     }
     static navigationOptions = ({ navigation }) =>  ({
         headerTitle: () => <Profile navigation={navigation}/>,
@@ -59,33 +57,19 @@ class Lists extends Component {
             return null;
         }
     }
-    checkLogin = () => {
-        this.checkUserUid().then((uid) => {
-            if (uid) {
-                this.setState({uid});
-            }
-        });
-    }
-    goToMates = async(uid) => {
+    goToMates = async() => {
         const {setUser} = this.props;
         const { navigate } = this.props.navigation;
-        if (uid) {
-            setUser(uid);
-            this.getMates().then(() => {
-                navigate('Mates', {uid});
-            });
-        } else {
-            this.checkUserUid().then((uid) => {
-                if (uid) {
-                    setUser(uid);
-                    this.getMates().then(() => {
-                        navigate('Mates', {uid});
-                    });
-                } else {
-                    this.showLoginAlert();
-                }
-            });
-        }
+        this.checkUserUid().then((uid) => {
+            if (uid) {
+                setUser(uid);
+                this.getMates(uid).then(() => {
+                    navigate('Mates', {uid});
+                });
+            } else {
+                this.showLoginAlert();
+            }
+        });
     }
     sendList(listId) {
         const { navigate } = this.props.navigation;
@@ -120,17 +104,17 @@ class Lists extends Component {
             this.setState({ activeRow: null });
         }
     }
-    getMates() {
-        this.state.matesLoading = true;
+    getMates(uid) {
+        this.setState({matesLoading : true});
         const {setMates} = this.props;
-        return this.getMatesList().then(mates => {
+        return this.getMatesList(uid).then(mates => {
             this.setState({mates: mates, matesLoading: false});
             setMates(mates);
         });
     }
-    async getMatesList() {
+    async getMatesList(uid) {
         const fbService = new FirebaseService();
-        return await fbService.searchItem('mates', 'mateUid', '==', this.state.uid, true);
+        return await fbService.searchItem('mates', 'mateUid', '==', uid, true);
     }
     renderItem = ({item, index}) => {
         const { setList} = this.props;
@@ -218,7 +202,7 @@ class Lists extends Component {
                                       color='#fff'/>
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton}
-                                          onPress={() => this.goToMates(this.state.uid)}>
+                                          onPress={() => this.goToMates()}>
                             {!this.state.matesLoading && <Fontisto name='persons'
                                           size={iconStyles.size}
                                           color='#fff'/>}

@@ -6,7 +6,7 @@ const swipeStyles = {
     underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
 };
 const iconStyles = {
-    size: 25,
+    size: 20,
     smallSize: 15
 };
 const subHeaderStyles = {
@@ -85,7 +85,7 @@ const globalStyles = StyleSheet.create({
     },
     loginPanel: {
         position: 'absolute',
-        bottom: 90,
+        bottom: 80,
         width: '100%',
         flex: 1,
         justifyContent: 'center',
