@@ -36,7 +36,7 @@ const globalStyles = StyleSheet.create({
         width: '90%',
         paddingLeft: 5,
         paddingBottom: 2,
-        fontSize:20,
+        fontSize:15,
         color: '#fff'
     },
     bgImage: {
@@ -85,7 +85,7 @@ const globalStyles = StyleSheet.create({
     },
     loginPanel: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 90,
         width: '100%',
         flex: 1,
         justifyContent: 'center',

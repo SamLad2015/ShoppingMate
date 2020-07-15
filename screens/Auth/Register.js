@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     },
     regPanel: {
         position: 'absolute',
-        bottom: 100,
+        bottom: 80,
         width: '100%',
         flex: 1,
         justifyContent: 'center',
