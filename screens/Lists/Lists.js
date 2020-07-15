@@ -64,15 +64,14 @@ class Lists extends Component {
             this.setState({uid:null});
         }
     }
-    goToMates = async() => {
+    goToMates = async(uid) => {
+        const {setUser} = this.props;
         const { navigate } = this.props.navigation;
         try {
-            if (this.state.uid) {
-                setUser(this.state.uid);
+            if (uid) {
+                setUser(uid);
                 this.getMates().then(() => {
-                    navigate('Mates', {
-                        uid: this.state.uid
-                    });
+                    navigate('Mates', {uid});
                 });
             } else {
                 this.showLoginAlert();
@@ -115,6 +114,7 @@ class Lists extends Component {
         }
     }
     getMates() {
+        const {setMates} = this.props;
         return this.getMatesList().then(mates => {
             this.setState({mates});
             setMates(mates);
@@ -209,7 +209,8 @@ class Lists extends Component {
                                       size={iconStyles.size}
                                       color='#fff'/>
                         </TouchableOpacity>
-                        <TouchableOpacity style={globalButtons.bottomButton} onPress={() => this.goToMates()}>
+                        <TouchableOpacity style={globalButtons.bottomButton}
+                                          onPress={() => this.goToMates(this.state.uid)}>
                             <Fontisto name='persons'
                                           size={iconStyles.size}
                                           color='#fff'/>
