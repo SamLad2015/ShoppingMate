@@ -128,7 +128,7 @@ class Lists extends Component {
                               color='#fff'/>
                 </TouchableOpacity>
             ),
-            backgroundColor: swipeStyles.green,
+            backgroundColor: swipeStyles.red,
             underlayColor: swipeStyles.underlayColor
         }];
         if (item.items && item.items.length > 0) {
@@ -140,7 +140,7 @@ class Lists extends Component {
                                   color='#fff'/>
                     </TouchableOpacity>
                 ),
-                backgroundColor: swipeStyles.red,
+                backgroundColor: swipeStyles.green,
                 underlayColor: swipeStyles.underlayColor
             };
             swipeButtons.unshift(sendButton);

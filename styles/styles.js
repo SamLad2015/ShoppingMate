@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 const swipeStyles = {
-    green: '#8E1600',
-    red: '#0A3B10',
+    green: '#0A3B10',
+    red: '#8E1600',
     underlayColor: 'rgba(0, 0, 0, 1, 0.6)'
 };
 const iconStyles = {
@@ -140,7 +140,7 @@ const globalButtons = StyleSheet.create({
         marginBottom:5
     },
     swipeIconButton: {
-        marginTop: 20,
+        marginTop: 25,
         alignItems: 'center'
     },
     iconButtonSmall: {
