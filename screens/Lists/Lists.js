@@ -23,6 +23,7 @@ import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MateProfile from "../mates/MateProfile";
 import FirebaseService from "../../services/firebaseService";
+import Loading from "../common/Loading";
 
 class Lists extends Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class Lists extends Component {
         this.state = {
             activeRow : null,
             uid: null,
+            matesLoading: false,
             mates: []
         };
         this.checkLogin();
@@ -119,9 +121,10 @@ class Lists extends Component {
         }
     }
     getMates() {
+        this.state.matesLoading = true;
         const {setMates} = this.props;
         return this.getMatesList().then(mates => {
-            this.setState({mates});
+            this.setState({mates: mates, matesLoading: false});
             setMates(mates);
         });
     }
@@ -216,9 +219,10 @@ class Lists extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton}
                                           onPress={() => this.goToMates(this.state.uid)}>
-                            <Fontisto name='persons'
+                            {!this.state.matesLoading && <Fontisto name='persons'
                                           size={iconStyles.size}
-                                          color='#fff'/>
+                                          color='#fff'/>}
+                            {this.state.matesLoading && <Loading />}
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
