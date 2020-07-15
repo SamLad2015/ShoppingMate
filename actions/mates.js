@@ -1,7 +1,7 @@
-import {SET_MATES, ADD_MATE, REMOVE_MATE} from '../constants';
+import {SET_MATES, ADD_MATE, REMOVE_MATE, SET_USER} from '../constants';
 export function setUser(uid) {
     return {
-        type: SET_MATES,
+        type: SET_USER,
         payload: uid
     }
 }

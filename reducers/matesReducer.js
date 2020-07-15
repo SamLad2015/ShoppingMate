@@ -31,7 +31,7 @@ const matesReducer = (state = initialState, action) => {
             if (!state.mates) {
                 state.mates = [];
             } else {
-                state.mates = _.reject(state.mates, {uid: action.payload.id});
+                state.mates = _.reject(state.mates, {uid: action.payload});
             }
             return {
                 ...state,

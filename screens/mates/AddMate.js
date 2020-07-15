@@ -36,9 +36,9 @@ class AddMate extends Component {
             });
     }
     addMate = () => {
-        const {uid} = this.props;
+        const {mates, addMate} = this.props;
         const {navigate} = this.props.navigation;
-        this.state.mate.mateUid = uid;
+        this.state.mate.mateUid = mates.uid;
         this.state.mate.approved = false;
         const fbService = new FirebaseService();
         fbService.addItem('mates', this.state.mate).then(res => {

@@ -36,9 +36,10 @@ class Mates extends Component {
             this.setState({mates});
         }
     }
-    deleteMate = (id) => {
+    deleteMate = (mate) => {
+        const {removeMate} = this.props;
         const fbService = new FirebaseService();
-        fbService.removeItem('mates', id).then(() => removeMate(id));
+        fbService.removeItem('mates', mate.id).then(() => removeMate(mate.uid));
     }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
@@ -51,7 +52,7 @@ class Mates extends Component {
     renderItem = ({item, index}) => {
         const swipeButtons = [{
             component: (
-                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteMate(item.id)}>
+                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteMate(item)}>
                     <Fontisto name='trash'
                               size={iconStyles.size}
                               color='#fff'/>
@@ -155,7 +156,8 @@ const styles = StyleSheet.create({
     },
     mates: {
         flex: 1,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 5
     }
 });
 const mapStateToProps = state => ({
