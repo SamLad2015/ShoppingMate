@@ -12,3 +12,9 @@ web-report/
 
 # macOS
 .DS_Store
+/android/.gradle/buildOutputCleanup/built.bin
+/android/.gradle/buildOutputCleanup/cache.properties.lock
+/android/.gradle/4.1/fileHashes/fileHashes.bin
+/android/.gradle/4.1/fileChanges/last-build.bin
+/android/build/android-profile/profile-2020-07-15-12-03-53-452.json
+/android/build/android-profile/profile-2020-07-15-12-03-53-452.rawproto
