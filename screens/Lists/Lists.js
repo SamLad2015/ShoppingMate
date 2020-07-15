@@ -46,38 +46,43 @@ class Lists extends Component {
         Alert.alert(title, message);
     }
     checkUserUid = async() => {
-        const user = await AsyncStorage.getItem('user');
-        if (user) {
-            return JSON.parse(user).uid;
-        } else {
+        try {
+            const user = await AsyncStorage.getItem('user');
+            if (user) {
+                return JSON.parse(user).uid;
+            } else {
+                return null;
+            }
+        } catch (e) {
             return null;
         }
     }
     checkLogin = () => {
-        try {
-            this.checkUserUid().then((uid) => {
-               if (uid) {
-                  this.setState({uid});
-               }
-            });
-        } catch (e) {
-            this.setState({uid:null});
-        }
+        this.checkUserUid().then((uid) => {
+            if (uid) {
+                this.setState({uid});
+            }
+        });
     }
     goToMates = async(uid) => {
         const {setUser} = this.props;
         const { navigate } = this.props.navigation;
-        try {
-            if (uid) {
-                setUser(uid);
-                this.getMates().then(() => {
-                    navigate('Mates', {uid});
-                });
-            } else {
-                this.showLoginAlert();
-            }
-        } catch (e) {
-            this.showLoginAlert();
+        if (uid) {
+            setUser(uid);
+            this.getMates().then(() => {
+                navigate('Mates', {uid});
+            });
+        } else {
+            this.checkUserUid().then((uid) => {
+                if (uid) {
+                    setUser(uid);
+                    this.getMates().then(() => {
+                        navigate('Mates', {uid});
+                    });
+                } else {
+                    this.showLoginAlert();
+                }
+            });
         }
     }
     sendList(listId) {
