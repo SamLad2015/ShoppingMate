@@ -10,7 +10,7 @@ import {
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, headerStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
-import {removeList, setList} from "../../actions/lists";
+import {removeMate} from "../../actions/mates";
 import GetBgImageUrl from "../../configs/asset.config";
 import Swipeout from "react-native-swipeout";
 import Fontisto from "react-native-vector-icons/Fontisto";
@@ -23,33 +23,22 @@ class Mates extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mates: null,
             activeRow: null
         }
-        this.getList();
-
     }
     static navigationOptions = headerStyles;
-    getList() {
-        const { params } = this.props.navigation.state;
-        const uid = params ? params.uid : null;
-        if (uid) {
-            const fbService = new FirebaseService();
-            fbService.searchItem('mates', 'mateUid', '==', uid, true).then(users => this.setState({mates: users}));
-        }
-    }
     addListToMate = (mateId) => {
+        const {mates} = this.props;
         const { params } = this.props.navigation.state;
         const listId = params ? params.listId : -1;
         if (listId > -1) {
-            let mates = this.state.mates;
             _.find(mates, {id: mateId}).lists.push(listId);
             this.setState({mates});
         }
     }
     deleteMate = (id) => {
         const fbService = new FirebaseService();
-        fbService.removeItem('mates', id).then(() => this.getList());
+        fbService.removeItem('mates', id).then(() => removeMate(id));
     }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
@@ -102,14 +91,13 @@ class Mates extends Component {
     }
     render() {
         const { navigate } = this.props.navigation;
-        const { params } = this.props.navigation.state;
-        const uid = params ? params.uid : null;
+        const {mates} = this.props;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.listWrapper}>
-                        {!this.state.mates && <Loading />}
-                        {this.state.mates && <FlatList data={_.orderBy(this.state.mates, 'createdOn', 'desc')}
+                        {!mates.mates && <Loading />}
+                        {mates.mates && mates.mates.length > 0 && <FlatList data={_.orderBy(mates.mates, 'createdOn', 'desc')}
                                   keyExtractor={(item) => item.uid.toString()}
                                   renderItem={this.renderItem}
                         />}
@@ -121,8 +109,7 @@ class Mates extends Component {
                                       color='#fff'/>
                         </TouchableOpacity>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => {
-                            setList(undefined)
-                            navigate('AddMate', {uid})}}>
+                            navigate('AddMate')}}>
                             <Fontisto name='person'
                                       size={iconStyles.size}
                                       color='#fff'/>
@@ -172,6 +159,6 @@ const styles = StyleSheet.create({
     }
 });
 const mapStateToProps = state => ({
-    lists: state.lists
+    mates: state.mates
 });
-export default connect(mapStateToProps, {setList, removeList})(Mates)
+export default connect(mapStateToProps, {removeMate})(Mates)
