@@ -40,7 +40,8 @@ class Register extends Component {
             uid: user.uid,
             name: user.displayName,
             email: user.email,
-            gender: 'male'
+            gender: 'male',
+            emailVerified: false
         }
         const fbService = new FirebaseService();
         fbService.addItem('users', userToAdd)
