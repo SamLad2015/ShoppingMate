@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     addMateIcon: {
-        flex: 0.1
+        flex: 0.1,
+        marginTop: 5
     },
     mateName: {
         flex: 0.9
