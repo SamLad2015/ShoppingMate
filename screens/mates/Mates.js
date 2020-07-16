@@ -17,7 +17,6 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import MateProfile from "./MateProfile";
 import FirebaseService from "../../services/firebaseService";
 import Loading from "../common/Loading";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 class Mates extends Component {
     constructor(props) {
@@ -81,8 +80,7 @@ class Mates extends Component {
                                      <MateProfile mate={item} isSmall={false} />
                                  </View>
                                  {!item.approved && <View style={styles.invitationStatus}>
-                                     <Icon name='account-question' size={iconStyles.size} color='orange' type='material-community' />
-                                     <Text style={item.approved? styles.inviteButtonText: styles.invitationPending}>Pending</Text>
+                                     <Text style={!item.approved && styles.invitationPending}>Pending</Text>
                                  </View>}
                              </View>
                          </TouchableOpacity>
@@ -143,16 +141,11 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         alignContent: 'flex-end'
     },
-    inviteButtonText: {
-        color: '#fff',
-        marginLeft: 10,
-        fontSize: 12
-    },
     invitationPending: {
         color: 'orange',
-        marginLeft: 10,
-        marginTop: 5,
-        fontSize: 12
+        fontSize: 15,
+        fontWeight: 'bold',
+        fontStyle: 'italic'
     },
     mates: {
         flex: 1,

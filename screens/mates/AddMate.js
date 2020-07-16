@@ -49,6 +49,7 @@ class AddMate extends Component {
     }
     static navigationOptions = headerStyles;
     render() {
+        const {mates} = this.props;
         const {navigate} = this.props.navigation;
         return (
             <View style={globalStyles.container}>
@@ -78,7 +79,8 @@ class AddMate extends Component {
                             <View style={styles.mateProfile}>
                                 <TouchableOpacity style={styles.profileWrapper} onPress={() => this.addMate()}>
                                     <View style={styles.addMateIcon}>
-                                        <Icon name='account-plus' size={iconStyles.size} color='#fff' type='material-community' />
+                                        {(mates.uid !== this.state.mate.uid) && <Icon name='account-plus' size={iconStyles.size} color='#fff' type='material-community' />}
+                                        {(mates.uid === this.state.mate.uid) && <Icon name='account' size={iconStyles.size} color='#fff' type='material-community' />}
                                     </View>
                                     <View style={styles.mateName}>
                                         <Text style={styles.addText}>{this.state.mate.name}</Text>

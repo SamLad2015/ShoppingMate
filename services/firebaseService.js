@@ -20,11 +20,19 @@ export default class FirebaseService {
     }
     searchItem = async (path, node, operator, value, multiple = false) => {
         let outputs = [];
-        const entityRef = firebase.firestore().collection(path)
-        const snapshot =  await entityRef.where(node, operator, value).limit(1).get();
-        snapshot.forEach(doc => {
-            outputs.push(Object.assign(doc.data(), {id: doc.id}));
+        const isUsersPath = path === 'users';
+        const entityRefQuery = firebase.firestore().collection(path)
+            .where(node, operator, isUsersPath? value.toLowerCase() : value);
+        const snapshot = multiple ? await this.forUsersPath(entityRefQuery) :
+            await this.forUsersPath(entityRefQuery).limit(1);
+        return snapshot.get().then(snapshot => {
+            snapshot.forEach(doc => {
+                outputs.push(Object.assign(doc.data(), {id: doc.id}));
+            });
+            return multiple ? outputs : outputs[0];
         });
-        return multiple ? outputs : outputs[0];
+    }
+    forUsersPath(query) {
+        return query;
     }
 }
