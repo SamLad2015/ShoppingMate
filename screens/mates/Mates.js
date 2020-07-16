@@ -94,12 +94,31 @@ class Mates extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
-                    <View style={styles.listWrapper}>
-                        {!mates.mates && <Loading />}
-                        {mates.mates && mates.mates.length > 0 && <FlatList data={_.orderBy(mates.mates, 'createdOn', 'desc')}
-                                  keyExtractor={(item) => item.uid.toString()}
-                                  renderItem={this.renderItem}
-                        />}
+                    <View style={styles.lists}>
+                        <View style={styles.listWrapper}>
+                            {!mates.requests && <Loading />}
+                            {mates.requests && mates.requests.length > 0 &&
+                                <View>
+                                    <Text style={styles.title}>Requests</Text>
+                                    <FlatList data={mates.requests}
+                                             keyExtractor={(item) => item.uid.toString()}
+                                             renderItem={this.renderItem}
+                                    />
+                                </View>
+                            }
+                        </View>
+                        <View style={styles.listWrapper}>
+                            {!mates.mates && <Loading />}
+                            {mates.mates && mates.mates.length > 0 &&
+                                <View>
+                                    <Text style={styles.title}>Requests Sent</Text>
+                                    <FlatList data={mates.mates}
+                                                 keyExtractor={(item) => item.uid.toString()}
+                                                 renderItem={this.renderItem}
+                                    />
+                                </View>
+                            }
+                        </View>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
@@ -125,11 +144,18 @@ const styles = StyleSheet.create({
         borderBottomColor: '#c0c0c0',
         borderBottomWidth: .5
     },
-    listWrapper: {
+    lists: {
         flex: 1,
-        width: '100%',
-        height: '100%',
-        marginBottom: 75
+        width: '100%'
+    },
+    listWrapper: {
+        width: '100%'
+    },
+    title: {
+        fontSize: 20,
+        padding: 20,
+        color: 'yellow',
+        fontWeight: 'bold'
     },
     cancelMate: {
         marginTop: 5

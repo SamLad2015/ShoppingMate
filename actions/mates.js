@@ -1,4 +1,4 @@
-import {SET_MATES, ADD_MATE, REMOVE_MATE, SET_USER} from '../constants';
+import {SET_MATES, ADD_MATE, REMOVE_MATE, SET_USER, SET_REQUESTS} from '../constants';
 export function setUser(uid) {
     return {
         type: SET_USER,
@@ -23,3 +23,10 @@ export function removeMate(id) {
         payload: id
     }
 }
+export function setRequests(requests) {
+    return {
+        type: SET_REQUESTS,
+        payload: requests
+    }
+}
+

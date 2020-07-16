@@ -9,3 +9,4 @@ export const SET_USER = 'SET_USER';
 export const SET_MATES = 'SET_MATES';
 export const ADD_MATE = 'ADD_MATE';
 export const REMOVE_MATE = 'REMOVE_MATE';
+export const SET_REQUESTS = 'SET_REQUESTS';

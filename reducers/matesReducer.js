@@ -1,9 +1,10 @@
-import {ADD_MATE, REMOVE_MATE, SET_MATES, SET_USER} from '../constants';
+import {ADD_MATE, REMOVE_MATE, SET_MATES, SET_REQUESTS, SET_USER} from '../constants';
 import * as _ from "lodash";
 
 const initialState = {
         uid: null,
-        mates: []
+        mates: [],
+        requests: []
 };
 const matesReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -35,6 +36,11 @@ const matesReducer = (state = initialState, action) => {
             }
             return {
                 ...state,
+            };
+        case SET_REQUESTS:
+            return {
+                ...state,
+                requests:action.payload
             };
         default:
             return state;

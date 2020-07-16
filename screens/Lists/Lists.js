@@ -13,7 +13,7 @@ import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, subHeaderStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
 import {removeList, setList} from "../../actions/lists";
-import {setUser, setMates} from "../../actions/mates";
+import {setUser, setMates, setRequests} from "../../actions/mates";
 import moment from "moment";
 import Header from "../Header";
 import ItemsService from "../../services/itemsService";
@@ -105,16 +105,21 @@ class Lists extends Component {
         }
     }
     getMates(uid) {
+        const promises = this.getMatesRequests(uid);
         this.setState({matesLoading : true});
-        const {setMates} = this.props;
-        return this.getMatesList(uid).then(mates => {
-            this.setState({mates: mates, matesLoading: false});
-            setMates(mates);
+        const {setMates, setRequests} = this.props;
+        return promises.then(matesPromises => {
+            this.setState({mates: matesPromises[0], requests: matesPromises[1], matesLoading: false});
+            setMates(matesPromises[0]);
+            setRequests(matesPromises[1]);
         });
     }
-    async getMatesList(uid) {
+    async getMatesRequests(uid) {
+        const promises = [];
         const fbService = new FirebaseService();
-        return await fbService.searchItem('mates', 'mateUid', '==', uid, true);
+        promises.push(await fbService.searchItem('mates', 'mateUid', '==', uid, true));
+        promises.push(await fbService.getRequests(uid));
+        return promises;
     }
     renderItem = ({item, index}) => {
         const { setList} = this.props;
@@ -268,4 +273,4 @@ const mapStateToProps = state => ({
     list: state.list,
     uid: state.uid
 });
-export default connect(mapStateToProps, {setList, removeList, setUser, setMates})(Lists)
+export default connect(mapStateToProps, {setList, removeList, setUser, setMates, setRequests})(Lists)
