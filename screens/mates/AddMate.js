@@ -128,7 +128,8 @@ const styles = StyleSheet.create({
     searchIconWrapper: {
         flex: 0.1,
         alignItems: 'flex-start',
-        marginTop: 15
+        marginTop: 20,
+        marginRight: 5
     },
     mates: {
         position: 'absolute',
