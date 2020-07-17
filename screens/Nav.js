@@ -10,8 +10,8 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Logout from "./auth/Logout";
 import ResetPassword from "./auth/ResetPassword";
-import Mates from "./mates/Mates";
 import AddMate from "./mates/AddMate";
+import Mates from "./mates/Mates";
 
 const Nav = createStackNavigator({
         Login: { screen: Login },

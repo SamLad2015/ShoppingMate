@@ -64,7 +64,7 @@ class Lists extends Component {
             if (uid) {
                 setUser(uid);
                 this.getMates(uid).then(() => {
-                    navigate('Mates', {uid});
+                    navigate('Mates');
                 });
             } else {
                 this.showLoginAlert();

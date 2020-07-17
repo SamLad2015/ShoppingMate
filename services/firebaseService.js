@@ -1,4 +1,5 @@
 import {firebase} from "../firebase/firebase.config";
+import * as _ from 'lodash';
 
 export default class FirebaseService {
     getItems = async (path) => {
