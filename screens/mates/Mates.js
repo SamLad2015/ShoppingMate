@@ -99,7 +99,7 @@ class Mates extends Component {
                             {!mates.requests && <Loading />}
                             {mates.requests && mates.requests.length > 0 &&
                                 <View>
-                                    <Text style={styles.title}>Requests</Text>
+                                    <Text style={styles.title}>Requests Received</Text>
                                     <FlatList data={mates.requests}
                                              keyExtractor={(item) => item.uid.toString()}
                                              renderItem={this.renderItem}
