@@ -36,20 +36,20 @@ class Logout extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
-                    <View style={styles.welcome}>
-                        <View style={globalStyles.success}>
-                            <Text style={[globalStyles.introText, styles.welcomeText]}>Welcome {this.state.displayName || ''}</Text>
-                            <Text style={[globalStyles.introText, globalStyles.emailText]}>
+                    <View style={globalStyles.loginPanel}>
+                        <View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper]}>
+                            <Text style={globalStyles.introText}>Welcome {this.state.displayName || ''}</Text>
+                            <Text style={globalStyles.introText}>
                                 You are currently registered with Email:
                                 <Text style={globalStyles.userEmail}> {this.state.email || ''} </Text>
                                 click on Sign Out to log out.
                             </Text>
                         </View>
-                    </View>
-                    <View style={globalStyles.loginPanel}>
-                        <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogout}>
-                            <Text style={globalButtons.loginButtonText}>Sign Out</Text>
-                        </TouchableOpacity>
+                        <View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper]}>
+                            <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogout}>
+                                <Text style={globalButtons.loginButtonText}>Sign Out</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
@@ -63,15 +63,4 @@ class Logout extends Component {
         );
     }
 }
-const styles = StyleSheet.create({
-    welcome: {
-        flex: 1,
-        flexDirection: 'column',
-        position: 'absolute',
-        bottom: 170
-    },
-    welcomeText: {
-        color: '#fff'
-    }
-});
 export default connect(null, null)(Logout)
