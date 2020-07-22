@@ -27,15 +27,11 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'center'
     },
     textInput: {
-        borderColor: '#666',
-        borderBottomWidth: 1,
         marginTop: 15,
         marginLeft: 5,
         marginRight: 5,
-        marginBottom: 15,
-        width: '90%',
         paddingLeft: 5,
-        paddingBottom: 2,
+        paddingBottom: 4,
         fontSize:15,
         color: '#fff'
     },
@@ -84,22 +80,29 @@ const globalStyles = StyleSheet.create({
         color: '#fff',
     },
     loginPanel: {
-        position: 'absolute',
-        bottom: 80,
-        width: '100%',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        marginTop: 50,
+        paddingLeft: 20,
+        paddingRight: 20
+    },
+    forgetPasswordPanel: {
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        marginTop: 0,
         paddingLeft: 20,
         paddingRight: 20
     },
     success: {
         flex: 1
     },
-    emailText: {
-        flex: 1,
-        flexDirection: 'column',
-        marginTop: 50
+    successText: {
+        fontSize: 17,
+        fontWeight: '700',
+        textAlign: 'center',
+        color: 'green'
     },
     introText: {
         fontSize: 17,
@@ -112,8 +115,17 @@ const globalStyles = StyleSheet.create({
         paddingRight: 5,
         color: 'pink'
     },
+    textInputWrapper: {
+        borderColor: '#666',
+        borderBottomWidth: 1,
+        width: '100%',
+        marginBottom: 20
+    },
+    buttonWrapper:{
+        borderBottomWidth: 0
+    },
     loginTextInput: {
-        textAlign: 'right'
+        textAlign: 'left'
     },
     error: {
         backgroundColor: '#fff',
@@ -122,11 +134,21 @@ const globalStyles = StyleSheet.create({
         bottom: 0
     },
     errorText: {
-        color: 'red'
+        color: '#ff8000'
     },
     mateProfile: {
         flex: 0.7,
         padding: 0
+    },
+    signUpWrapper: {
+        marginTop: -24,
+        width: 100,
+        alignSelf: 'flex-end',
+        textAlign: 'right'
+    },
+    closeButton: {
+        width: 20,
+        alignSelf: 'flex-end'
     }
 });
 const globalButtons = StyleSheet.create({
@@ -180,20 +202,21 @@ const globalButtons = StyleSheet.create({
         marginRight: 25
     },
     loginButton: {
-        flex: 1,
         marginTop: 22,
         marginHorizontal: 30,
         backgroundColor: "#fff",
         borderRadius: 4,
         height: 40,
-        alignItems: "center",
-        justifyContent: "center"
+        width: 100,
+        alignSelf: "center",
+        justifyContent: "center",
+        textAlign: "center"
     },
     loginButtonText: {
         color: '#000',
         fontSize: 15,
-        padding: 15,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'center'
     },
     addButtonWrapper: {
         paddingTop: 10

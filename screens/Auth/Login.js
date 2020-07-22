@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import * as firebase from "firebase";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
-import FirebaseService from "../../services/firebaseService";
 
 class Login extends Component {
     constructor(props) {
@@ -30,11 +29,13 @@ class Login extends Component {
         firebase.auth().signInWithEmailAndPassword(email.trim(), password)
             .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null)
                 .then(() => this.handleAccountSetUp(response.user)))
-            .catch(error => this.setState({
+            .catch(error => {
+                this.fadeIn();
+                this.setState({
                 loginDetails: {
                     errorMessage: error.message
                 }
-            }));
+            })});
     }
     handleAccountSetUp(user) {
         if (user.emailVerified) {
@@ -64,9 +65,15 @@ class Login extends Component {
             this.state.fadeIn,
             {
                 toValue: 0,
-                duration: 2000,
+                duration: 3000,
             }
-        ).start();
+        ).start(() => {
+            this.setState({
+                loginDetails: {
+                    errorMessage: null
+                }
+            });
+        });
     }
 
     static navigationOptions = headerStyles;
@@ -76,32 +83,48 @@ class Login extends Component {
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
                     <View style={globalStyles.loginPanel}>
-                        <TextInput
-                            autoCapitalize="none"
-                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
-                            placeholder="Email Address"
-                            onChangeText={text => this.setState({loginDetails: {email: text, password: this.state.loginDetails.password}})}
-                            value={this.state.loginDetails.email}
-                        />
-                        <TextInput
-                            secureTextEntry
-                            autoCapitalize="none"
-                            style={[globalStyles.textInput, globalStyles.loginTextInput]}
-                            placeholder="Password"
-                            onChangeText={text => this.setState({loginDetails: {email: this.state.loginDetails.email, password: text}})}
-                            value={this.state.loginDetails.password}
-                        />
-                        <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogin}>
-                            <Text style={globalButtons.loginButtonText}>Sign In</Text>
-                        </TouchableOpacity>
+                        <View style={globalStyles.textInputWrapper}>
+                            <TextInput
+                                autoCapitalize="none"
+                                style={[globalStyles.textInput, globalStyles.loginTextInput]}
+                                placeholder="Email Address"
+                                onChangeText={text => this.setState({loginDetails: {email: text, password: this.state.loginDetails.password}})}
+                                value={this.state.loginDetails.email}
+                            />
+                            <TouchableOpacity style={[globalStyles.signUpWrapper, globalStyles.closeButton]}
+                                              onPress={() => this.setState({loginDetails:
+                                                      {email: '', password: this.state.loginDetails.password}
+                                              })}>
+                                <Fontisto name='close-a'
+                                          size={iconStyles.size - 7}
+                                          color='#fff'/>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={globalStyles.textInputWrapper}>
+                            <TextInput
+                                secureTextEntry
+                                autoCapitalize="none"
+                                style={[globalStyles.textInput, globalStyles.loginTextInput]}
+                                placeholder="Password"
+                                onChangeText={text => this.setState({loginDetails: {email: this.state.loginDetails.email, password: text}})}
+                                value={this.state.loginDetails.password}>
+                            </TextInput>
+                            <Text style={[globalStyles.bottomText, globalStyles.signUpWrapper]}
+                                  onPress={() => this.props.navigation.navigate('ResetPassword')}>
+                                <Text style={styles.signUpLink}>Forgot?</Text>
+                            </Text>
+                        </View>
+                        <View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper]}>
+                            <TouchableOpacity style={globalButtons.loginButton} onPress={this.handleLogin}>
+                                <Text style={globalButtons.loginButtonText}>Sign In</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {this.state.loginDetails.errorMessage && <Animated.View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper, {opacity: this.state.fadeIn}]}>
+                            <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.loginDetails.errorMessage}</Text>
+                        </Animated.View>}
                         <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('Register')}>
                             <Text style={styles.bottomText}>
                                 New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('ResetPassword')}>
-                            <Text style={styles.bottomText}>
-                                Forgotten Password? <Text style={styles.signUpLink}>Reset</Text>
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -114,10 +137,6 @@ class Login extends Component {
                             </TouchableOpacity>
                         </TouchableOpacity>
                     </View>
-                    <Animated.View style={[globalStyles.error, {opacity: this.state.fadeIn}]}>
-                        {this.state.loginDetails.errorMessage &&
-                        <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.loginDetails.errorMessage}</Text>}
-                    </Animated.View>
                 </ImageBackground>
             </View>
         );
@@ -126,7 +145,8 @@ class Login extends Component {
 const styles = StyleSheet.create({
     signUp: {
         flex: 1,
-        marginTop: 20
+        marginTop: 20,
+        alignSelf: 'center'
     },
     signUpLink: {
         fontWeight: "700",
