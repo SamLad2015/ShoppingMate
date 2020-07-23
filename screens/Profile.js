@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
         flex:1
     },
     profileButton: {
-        color: '#ffffff'
+        color: '#7a1130'
     },
     profileButtonActive: {
-        color: '#83f52c'
+        color: '#4d0000'
     },
     profileName : {
         color: '#ffffff'
