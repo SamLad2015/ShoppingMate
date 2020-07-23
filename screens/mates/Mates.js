@@ -17,6 +17,7 @@ import Fontisto from "react-native-vector-icons/Fontisto";
 import MateProfile from "./MateProfile";
 import FirebaseService from "../../services/firebaseService";
 import Loading from "../common/Loading";
+import CollapseView from "react-native-collapse-view";
 
 class Mates extends Component {
     constructor(props) {
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     },
     invitationPending: {
         color: 'orange',
-        fontSize: 12,
+        fontSize: 14,
         fontWeight: 'bold',
         fontStyle: 'italic'
     },
