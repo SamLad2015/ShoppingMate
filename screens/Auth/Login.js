@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import * as firebase from "firebase";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import FirebaseService from "../../services/firebaseService";
 
 class Login extends Component {
     constructor(props) {
@@ -27,8 +28,7 @@ class Login extends Component {
     doLogin = () => {
         const {email, password} = this.state.loginDetails;
         firebase.auth().signInWithEmailAndPassword(email ? email.trim() : '', password || '')
-            .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null)
-                .then(() => this.handleAccountSetUp(response.user)))
+            .then(response => this.setUser(response))
             .catch(error => {
                 this.fadeIn();
                 this.setState({
@@ -36,6 +36,14 @@ class Login extends Component {
                     errorMessage: error.message
                 }
             })});
+    }
+    setUser = (response) => {
+        const user = response.user;
+        const fbService =  new FirebaseService();
+        fbService.getItem('users', user.uid).then(dbUser =>
+           AsyncStorage.setItem('user', JSON.stringify(dbUser.data()))
+               .then(() => this.handleAccountSetUp(user))
+        );
     }
     handleAccountSetUp(user) {
         if (user.emailVerified) {

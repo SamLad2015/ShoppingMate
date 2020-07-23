@@ -48,7 +48,7 @@ class Register extends Component {
             emailVerified: false
         }
         const fbService = new FirebaseService();
-        fbService.addItem('users', userToAdd)
+        fbService.addItem('users', user.uid, userToAdd);
     }
     fadeIn() {
         this.state.fadeIn.setValue(0)

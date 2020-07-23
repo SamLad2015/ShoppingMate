@@ -49,7 +49,7 @@ class Lists extends Component {
         try {
             const user = await AsyncStorage.getItem('user');
             if (user) {
-                return JSON.parse(user).uid;
+                return JSON.parse(user);
             } else {
                 return null;
             }
@@ -60,10 +60,10 @@ class Lists extends Component {
     goToMates = async() => {
         const {setUser} = this.props;
         const { navigate } = this.props.navigation;
-        this.checkUserUid().then((uid) => {
-            if (uid) {
-                setUser(uid);
-                this.getMates(uid).then(() => {
+        this.checkUserUid().then((user) => {
+            if (user && user.uid) {
+                setUser(user.uid);
+                this.getMates(user.uid).then(() => {
                     navigate('Mates');
                 });
             } else {
