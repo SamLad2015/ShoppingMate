@@ -41,7 +41,7 @@ export default class Profile extends Component {
 const styles = StyleSheet.create({
     profileView: {
         flex:1,
-        width:'60%'
+        width:'80%'
     },
     profileViewButton :{
         flex:1

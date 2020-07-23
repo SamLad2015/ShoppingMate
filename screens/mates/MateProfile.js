@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     listDetails: {
         flex: 0.89,
         flexDirection: 'row',
-        marginLeft: 15
+        alignSelf: 'flex-start'
     },
     smallListDetails: {
         marginLeft: 10

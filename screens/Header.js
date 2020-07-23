@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import {globalStyles} from '../styles/Styles';
+import { Image, View } from 'react-native';
+import {globalStyles} from "../styles/Styles";
 
 export default class Header extends Component {
     constructor(props) {
@@ -8,7 +8,9 @@ export default class Header extends Component {
     }
     render() {
         return (
-            <View><Text style={globalStyles.heading}>Shopping Mate</Text></View>
+            <View>
+                <Image source={require('../assets/icon.png')} style={globalStyles.headerBgImage} />
+            </View>
         );
     }
 }
