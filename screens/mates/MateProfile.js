@@ -9,7 +9,7 @@ export default class MateProfile extends Component {
         return (
             <View style={isSmall ? styles.smallMateRow : styles.mateRow}>
                 <View style={isSmall ? styles.smallMateIcon : styles.mateIcon}>
-                    <Fontisto name={mate.gender || 'male'} size={isSmall ? 15 : 20} color='#fff'/>
+                    <Fontisto name={mate.gender || 'person'} size={isSmall ? 15 : 20} color='#fff'/>
                 </View>
                 <View style={isSmall ? styles.smallListDetails : styles.listDetails}>
                     <Text style={isSmall ? styles.listLabelSmall : styles.listLabel}>
@@ -38,13 +38,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     mateIcon: {
-        flex: 0.1
+        flex: 0.11
     },
     smallMateIcon: {
         marginLeft: 15,
     },
     listDetails: {
-        flex: 0.9,
+        flex: 0.89,
         flexDirection: 'row',
         marginLeft: 15
     },

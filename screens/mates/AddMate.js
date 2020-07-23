@@ -41,8 +41,7 @@ class AddMate extends Component {
         this.state.mate.mateUid = mates.uid;
         this.state.mate.approved = false;
         const fbService = new FirebaseService();
-        fbService.addItem('mates', this.state.mate).then(res => {
-            this.state.mate.uid = res.id;
+        fbService.addItem('mates',  this.state.mate.uid, this.state.mate).then(() => {
             addMate(this.state.mate);
             navigate('Mates');
         });
@@ -123,7 +122,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start'
     },
     mateSearchInput: {
-        flex: 0.9
+        flex: 0.9,
+        borderBottomWidth: 1,
+        borderBottomColor: '#c0c0c0'
     },
     searchIconWrapper: {
         flex: 0.1,

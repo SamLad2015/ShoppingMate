@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import {StyleSheet, TouchableOpacity, View, AsyncStorage} from 'react-native';
-import Icon from "react-native-vector-icons/FontAwesome";
-import CommonHelpers from "../helpers/commonHelpers";
+import MateProfile from "./mates/MateProfile";
 
 export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: null
+            user: {gender: null, name: 'Login'}
         }
     }
     componentDidMount() {
         const {navigation} = this.props;
         this.focusListener = navigation.addListener('didFocus', () => {
             AsyncStorage.getItem('user', null).then((user) => {
-                this.setState({displayName: user ? CommonHelpers.getShortDisplayName(JSON.parse(user).displayName) : null});
+                this.setState({user: user ? JSON.parse(user) : {gender: null, name: 'Login'}});
             });
         });
     }
@@ -23,24 +22,17 @@ export default class Profile extends Component {
     }
     handleRedirect = () => {
         const {navigate} = this.props.navigation;
-        if (this.state.displayName) {
-            navigate('Logout');
-        } else {
+        if (this.state.user.name === 'Login') {
             navigate('Login');
+        } else {
+            navigate('Logout');
         }
     }
     render() {
         return (
             <View style={styles.profileView}>
-                <TouchableOpacity style={styles.profileViewButton}>
-                    <Icon.Button
-                        iconStyle={this.state.displayName ? styles.profileButtonActive : styles.profileButton}
-                        backgroundColor='#640E27'
-                        size={25}
-                        name="user"
-                        onPress={this.handleRedirect}>
-                        {this.state.displayName || 'Login'}
-                    </Icon.Button>
+                <TouchableOpacity style={styles.profileViewButton} onPress={this.handleRedirect}>
+                    <MateProfile mate={this.state.user} isSmall={false} />
                 </TouchableOpacity>
             </View>
         );

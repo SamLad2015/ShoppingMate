@@ -13,8 +13,12 @@ export default class FirebaseService {
             return outputs;
         });
     }
-    addItem = async (path, doc) => {
-        return await firebase.firestore().collection(path).add(doc);
+    getItem = (path, id) => {
+        return firebase.firestore().collection(path).doc(id).get();
+    }
+    addItem = async (path, id, doc) => {
+        const docRef = firebase.firestore().collection(path).doc(id);
+        return await docRef.set(doc);
     }
     removeItem = async (path, docId) => {
         return await firebase.firestore().collection(path).doc(docId).delete();
