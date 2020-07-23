@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     title: {
-        fontSize: 20,
+        fontSize: 17,
         padding: 20,
         color: 'yellow',
         fontWeight: 'bold'
