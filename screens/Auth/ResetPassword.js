@@ -59,6 +59,17 @@ export default class ResetPassword extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
+                    {this.state.errorMessage && <Animated.View style={[globalStyles.errorPanel, {opacity: this.state.fadeIn}]}>
+                        <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.errorMessage}</Text>
+                    </Animated.View>}
+                    {this.state.passwordResetLinkSent && <View style={globalStyles.errorPanel}>
+                        <View style={globalStyles.success}>
+                            <Text style={globalStyles.successText}>
+                                Your reset password link has been emailed to your email
+                                <Text style={globalStyles.userEmail}> {this.state.email} </Text>
+                            </Text>
+                        </View>
+                    </View>}
                     {!this.state.passwordResetLinkSent && <View style={globalStyles.loginPanel}>
                         <View style={globalStyles.textInputWrapper}>
                             <TextInput
@@ -80,17 +91,6 @@ export default class ResetPassword extends Component {
                                 <Text style={globalButtons.loginButtonText}>Reset Password</Text>
                             </TouchableOpacity>
                         </View>
-                        {this.state.errorMessage && <Animated.View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper, {opacity: this.state.fadeIn}]}>
-                            <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.errorMessage}</Text>
-                        </Animated.View>}
-                        {this.state.passwordResetLinkSent && <View style={globalStyles.forgetPasswordPanel}>
-                            <View style={globalStyles.success}>
-                                <Text style={globalStyles.successText}>
-                                    Your reset password link has been emailed to your email
-                                    <Text style={globalStyles.userEmail}> {this.state.email} </Text>
-                                </Text>
-                            </View>
-                        </View>}
                     </View>}
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>

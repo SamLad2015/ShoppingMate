@@ -26,7 +26,7 @@ class Login extends Component {
     }
     doLogin = () => {
         const {email, password} = this.state.loginDetails;
-        firebase.auth().signInWithEmailAndPassword(email.trim(), password)
+        firebase.auth().signInWithEmailAndPassword(email ? email.trim() : '', password || '')
             .then((response) => AsyncStorage.setItem('user',JSON.stringify(response.user), null)
                 .then(() => this.handleAccountSetUp(response.user)))
             .catch(error => {
@@ -82,6 +82,12 @@ class Login extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
+                    {this.state.loginDetails.errorMessage && <Animated.View
+                        style={[globalStyles.errorPanel,
+                            {opacity: this.state.fadeIn}
+                        ]}>
+                        <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.loginDetails.errorMessage}</Text>
+                    </Animated.View>}
                     <View style={globalStyles.loginPanel}>
                         <View style={globalStyles.textInputWrapper}>
                             <TextInput
@@ -119,14 +125,13 @@ class Login extends Component {
                                 <Text style={globalButtons.loginButtonText}>Sign In</Text>
                             </TouchableOpacity>
                         </View>
-                        {this.state.loginDetails.errorMessage && <Animated.View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper, {opacity: this.state.fadeIn}]}>
-                            <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.loginDetails.errorMessage}</Text>
-                        </Animated.View>}
-                        <TouchableOpacity style={styles.signUp} onPress={() => this.props.navigation.navigate('Register')}>
-                            <Text style={styles.bottomText}>
-                                New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
-                            </Text>
-                        </TouchableOpacity>
+                        <View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper]}>
+                            <TouchableOpacity style={styles.signUp} onPress={() => navigate('Register')}>
+                                <Text style={styles.bottomText}>
+                                    New to ShoppingMate? <Text style={styles.signUpLink}>Sign Up</Text>
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
@@ -144,8 +149,6 @@ class Login extends Component {
 }
 const styles = StyleSheet.create({
     signUp: {
-        flex: 1,
-        marginTop: 20,
         alignSelf: 'center'
     },
     signUpLink: {

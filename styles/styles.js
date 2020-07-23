@@ -82,10 +82,9 @@ const globalStyles = StyleSheet.create({
     loginPanel: {
         flex: 1,
         width: '100%',
-        height: '100%',
-        marginTop: 50,
-        paddingLeft: 20,
-        paddingRight: 20
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20
     },
     forgetPasswordPanel: {
         flex: 1,
@@ -119,10 +118,19 @@ const globalStyles = StyleSheet.create({
         borderColor: '#666',
         borderBottomWidth: 1,
         width: '100%',
+        alignSelf: 'center',
         marginBottom: 20
     },
     buttonWrapper:{
         borderBottomWidth: 0
+    },
+    errorPanel:{
+        width: '100%',
+        flex:1,
+        position: 'absolute',
+        top: 0,
+        backgroundColor: '#fff',
+        padding: 10
     },
     loginTextInput: {
         textAlign: 'left'
@@ -134,7 +142,7 @@ const globalStyles = StyleSheet.create({
         bottom: 0
     },
     errorText: {
-        color: '#ff8000'
+        color: 'red'
     },
     mateProfile: {
         flex: 0.7,

@@ -1,5 +1,5 @@
 import React, { Component }  from 'react';
-import { View, TextInput, FlatList, TouchableOpacity, ImageBackground} from 'react-native';
+import {View, TextInput, FlatList, TouchableOpacity, ImageBackground, StyleSheet} from 'react-native';
 import {addList} from "../../actions/lists";
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, headerStyles} from '../../styles/Styles';
@@ -16,11 +16,9 @@ class List extends Component {
         const { params } = this.props.navigation.state;
         const listId = params ? params.listId : -1;
         this.state = {
-            list: {
-                id: -1,
-                label: 'List: ' + moment().format('DD/MM/YYYY'),
-                items: []
-            }
+            id: -1,
+            label: 'List: ' + moment().format('DD/MM/YYYY'),
+            items: []
         };
         if (listId >= 0) {
             this.getList(listId).then(list => this.setState({list}));
@@ -37,8 +35,8 @@ class List extends Component {
         const { navigate } = this.props.navigation;
         const { addList } = this.props;
         itemsService.saveListIntoStorage({
-            id: this.state.list.id,
-            label: this.state.list.label,
+            id: this.state.id,
+            label: this.state.label,
             items: this.props.lists.list ? this.props.lists.list.items: [],
             createdOn: moment().toISOString()
         }).then(addedList => {
@@ -48,16 +46,25 @@ class List extends Component {
     }
     render() {
         const { lists } = this.props;
-        const list = lists && lists.list ? lists.list : this.state.list;
+        const list = lists && lists.list ? lists.list : this.state;
         const { navigate } = this.props.navigation;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
-                    <TextInput
-                        style={globalStyles.textInput}
-                        onChangeText={text => this.setState({list: {id: list.id, label: text}})}
-                        value={this.state.list.label}
-                    />
+                    <View style={globalStyles.loginPanel}>
+                    <View style={[globalStyles.textInputWrapper, styles.buttonWrapper]}>
+                        <TextInput
+                            style={globalStyles.textInput}
+                            onChangeText={text => this.setState({id: list.id, label: text})}
+                            value={this.state.label}
+                        />
+                        <TouchableOpacity style={[globalStyles.signUpWrapper, globalStyles.closeButton]}
+                                          onPress={() => this.setState({label: ''})}>
+                            <Fontisto name='close-a'
+                                      size={iconStyles.size - 7}
+                                      color='#fff'/>
+                        </TouchableOpacity>
+                    </View>
                     <View style={globalStyles.listWrapper}>
                         <FlatList data={list.items || []}
                                   keyExtractor={(item) => item.value.toString()}
@@ -65,6 +72,7 @@ class List extends Component {
                                       <Item listId={list.id} item={item} updateItemCount={updateItemCount} />
                                   }
                         />
+                    </View>
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={this.saveList}>
@@ -83,6 +91,11 @@ class List extends Component {
         );
     }
 }
+const styles = StyleSheet.create({
+    buttonWrapper: {
+        marginTop: 10
+    }
+});
 const mapStateToProps = state => ({
     lists: state.lists,
     item: state.item

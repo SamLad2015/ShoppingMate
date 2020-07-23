@@ -79,6 +79,9 @@ class Register extends Component {
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl()} style={globalStyles.bgImage}>
+                    {this.state.errorMessage && <Animated.View style={[globalStyles.errorPanel, {opacity: this.state.fadeIn}]}>
+                        <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.errorMessage}</Text>
+                    </Animated.View>}
                     <View style={globalStyles.loginPanel}>
                         <View style={globalStyles.textInputWrapper}>
                             <TextInput
@@ -131,9 +134,6 @@ class Register extends Component {
                                 <Text style={globalButtons.loginButtonText}>Register</Text>
                             </TouchableOpacity>
                         </View>
-                        {this.state.errorMessage && <Animated.View style={[globalStyles.textInputWrapper, globalStyles.buttonWrapper, {opacity: this.state.fadeIn}]}>
-                            <Text style={[globalStyles.introText, globalStyles.errorText]}>{this.state.errorMessage}</Text>
-                        </Animated.View>}
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.iconButtonWrapper}>
