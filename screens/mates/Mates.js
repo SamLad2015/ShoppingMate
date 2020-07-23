@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     },
     invitationPending: {
         color: 'orange',
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: 'bold',
         fontStyle: 'italic'
     },
