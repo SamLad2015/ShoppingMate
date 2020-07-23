@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="react-native-safe-area-context" target="1.8" />
+      <module name="react-native-vector-icons" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
