@@ -43,6 +43,12 @@ const globalStyles = StyleSheet.create({
         alignItems: "center",
         opacity: 0.9
     },
+    headerBgImage: {
+        height: 40,
+        width: 40,
+        marginRight: 10,
+        borderRadius: 10
+    },
     heading: {
         fontFamily: 'notoserif',
         fontWeight: 'bold',

@@ -71,7 +71,7 @@ class Mates extends Component {
                       rowId={item.id}
                       sectionId={1}
                       backgroundColor= 'transparent'>
-                      <View>
+                      <View style={styles.matesRow}>
                          <TouchableOpacity style={globalButtons.counterButtonWrapper} onPress={() => {
                                     this.addListToMate(item.id);
                                 }}>
@@ -140,9 +140,7 @@ class Mates extends Component {
 }
 const styles = StyleSheet.create({
     itemRow: {
-        paddingLeft: 20,
-        borderBottomColor: '#c0c0c0',
-        borderBottomWidth: .5
+        flex: 1
     },
     lists: {
         flex: 1,
@@ -173,11 +171,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontStyle: 'italic'
     },
+    matesRow: {
+        borderTopColor: '#000',
+        borderTopWidth: .5,
+        borderBottomColor: '#000',
+        borderBottomWidth: .5
+    },
     mates: {
         flex: 1,
         flexDirection: 'row',
         marginTop: 5,
-        marginBottom: 5
+        marginBottom: 5,
+        paddingLeft: 20
     }
 });
 const mapStateToProps = state => ({
