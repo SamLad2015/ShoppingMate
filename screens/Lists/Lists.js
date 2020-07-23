@@ -222,7 +222,7 @@ class Lists extends Component {
 const styles = StyleSheet.create({
     itemRow: {
         paddingLeft: 10,
-        borderBottomColor: '#c0c0c0',
+        borderBottomColor: '#000',
         borderBottomWidth: .5
     },
     listWrapper: {
