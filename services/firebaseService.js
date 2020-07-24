@@ -85,14 +85,15 @@ export default class FirebaseService {
     deleteRequest = async (id) => {
         return this.removeItem('mates', id);
     }
-    approveRequest = async (uid, mateUid) => {
+    approveRejectRequest = async (uid, mateUid, accept) => {
         const snapshotPromise = firebase.firestore().collection('mates')
             .where('uid', '==', uid)
             .where('mateUid', '==', mateUid)
             .where('approved', '==', false).get();
         snapshotPromise.then(snapshot => {
             const toUpdateId  = snapshot.docs[0].id;
-            return this.updateItem('mates', toUpdateId, {approved: true});
+            return accept ? this.updateItem('mates', toUpdateId, {approved: true}) :
+                this.removeItem('mates', toUpdateId);
         });
     }
     rejectRequest = async (uid, mateUid) => {

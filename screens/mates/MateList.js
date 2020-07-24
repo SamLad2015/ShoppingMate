@@ -22,11 +22,12 @@ export default class MateList extends Component {
     approveMate = (uid, mate) => {
         const {acceptRequest} = this.props;
         const fbService = new FirebaseService();
-        fbService.approveRequest(uid, mate.uid).then(() => acceptRequest(mate));
+        fbService.approveRejectRequest(uid, mate.uid, true).then(() => acceptRequest(mate));
     }
     rejectMate = (uid, mate) => {
+        const {rejectRequest} = this.props;
         const fbService = new FirebaseService();
-        fbService.rejectRequest(uid, mate.uid).then(() => {});
+        fbService.approveRejectRequest(uid, mate.uid, false).then(() => rejectRequest(mate));
     }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
