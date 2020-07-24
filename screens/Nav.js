@@ -12,6 +12,7 @@ import Logout from "./auth/Logout";
 import ResetPassword from "./auth/ResetPassword";
 import AddMate from "./mates/AddMate";
 import Mates from "./mates/Mates";
+import MateList from "./mates/MateList";
 
 const Nav = createStackNavigator({
         Login: { screen: Login },
@@ -20,6 +21,7 @@ const Nav = createStackNavigator({
         ResetPassword: { screen: ResetPassword },
         Lists: { screen: Lists },
         Mates: { screen: Mates },
+        MateList: { screen: MateList },
         AddMate: { screen: AddMate },
         List: { screen: List },
         Items: { screen: Items }
