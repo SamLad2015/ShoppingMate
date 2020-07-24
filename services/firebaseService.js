@@ -20,6 +20,13 @@ export default class FirebaseService {
         const docRef = firebase.firestore().collection(path).doc(id);
         return await docRef.set(doc);
     }
+    addItemAutoGenId = async (path, doc) => {
+        return await firebase.firestore().collection(path).add(doc);
+    }
+    updateItem = async (path, id, update) => {
+        const docRef = firebase.firestore().collection(path).doc(id);
+        return await docRef.update(update);
+    }
     removeItem = async (path, docId) => {
         return await firebase.firestore().collection(path).doc(docId).delete();
     }
@@ -38,6 +45,15 @@ export default class FirebaseService {
             return multiple ? outputs : outputs[0];
         });
     }
+    getInvites = async (uid) => {
+        return firebase.firestore().collection('mates')
+            .where('mateUid', '==', uid)
+            .where('approved', '==', false)
+            .get()
+            .then(
+                snapshot => _.map(snapshot.docs, (d) => {return d.data()})
+            );
+    }
     getRequests = async (uid) => {
         const snapshotPromise = firebase.firestore().collection('mates')
             .where('uid', '==', uid)
@@ -48,6 +64,39 @@ export default class FirebaseService {
             });
             return mateUids.length > 0 ? this.searchItem('users', 'uid', 'in', mateUids, true) : [];
         });
+    }
+    getMates = async (uid) => {
+        const snapshotPromise1 = firebase.firestore().collection('mates')
+            .where('mateUid', '==', uid)
+            .where('approved', '==', true).get();
+        const snapshotPromise2 = firebase.firestore().collection('mates')
+            .where('uid', '==', uid)
+            .where('approved', '==', true).get();
+        return Promise.all([snapshotPromise1, snapshotPromise2]).then(snapshots => {
+            return _.merge(
+                        _.map(snapshots[0].docs, (doc) => {
+                        return doc.data();
+                        }), _.map(snapshots[1].docs, (doc) => {
+                            return doc.data();
+                        })
+                 );
+        });
+    }
+    deleteRequest = async (id) => {
+        return this.removeItem('mates', id);
+    }
+    approveRequest = async (uid, mateUid) => {
+        const snapshotPromise = firebase.firestore().collection('mates')
+            .where('uid', '==', uid)
+            .where('mateUid', '==', mateUid)
+            .where('approved', '==', false).get();
+        snapshotPromise.then(snapshot => {
+            const toUpdateId  = snapshot.docs[0].id;
+            return this.updateItem('mates', toUpdateId, {approved: true});
+        });
+    }
+    rejectRequest = async (uid, mateUid) => {
+
     }
     forUsersPath(query) {
         return query;

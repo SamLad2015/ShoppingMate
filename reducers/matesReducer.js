@@ -1,9 +1,19 @@
-import {ADD_MATE, REMOVE_MATE, SET_MATES, SET_REQUESTS, SET_USER} from '../constants';
+import {
+    ACCEPT_REQUEST,
+    ADD_MATE,
+    REJECT_REQUEST,
+    REMOVE_MATE,
+    SET_FRIENDS,
+    SET_MATES,
+    SET_REQUESTS,
+    SET_USER
+} from '../constants';
 import * as _ from "lodash";
 
 const initialState = {
         uid: null,
-        mates: [],
+        friends: [],
+        invites: [],
         requests: []
 };
 const matesReducer = (state = initialState, action) => {
@@ -16,23 +26,23 @@ const matesReducer = (state = initialState, action) => {
         case SET_MATES:
             return {
                 ...state,
-                mates:action.payload
+                invites:action.payload
             };
         case ADD_MATE:
-            if (!state.mates) {
-                state.mates = [];
+            if (!state.invites) {
+                state.invites = [];
             } else {
-                state.mates = _.reject(state.mates, {uid: action.payload.uid});
+                state.invites = _.reject(state.invites, {uid: action.payload.uid});
             }
-            state.mates.push(action.payload);
+            state.invites.push(action.payload);
             return {
                 ...state,
             };
         case REMOVE_MATE:
-            if (!state.mates) {
-                state.mates = [];
+            if (!state.invites) {
+                state.invites = [];
             } else {
-                state.mates = _.reject(state.mates, {uid: action.payload});
+                state.invites = _.reject(state.invites, {uid: action.payload});
             }
             return {
                 ...state,
@@ -41,6 +51,27 @@ const matesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 requests:action.payload
+            };
+        case ACCEPT_REQUEST:
+            state.invites = _.reject(state.invites, {uid: action.payload.uid});
+            if (!state.friends) {
+                state.friends = [];
+            } else {
+                state.friends = _.reject(state.friends, {uid: action.payload.uid});
+            }
+            state.friends.push(action.payload);
+            return {
+                ...state
+            };
+        case REJECT_REQUEST:
+            state.invites = _.reject(state.invites, {uid: action.payload.uid});
+            return {
+                ...state
+            };
+        case SET_FRIENDS:
+            return {
+                ...state,
+                friends:action.payload
             };
         default:
             return state;

@@ -41,7 +41,7 @@ class AddMate extends Component {
         this.state.mate.mateUid = mates.uid;
         this.state.mate.approved = false;
         const fbService = new FirebaseService();
-        fbService.addItem('mates',  this.state.mate.uid, this.state.mate).then(() => {
+        fbService.addItemAutoGenId('mates', this.state.mate).then(() => {
             addMate(this.state.mate);
             navigate('Mates');
         });

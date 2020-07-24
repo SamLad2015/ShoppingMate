@@ -10,3 +10,6 @@ export const SET_MATES = 'SET_MATES';
 export const ADD_MATE = 'ADD_MATE';
 export const REMOVE_MATE = 'REMOVE_MATE';
 export const SET_REQUESTS = 'SET_REQUESTS';
+export const ACCEPT_REQUEST = 'ACCEPT_REQUEST';
+export const REJECT_REQUEST = 'REJECT_REQUEST';
+export const SET_FRIENDS = 'SET_FRIENDS';

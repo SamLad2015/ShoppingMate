@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
-    Text,
     ImageBackground,
-    TouchableOpacity,
-    FlatList
+    TouchableOpacity
 } from 'react-native';
 import {connect} from "react-redux";
 import {globalStyles, globalButtons, iconStyles, headerStyles, swipeStyles} from '../../styles/Styles';
 import * as _ from "lodash";
-import {removeMate} from "../../actions/mates";
+import {removeMate, acceptRequest} from "../../actions/mates";
 import GetBgImageUrl from "../../configs/asset.config";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import MateList from "./MateList";
@@ -34,13 +32,14 @@ class Mates extends Component {
     }
     render() {
         const { navigate } = this.props.navigation;
-        const {mates, removeMate} = this.props;
+        const { mates, removeMate, acceptRequest} = this.props;
         return (
             <View style={globalStyles.container}>
                 <ImageBackground source={GetBgImageUrl('bg1.jpg')} style={globalStyles.bgImage}>
                     <View style={styles.lists}>
-                        <MateList mates={mates.requests} removeMate={removeMate} />
-                        <MateList mates={mates.mates} removeMate={removeMate} />
+                        <MateList uid={mates.uid} mates={mates.friends} removeMate={removeMate} type='friend' />
+                        <MateList uid={mates.uid} mates={mates.invites} acceptRequest={acceptRequest} type='invite'/>
+                        <MateList uid={mates.uid} mates={mates.requests} removeMate={removeMate} type='request' />
                     </View>
                     <View style={globalButtons.bottomButtonsWrapper}>
                         <TouchableOpacity style={globalButtons.bottomButton} onPress={() => navigate('Lists')}>
@@ -73,4 +72,4 @@ const mapStateToProps = state => ({
     mates: state.mates,
     uid: state.uid
 });
-export default connect(mapStateToProps, {removeMate})(Mates)
+export default connect(mapStateToProps, {removeMate, acceptRequest})(Mates)

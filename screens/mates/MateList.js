@@ -14,10 +14,19 @@ export default class MateList extends Component {
             activeRow: null
         }
     }
-    deleteMate = (mate) => {
+    deleteMate = (req) => {
         const {removeMate} = this.props;
         const fbService = new FirebaseService();
-        fbService.removeItem('mates', mate.id).then(() => removeMate(mate.uid));
+        fbService.deleteRequest(req.id).then(() => removeMate(req.uid));
+    }
+    approveMate = (uid, mate) => {
+        const {acceptRequest} = this.props;
+        const fbService = new FirebaseService();
+        fbService.approveRequest(uid, mate.uid).then(() => acceptRequest(mate));
+    }
+    rejectMate = (uid, mate) => {
+        const fbService = new FirebaseService();
+        fbService.rejectRequest(uid, mate.uid).then(() => {});
     }
     onSwipeOpen = (rowId) => {
         this.setState({ activeRow: rowId });
@@ -28,7 +37,30 @@ export default class MateList extends Component {
         }
     }
     renderItem = ({item, index}) => {
-        const swipeButtons = [{
+        const {uid, type} = this.props;
+        const swipeButtons = type === 'invite' ? [{
+            component: (
+                <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.approveMate(uid,item)}>
+                    <Fontisto name='check'
+                              size={iconStyles.size}
+                              color='#fff'/>
+                </TouchableOpacity>
+            ),
+            backgroundColor: swipeStyles.green,
+            underlayColor: swipeStyles.underlayColor,
+            autoClose: true
+            }, {
+                component: (
+                    <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.rejectMate(uid,item)}>
+                        <Fontisto name='close-a'
+                                  size={iconStyles.size}
+                                  color='#fff'/>
+                    </TouchableOpacity>
+                ),
+                backgroundColor: swipeStyles.red,
+                underlayColor: swipeStyles.underlayColor,
+                autoClose: true
+            }] : [{
             component: (
                 <TouchableOpacity style={globalButtons.swipeIconButton} onPress={() => this.deleteMate(item)}>
                     <Fontisto name='trash'
@@ -58,8 +90,11 @@ export default class MateList extends Component {
                             <View style={globalStyles.mateProfile}>
                                 <MateProfile mate={item} isSmall={false} />
                             </View>
-                            {!item.approved && <View style={styles.invitationStatus}>
-                                <Text style={!item.approved && styles.invitationPending}>Pending</Text>
+                            {type === 'invite' && !item.approved && <View style={styles.invitationStatus}>
+                                <Text style={!item.approved && styles.invitationPending}>Swipe to action</Text>
+                            </View>}
+                            {type === 'request' && <View style={styles.invitationStatus}>
+                                <Text style={styles.invitationPending}>Swipe to delete</Text>
                             </View>}
                         </View>
                     </TouchableOpacity>
@@ -68,13 +103,15 @@ export default class MateList extends Component {
         );
     }
     render() {
-        const {mates} = this.props;
+        const {mates, type} = this.props;
         return (
             <View style={styles.listWrapper}>
                 {!mates && <Loading />}
                 {mates && mates.length > 0 &&
                 <View>
-                    <Text style={styles.title}>Requests Received</Text>
+                    {type === 'friend' && <Text style={styles.title}>Mates</Text>}
+                    {type === 'invite' && <Text style={styles.title}>Mate Requests</Text>}
+                    {type === 'request' && <Text style={styles.title}>Requests Sent</Text>}
                     <FlatList data={mates}
                               keyExtractor={(item) => item.uid.toString()}
                               renderItem={this.renderItem}
