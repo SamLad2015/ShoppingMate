@@ -29,20 +29,20 @@ const matesReducer = (state = initialState, action) => {
                 invites:action.payload
             };
         case ADD_MATE:
-            if (!state.invites) {
-                state.invites = [];
+            if (!state.requests) {
+                state.requests = [];
             } else {
-                state.invites = _.reject(state.invites, {uid: action.payload.uid});
+                state.requests = _.reject(state.requests, {uid: action.payload.uid});
             }
-            state.invites.push(action.payload);
+            state.requests.push(action.payload);
             return {
                 ...state,
             };
         case REMOVE_MATE:
-            if (!state.invites) {
-                state.invites = [];
+            if (!state.requests) {
+                state.requests = [];
             } else {
-                state.invites = _.reject(state.invites, {uid: action.payload});
+                state.requests = _.reject(state.requests, {uid: action.payload});
             }
             return {
                 ...state,
