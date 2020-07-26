@@ -26,10 +26,10 @@ export function addMate(mate) {
         payload: mate
     }
 }
-export function removeMate(id) {
+export function removeMate(removeInfo) {
     return {
         type: REMOVE_MATE,
-        payload: id
+        payload: removeInfo
     }
 }
 export function setRequests(requests) {

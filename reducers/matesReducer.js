@@ -39,10 +39,10 @@ const matesReducer = (state = initialState, action) => {
                 ...state,
             };
         case REMOVE_MATE:
-            if (!state.requests) {
-                state.requests = [];
+            if (action.payload.type === 'friend') {
+                state.friends = _.reject(state.friends, {uid: action.payload.uid});
             } else {
-                state.requests = _.reject(state.requests, {uid: action.payload});
+                state.requests = _.reject(state.requests, {uid: action.payload.uid});
             }
             return {
                 ...state,

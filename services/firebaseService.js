@@ -51,7 +51,7 @@ export default class FirebaseService {
             .where('approved', '==', false)
             .get()
             .then(
-                snapshot => _.map(snapshot.docs, (d) => {return d.data()})
+                snapshot => _.map(snapshot.docs, (d) => {return Object.assign(d.data(), {id: d.id})})
             );
     }
     getRequests = async (uid) => {
@@ -75,14 +75,14 @@ export default class FirebaseService {
         return Promise.all([snapshotPromise1, snapshotPromise2]).then(snapshots => {
             return _.merge(
                         _.map(snapshots[0].docs, (doc) => {
-                        return doc.data();
+                        return Object.assign(doc.data(), {id: doc.id});
                         }), _.map(snapshots[1].docs, (doc) => {
-                            return doc.data();
+                            return Object.assign(doc.data(), {id: doc.id});
                         })
                  );
         });
     }
-    deleteRequest = async (id) => {
+    deleteMateRequest = async (id) => {
         return this.removeItem('mates', id);
     }
     approveRejectRequest = async (uid, mateUid, accept) => {
@@ -90,14 +90,14 @@ export default class FirebaseService {
             .where('uid', '==', uid)
             .where('mateUid', '==', mateUid)
             .where('approved', '==', false).get();
-        snapshotPromise.then(snapshot => {
-            const toUpdateId  = snapshot.docs[0].id;
-            return accept ? this.updateItem('mates', toUpdateId, {approved: true}) :
-                this.removeItem('mates', toUpdateId);
-        });
-    }
-    rejectRequest = async (uid, mateUid) => {
-
+        const snapshot = await snapshotPromise;
+        const toUpdateId  = snapshot.docs[0].id;
+        if (accept) {
+            await this.updateItem('mates', toUpdateId, {approved: true});
+            return toUpdateId;
+        } else {
+            return this.removeItem('mates', toUpdateId);
+        }
     }
     forUsersPath(query) {
         return query;

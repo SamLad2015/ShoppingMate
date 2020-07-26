@@ -15,14 +15,18 @@ export default class MateList extends Component {
         }
     }
     deleteMate = (req) => {
-        const {removeMate} = this.props;
+        const {type, removeMate} = this.props;
         const fbService = new FirebaseService();
-        fbService.deleteRequest(req.id).then(() => removeMate(req.uid));
+        fbService.deleteMateRequest(req.id).then(() => removeMate({type: type, uid: req.uid}));
     }
     approveMate = (uid, mate) => {
         const {acceptRequest} = this.props;
         const fbService = new FirebaseService();
-        fbService.approveRejectRequest(uid, mate.uid, true).then(() => acceptRequest(mate));
+        fbService.approveRejectRequest(uid, mate.uid, true)
+            .then((updateId) => {
+                mate.id = updateId;
+                acceptRequest(mate);
+            });
     }
     rejectMate = (uid, mate) => {
         const {rejectRequest} = this.props;
@@ -91,12 +95,17 @@ export default class MateList extends Component {
                             <View style={globalStyles.mateProfile}>
                                 <MateProfile mate={item} isSmall={false} />
                             </View>
-                            {type === 'invite' && !item.approved && <View style={styles.invitationStatus}>
-                                <Text style={!item.approved && styles.invitationPending}>Swipe to action</Text>
-                            </View>}
-                            {type === 'request' && <View style={styles.invitationStatus}>
-                                <Text style={styles.invitationPending}>Swipe to delete</Text>
-                            </View>}
+                            <View style={styles.invitationStatus}>
+                                {type === 'invite' && !item.approved &&
+                                    <Text style={!item.approved && styles.invitationPending}>Swipe to action</Text>
+                                }
+                                {type === 'request' &&
+                                    <Text style={styles.invitationPending}>Swipe to delete</Text>
+                                }
+                                {type === 'friend' &&
+                                    <Text style={styles.invitationPending}>Swipe to delete</Text>
+                                }
+                            </View>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -110,7 +119,6 @@ export default class MateList extends Component {
                 {!mates && <Loading />}
                 {mates && mates.length > 0 &&
                 <View>
-                    {type === 'friend' && <Text style={styles.title}>Mates</Text>}
                     {type === 'invite' && <Text style={styles.title}>Mate Requests</Text>}
                     {type === 'request' && <Text style={styles.title}>Requests Sent</Text>}
                     <FlatList data={mates}
@@ -160,7 +168,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 5,
         marginBottom: 5,
-        paddingLeft: 20
+        paddingHorizontal: 20
     }
 });
 
